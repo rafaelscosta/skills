@@ -1,0 +1,66 @@
+version: 1
+scale:
+  0: absent, wrong, or materially unsafe
+  1: present but incomplete, ambiguous, or weakly fitted
+  2: complete, correct, and fitted to the audience and task
+dimensions:
+- id: audience_fit
+  question: Is the explanation operationally fitted to the audience, context, and desired outcome?
+- id: main_message
+  question: Is the central message immediate, accurate, and decision-relevant?
+- id: logical_order
+  question: Do prerequisites and dependencies appear before dependent concepts?
+- id: terminology
+  question: Are essential terms stable, defined, and correctly bounded?
+- id: sentence_clarity
+  question: Are actors, actions, objects, conditions, and connectors explicit?
+- id: causal_completeness
+  question: Are causal mechanisms accurate, bounded, and free of invented links?
+- id: fidelity
+  question: Are all material source invariants preserved?
+- id: example_quality
+  question: Are examples representative and are boundaries or non-examples available when needed?
+- id: visual_fit
+  question: Does each visual use the correct notation and answer one primary question?
+- id: actionability
+  question: Can the audience perform the intended action and verify completion?
+- id: exceptions_recovery
+  question: Are material exceptions, failures, and recovery paths explicit?
+- id: epistemic_clarity
+  question: Are facts, inferences, uncertainty, disagreement, and scope separated?
+- id: accessibility
+  question: Is there an equivalent usable path for relevant access needs?
+- id: validation
+  question: Does the response include a test matched to the intended outcome?
+thresholds:
+  low_risk_quick:
+    minimum_total: 20
+    zero_forbidden:
+    - fidelity
+    - main_message
+  standard_reusable:
+    minimum_total: 24
+    zero_forbidden: all
+  operational:
+    minimum_total: 25
+    required_two:
+    - fidelity
+    - actionability
+    - exceptions_recovery
+  high_risk:
+    minimum_total: 27
+    required_two:
+    - fidelity
+    - causal_completeness
+    - exceptions_recovery
+    - epistemic_clarity
+    - actionability
+    - validation
+automatic_failure:
+- Material invariant changed or silently omitted.
+- Unsupported causal claim introduced.
+- Safety-critical condition appears after the governed action.
+- Canonical term is redefined incorrectly.
+- Visual notation changes the meaning of a relation.
+- High-risk uncertainty is erased.
+- Validation measures preference only when action or transfer is required.

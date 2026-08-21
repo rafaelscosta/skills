@@ -1,0 +1,318 @@
+version: 1
+skill: clarify
+cases:
+  - id: idempotency-beginner
+    title: Explain idempotency to a nontechnical operations analyst
+    audience: Adult operations analyst with no distributed-systems background
+    source: >-
+      Após a validação do payload, o orquestrador publica um evento idempotente
+      em uma fila assíncrona, desacoplando o processamento do ciclo de requisição.
+    outcome: Predict what should happen when the same logical request is delivered twice.
+    risk_level: medium
+    expected_mode: standard
+    required_invariants:
+      - Validation precedes publication.
+      - An orchestrator publishes the event.
+      - Processing is asynchronous.
+      - Idempotency protects the logical effect from duplication.
+      - The request does not wait for complete processing.
+    expected_techniques:
+      - terminology bridge
+      - cause-mechanism-effect
+      - concrete example
+      - prediction test
+    forbidden_failures:
+      - Equating idempotency with code never running twice.
+      - Omitting validation or asynchrony.
+      - Replacing the canonical terms permanently.
+    acceptance:
+      minimum_total: 24
+      required_two:
+        - fidelity
+        - terminology
+        - causal_completeness
+        - validation
+
+  - id: abstract-corporate-prose
+    title: Repair sophisticated but empty corporate language
+    audience: Cross-functional leadership team
+    source: >-
+      A operacionalização transversal das capacidades inteligentes deverá promover
+      uma ressignificação estratégica dos processos, potencializando sinergias e
+      viabilizando uma cultura data-driven orientada à geração de valor.
+    outcome: Identify the concrete decisions, owners, metrics, and missing evidence.
+    risk_level: medium
+    expected_mode: audit
+    expected_techniques:
+      - actor-action-object
+      - operational definition
+      - epistemic split
+      - outcome framing
+    forbidden_failures:
+      - Preserving vague claims under friendlier wording.
+      - Inventing specific initiatives not present in the source.
+    acceptance:
+      minimum_total: 24
+      required_two:
+        - main_message
+        - sentence_clarity
+        - epistemic_clarity
+
+  - id: lead-routing-flow
+    title: Reconstruct a lead qualification workflow
+    audience: Marketing and sales operations team
+    source: "O lead entra, a IA qualifica e o comercial entra em contato. Se der erro, tenta de novo."
+    outcome: Trace normal, branch, duplicate, timeout, and human-escalation paths.
+    risk_level: high
+    expected_mode: flow
+    required_unknowns:
+      - Qualification thresholds
+      - Retry count and backoff
+      - CRM idempotency behavior
+      - Human escalation role and deadline
+    expected_techniques:
+      - happy path
+      - swimlane
+      - decision table
+      - failure-recovery model
+      - show-me
+    forbidden_failures:
+      - Inventing policy thresholds without labeling them examples.
+      - Treating all errors as retryable.
+      - Omitting duplicate risk.
+    acceptance:
+      minimum_total: 27
+      required_two:
+        - fidelity
+        - actionability
+        - exceptions_recovery
+        - epistemic_clarity
+        - validation
+
+  - id: architecture-mixed-view
+    title: Separate static architecture from runtime sequence
+    audience: Product and marketing leadership
+    source: >-
+      The source contains users, a web app, API, worker, queue, database, analytics
+      provider, and a detailed request sequence in one overloaded diagram.
+    outcome: Understand system boundary, container responsibilities, and one representative runtime scenario.
+    risk_level: medium
+    expected_mode: visual
+    expected_techniques:
+      - C4 context
+      - C4 container
+      - sequence diagram
+      - progressive zoom
+      - accessible text equivalent
+    forbidden_failures:
+      - Mixing dynamic messages into the static context view.
+      - Treating a C4 container as necessarily a Docker container.
+      - Drawing unverified dependencies as fact.
+    acceptance:
+      minimum_total: 24
+      required_two:
+        - visual_fit
+        - fidelity
+        - audience_fit
+
+  - id: relative-risk
+    title: Clarify a 50 percent reduction claim
+    audience: Business decision maker with low statistical literacy
+    source: "A nova versão reduziu as falhas em 50%."
+    outcome: Interpret relative and absolute change and identify missing evidence.
+    risk_level: high
+    expected_mode: high-risk
+    expected_techniques:
+      - baseline and denominator
+      - natural frequency
+      - uncertainty framing
+      - misleading-alternative detection
+    forbidden_failures:
+      - Inventing the original and final rates as facts.
+      - Saying reliability increased by 50 percent.
+      - Omitting timeframe and population as missing.
+    acceptance:
+      minimum_total: 27
+      required_two:
+        - fidelity
+        - main_message
+        - epistemic_clarity
+        - validation
+
+  - id: agent-assistant-chatbot
+    title: Distinguish chatbot, assistant, and agent
+    audience: Marketing professionals selecting AI products
+    source: >-
+      The team calls any conversational AI an agent and assumes tool access is
+      sufficient to establish autonomy.
+    outcome: Classify a new system and identify governance differences.
+    risk_level: medium
+    expected_mode: compare
+    expected_techniques:
+      - comparison matrix
+      - rule-example-exception
+      - non-example
+      - transfer test
+    forbidden_failures:
+      - Defining categories only by tone or model intelligence.
+      - Treating categories as universally standardized legal classes.
+    acceptance:
+      minimum_total: 24
+      required_two:
+        - terminology
+        - example_quality
+        - validation
+
+  - id: credential-rotation
+    title: Make credential rotation safe and executable
+    audience: Engineer with deployment access but limited security operations experience
+    source: "Gere uma nova chave, atualize os serviços e apague a antiga."
+    outcome: Rotate credentials without outage or secret exposure and verify recovery readiness.
+    risk_level: critical
+    expected_mode: high-risk
+    expected_techniques:
+      - precondition-first procedure
+      - one action per step
+      - failure and rollback model
+      - show-me
+      - qualified approval boundary
+    forbidden_failures:
+      - Deleting the old key before verification.
+      - Inventing a universal waiting period.
+      - Printing or logging secret values.
+      - Omitting consumer inventory and rollback.
+    acceptance:
+      minimum_total: 27
+      required_two:
+        - fidelity
+        - actionability
+        - exceptions_recovery
+        - epistemic_clarity
+        - validation
+        - accessibility
+
+  - id: strategic-attribution
+    title: Clarify a build-versus-improve attribution decision
+    audience: CMO and technical lead
+    source: >-
+      Precisamos investir em atribuição própria porque as plataformas perderam
+      precisão, os usuários compram depois e dados first-party são o futuro.
+    outcome: Decide which evidence would justify a custom attribution system.
+    risk_level: high
+    expected_mode: deep
+    expected_techniques:
+      - governing question
+      - issue tree
+      - causal chain
+      - alternatives matrix
+      - sensitivity test
+    forbidden_failures:
+      - Treating slogans as evidence.
+      - Ignoring privacy, maintenance, and incrementality alternatives.
+      - Recommending a build without measurable decision value.
+    acceptance:
+      minimum_total: 27
+      required_two:
+        - causal_completeness
+        - epistemic_clarity
+        - actionability
+        - validation
+
+  - id: policy-find-use
+    title: Convert policy prose into find-understand-use content
+    audience: Employees across technical literacy levels
+    source: >-
+      Employees should, whenever appropriate, implement adequate safeguards and
+      notify the responsible area opportunely in cases that may create relevant exposure.
+    outcome: Identify when to act, required safeguards, notification owner, deadline, and escalation.
+    risk_level: high
+    expected_mode: audit
+    expected_techniques:
+      - operational definitions
+      - condition-before-action
+      - controlled terminology
+      - decision table
+      - find task
+    forbidden_failures:
+      - Retaining vague thresholds.
+      - Inventing policy definitions.
+      - Hiding unresolved ownership.
+    acceptance:
+      minimum_total: 27
+      required_two:
+        - fidelity
+        - sentence_clarity
+        - actionability
+        - epistemic_clarity
+
+  - id: causal-feedback
+    title: Explain a reinforcing growth loop without claiming proof
+    audience: Growth team
+    source: >-
+      More content increases reach, which increases users, which generates more
+      data, which improves content and creates exponential growth.
+    outcome: Separate proposed causal links, feedback, delays, evidence, and failure conditions.
+    risk_level: medium
+    expected_mode: deep
+    expected_techniques:
+      - causal-loop diagram
+      - evidence status
+      - delay markers
+      - counterfactual
+    forbidden_failures:
+      - Treating the loop as empirically established.
+      - Ignoring saturation, quality, or negative feedback.
+    acceptance:
+      minimum_total: 24
+      required_two:
+        - causal_completeness
+        - epistemic_clarity
+        - visual_fit
+
+  - id: tutorial-versus-reference
+    title: Repair mixed documentation
+    audience: New and experienced product users
+    source: >-
+      One document mixes a first-time tutorial, troubleshooting instructions,
+      conceptual history, and an exhaustive parameter table.
+    outcome: Let each user quickly choose learning, task, explanation, or lookup content.
+    risk_level: low
+    expected_mode: audit
+    expected_techniques:
+      - Diátaxis
+      - progressive disclosure
+      - informative navigation
+      - find task
+    forbidden_failures:
+      - Duplicating inconsistent definitions across four sections.
+      - Hiding common safety information in reference only.
+    acceptance:
+      minimum_total: 24
+      required_two:
+        - logical_order
+        - terminology
+        - validation
+
+  - id: visual-accessibility
+    title: Repair a color-only status flow
+    audience: Mixed audience including screen-reader and color-vision needs
+    source: >-
+      A process diagram uses green, yellow, and red boxes without labels to encode
+      approved, pending, and rejected status.
+    outcome: Identify every state and transition without relying on color.
+    risk_level: medium
+    expected_mode: visual
+    expected_techniques:
+      - state model
+      - redundant cues
+      - text equivalent
+      - state prediction
+    forbidden_failures:
+      - Keeping color as the sole semantic channel.
+      - Providing alt text that lists colors but not state behavior.
+    acceptance:
+      minimum_total: 24
+      required_two:
+        - accessibility
+        - visual_fit
+        - validation

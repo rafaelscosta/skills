@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/clarify/output.schema.json",
+  "title": "Clarify Output Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["mode", "language", "main_message", "explanation", "epistemic_status", "validation", "quality"],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["quick", "standard", "deep", "flow", "compare", "audit", "visual", "high-risk"]
+    },
+    "language": {"type": "string", "const": "pt-BR"},
+    "audience_outcome": {"type": "string"},
+    "main_message": {"type": "string", "minLength": 1},
+    "explanation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plain"],
+      "properties": {
+        "thirty_second": {"type": "string"},
+        "plain": {"type": "string", "minLength": 1},
+        "mechanism": {"type": "string"},
+        "operational": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "advanced": {"type": "string"}
+      }
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["term", "plain_meaning"],
+        "properties": {
+          "term": {"type": "string"},
+          "aliases": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "plain_meaning": {"type": "string"},
+          "example": {"type": "string"},
+          "importance": {"type": "string"},
+          "not_to_confuse_with": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    },
+    "examples": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "positive": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "non_examples": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "counterexamples": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "edge_cases": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "analogy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_domain", "target_domain", "mapping", "limits"],
+      "properties": {
+        "source_domain": {"type": "string"},
+        "target_domain": {"type": "string"},
+        "mapping": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source", "target"],
+            "properties": {
+              "source": {"type": "string"},
+              "target": {"type": "string"},
+              "relation": {"type": "string"}
+            }
+          }
+        },
+        "supported_prediction": {"type": "string"},
+        "limits": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        },
+        "misconception_risks": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "flow": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "purpose": {"type": "string"},
+        "trigger": {"type": "string"},
+        "preconditions": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["actor", "action", "result"],
+            "properties": {
+              "actor": {"type": "string"},
+              "action": {"type": "string"},
+              "result": {"type": "string"}
+            }
+          }
+        },
+        "decisions": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "states": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "failures_and_recovery": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "completion_evidence": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "visual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question_answered", "diagram_type", "accessibility_text"],
+      "properties": {
+        "question_answered": {"type": "string"},
+        "diagram_type": {"type": "string"},
+        "reading_direction": {"type": "string"},
+        "nodes_or_sections": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "relationships": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "legend": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "excluded_questions": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "accessibility_text": {"type": "string", "minLength": 1}
+      }
+    },
+    "epistemic_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["known", "assumed", "uncertain", "out_of_scope"],
+      "properties": {
+        "known": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "assumed": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "uncertain": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "out_of_scope": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "items"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["find", "teach-back", "show-me", "prediction", "error-detection", "transfer", "retrieval", "mixed"]
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rubric_scores", "critical_gates_passed"],
+      "properties": {
+        "rubric_scores": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2
+          }
+        },
+        "total": {"type": "integer", "minimum": 0, "maximum": 28},
+        "critical_gates_passed": {"type": "boolean"},
+        "remaining_risks": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    }
+  }
+}

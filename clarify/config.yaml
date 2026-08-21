@@ -1,0 +1,20 @@
+pack:
+  name: clarify
+  version: "1.0.0"
+  owner_squad: sinkra-squad
+
+contract:
+  schema: clarify/receipt@1
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: none
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+  output_root: outputs/businesses/{business}/clarify/{run_id}
+  original_input_overwrite: deny
+  lifecycle_states: [PLANNED, INPUTS_BOUND, DIAGNOSED, TRANSFORMED, VERIFIED, HANDOFF, FAILED, BLOCKED]
+  terminal_success: HANDOFF
+  exact_symptom_required: false
+  source_sha_required: false
+  evidence_ledger_required: false

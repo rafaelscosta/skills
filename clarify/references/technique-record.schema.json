@@ -1,0 +1,332 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/clarify/technique-record.schema.json",
+  "title": "Clarify Technique Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "identity",
+    "problem_fit",
+    "audience",
+    "mechanism",
+    "application",
+    "fidelity",
+    "selection",
+    "validation",
+    "evidence"
+  ],
+  "properties": {
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "canonical_name", "category", "definition"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "canonical_name": {"type": "string"},
+        "aliases": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        },
+        "category": {"type": "string"},
+        "definition": {"type": "string"},
+        "not_this": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "origin": {"type": "string"}
+      }
+    },
+    "problem_fit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["complexity_types", "target_outcomes", "suitable_tasks", "unsuitable_tasks"],
+      "properties": {
+        "complexity_types": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "target_outcomes": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "suitable_tasks": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "unsuitable_tasks": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "audience": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_prior_knowledge", "accessibility_considerations"],
+      "properties": {
+        "minimum_prior_knowledge": {"type": "string"},
+        "best_fit": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "misconception_risks": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "accessibility_considerations": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "mechanism": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["explanation", "assumptions", "boundary_conditions"],
+      "properties": {
+        "explanation": {"type": "string"},
+        "theoretical_basis": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "boundary_conditions": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "application": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_inputs", "steps", "expected_outputs"],
+      "properties": {
+        "required_inputs": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        },
+        "decision_points": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "configurable_parameters": {"type": "object"},
+        "stopping_criteria": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "expected_outputs": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "variants": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "fidelity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["invariants", "oversimplification_risks"],
+      "properties": {
+        "invariants": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "simplifiable_elements": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "prohibited_omissions": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "oversimplification_risks": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["use_when", "avoid_when", "alternatives"],
+      "properties": {
+        "use_when": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "prioritize_when": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "avoid_when": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "contraindications": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "complements": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "examples": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "positive": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "before_after": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "non_examples": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "counterexamples": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "edge_cases": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["failure", "symptom", "cause", "risk", "detection", "correction", "prevention"],
+        "properties": {
+          "failure": {"type": "string"},
+          "symptom": {"type": "string"},
+          "cause": {"type": "string"},
+          "risk": {"type": "string"},
+          "detection": {"type": "string"},
+          "correction": {"type": "string"},
+          "prevention": {"type": "string"}
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tests", "quality_metrics", "acceptance_thresholds"],
+      "properties": {
+        "tests": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "quality_metrics": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "acceptance_thresholds": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["confidence", "sources", "limitations"],
+      "properties": {
+        "confidence": {
+          "type": "string",
+          "enum": ["strong", "moderate", "mixed", "practice-supported", "spec-defined", "insufficient"]
+        },
+        "sources": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "populations_tested": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "domains_tested": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "limitations": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "open_questions": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manual_template": {"type": "string"},
+        "llm_procedure": {"type": "string"},
+        "automation_risks": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "review_checklist": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "cost": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "variable"]
+        },
+        "scalability": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "variable"]
+        }
+      }
+    },
+    "scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "clarity_gain": {"type": "integer", "minimum": 0, "maximum": 5},
+        "precision_preservation": {"type": "integer", "minimum": 0, "maximum": 5},
+        "ease": {"type": "integer", "minimum": 0, "maximum": 5},
+        "speed": {"type": "integer", "minimum": 0, "maximum": 5},
+        "scalability": {"type": "integer", "minimum": 0, "maximum": 5},
+        "versatility": {"type": "integer", "minimum": 0, "maximum": 5},
+        "accessibility": {"type": "integer", "minimum": 0, "maximum": 5},
+        "validatability": {"type": "integer", "minimum": 0, "maximum": 5},
+        "empirical_support": {"type": "integer", "minimum": 0, "maximum": 5},
+        "misuse_risk": {"type": "integer", "minimum": 0, "maximum": 5}
+      }
+    }
+  }
+}

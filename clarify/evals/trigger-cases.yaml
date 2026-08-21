@@ -1,0 +1,143 @@
+version: 1
+skill: clarify
+purpose: Test implicit and explicit invocation boundaries.
+
+should_trigger:
+  - id: explicit-command
+    prompt: "$clarify Explique este mecanismo para uma pessoa sem conhecimento técnico."
+    expected_mode: standard
+    reason: Explicit invocation.
+
+  - id: technical-jargon
+    prompt: "Traduza este parágrafo cheio de jargões de infraestrutura para uma explicação simples, mas preserve a precisão técnica."
+    expected_mode: standard
+    reason: Terminology and conceptual clarification.
+
+  - id: workflow-map
+    prompt: "Explique este fluxo de aprovação, quem faz cada etapa, o que acontece quando alguém rejeita e como o processo se recupera."
+    expected_mode: flow
+    reason: Process, responsibility, branch, and recovery explanation.
+
+  - id: audit-existing-copy
+    prompt: "Por que este texto parece sofisticado, mas ninguém entende? Faça uma auditoria e reconstrua."
+    expected_mode: audit
+    reason: Explicit clarity diagnosis and repair.
+
+  - id: compare-confused-concepts
+    prompt: "Explique de forma inequívoca a diferença entre agente, assistente e chatbot, com casos de borda."
+    expected_mode: compare
+    reason: Concept discrimination.
+
+  - id: visual-selection
+    prompt: "Qual é a melhor representação visual para mostrar estados, transições inválidas e eventos que mudam o status?"
+    expected_mode: visual
+    reason: Diagram selection by relationship.
+
+  - id: software-architecture
+    prompt: "Explique a arquitetura deste sistema para o time de marketing sem misturar estrutura com sequência de execução."
+    expected_mode: deep
+    reason: Audience-fit architecture explanation.
+
+  - id: numerical-risk
+    prompt: "A manchete diz que o risco caiu 60%. Explique o número com baseline, diferença absoluta e incerteza."
+    expected_mode: high-risk
+    reason: Consequential numerical clarification.
+
+  - id: teach-complex-thought
+    prompt: "Organize esta tese complexa para que alguém entenda a conclusão, a lógica, as evidências e as premissas."
+    expected_mode: deep
+    reason: Structural and epistemic clarification.
+
+  - id: onboarding
+    prompt: "Ensine webhooks para novos analistas até que consigam diagnosticar um timeout sozinhos."
+    expected_mode: deep
+    reason: Teachable explanation with terminal performance.
+
+  - id: high-risk-procedure
+    prompt: "Torne este procedimento de rotação de credenciais impossível de interpretar errado e adicione validação antes da revogação."
+    expected_mode: high-risk
+    reason: Security-critical procedural clarity.
+
+  - id: explain-to-executive
+    prompt: "Transforme a especificação técnica anexa em uma explicação de cinco minutos para o conselho decidir se aprova o projeto."
+    expected_mode: deep
+    reason: Audience and decision adaptation.
+
+  - id: clarify-api-error
+    prompt: "O que significa '429 with exponential backoff and jitter'? Explique e mostre o comportamento esperado."
+    expected_mode: standard
+    reason: Term and mechanism clarification.
+
+  - id: decision-table
+    prompt: "Estas regras condicionais se contradizem. Organize-as para que cada combinação leve a uma única ação."
+    expected_mode: flow
+    reason: Combinatorial decision clarification.
+
+  - id: plain-language-policy
+    prompt: "Reescreva esta política em linguagem simples para que funcionários consigam localizar e aplicar cada regra."
+    expected_mode: audit
+    reason: Find-understand-use objective.
+
+  - id: explain-uncertainty
+    prompt: "Explique o que sabemos, o que estamos inferindo e o que ainda é incerto neste diagnóstico."
+    expected_mode: standard
+    reason: Epistemic clarification.
+
+  - id: diagram-overload
+    prompt: "Este diagrama tem 80 nós e ninguém consegue lê-lo. Diagnostique e proponha níveis de zoom."
+    expected_mode: audit
+    reason: Visual clarity repair.
+
+  - id: explain-in-portuguese
+    prompt: "Clarify this distributed transaction mechanism for a Brazilian nontechnical audience and keep the canonical terms."
+    expected_mode: standard
+    reason: English request for PT-BR clarity transformation.
+
+should_not_trigger:
+  - id: pure-summary
+    prompt: "Resuma este texto em três bullets, sem alterar a linguagem."
+    reason: Pure summarization without a comprehension goal.
+
+  - id: cosmetic-tone
+    prompt: "Deixe este parágrafo mais elegante e sofisticado."
+    reason: Cosmetic rewriting only.
+
+  - id: grammar-only
+    prompt: "Corrija somente ortografia, concordância e pontuação."
+    reason: Proofreading without clarity transformation.
+
+  - id: translation-only
+    prompt: "Traduza este texto do inglês para o português literalmente."
+    reason: Translation only.
+
+  - id: creative-writing
+    prompt: "Escreva uma história de ficção científica sobre um robô."
+    reason: Creative generation without explanatory purpose.
+
+  - id: raw-code
+    prompt: "Implemente uma função Python que ordena esta lista."
+    reason: Code implementation without explanatory transformation.
+
+  - id: factual-lookup
+    prompt: "Qual é a capital da França?"
+    reason: Simple factual answer.
+
+  - id: formatting-only
+    prompt: "Converta este texto para uma tabela sem mudar o conteúdo."
+    reason: Pure format conversion.
+
+  - id: shorten-only
+    prompt: "Reduza para 100 caracteres, mantendo o mesmo tom."
+    reason: Compression without explicit comprehension objective.
+
+  - id: sentiment-rewrite
+    prompt: "Faça esta mensagem soar mais calorosa."
+    reason: Tone editing only.
+
+  - id: image-generation
+    prompt: "Crie uma ilustração de um cérebro futurista."
+    reason: Image generation, not explanation.
+
+  - id: data-calculation
+    prompt: "Calcule 18% de 2.500."
+    reason: Arithmetic only.

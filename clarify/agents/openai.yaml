@@ -1,0 +1,16 @@
+interface:
+  display_name: Clarify
+  short_description: Torna conteúdo complexo claro sem perder precisão
+  default_prompt: Use $clarify to diagnose why this material is difficult to understand
+    and transform it into a clear, accurate, audience-fit explanation in Brazilian
+    Portuguese. Preserve all material invariants and include only the validation needed
+    for the intended outcome.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
