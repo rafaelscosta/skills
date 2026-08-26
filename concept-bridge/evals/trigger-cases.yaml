@@ -1,0 +1,103 @@
+version: 1
+skill: concept-bridge
+purpose: Test explicit and implicit invocation boundaries, especially against clarify.
+
+should_trigger:
+  - id: explicit-eli5
+    prompt: "/eli5 webhooks"
+    expected_intent: new-concept
+    expected_depth: L2
+    reason: Explicit legacy alias for a first mental model.
+
+  - id: explicit-gist
+    prompt: "/gist Kubernetes"
+    expected_intent: new-concept
+    expected_depth: L1
+    reason: Explicit request for a compact gist.
+
+  - id: zero-context
+    prompt: "Eu não sei nada sobre OAuth. Me coloca no jogo rápido."
+    expected_intent: new-concept
+    expected_depth: L2
+    reason: Intelligent-adult newcomer asking for a fast mental model.
+
+  - id: mechanism
+    prompt: "Eu sei o que é DNS, mas o que exatamente acontece quando eu digito um domínio no navegador?"
+    expected_intent: mechanism
+    expected_depth: L2
+    reason: Existing orientation with missing mechanism.
+
+  - id: distinction
+    prompt: "Qual é a diferença que realmente importa entre Docker e uma VM?"
+    expected_intent: distinction
+    expected_depth: L2
+    reason: Concept discrimination rather than process explanation.
+
+  - id: consequence
+    prompt: "Por que um índice deixa uma consulta de banco muito mais rápida?"
+    expected_intent: consequence
+    expected_depth: L2
+    reason: User wants mechanism-to-consequence understanding.
+
+  - id: static-concept
+    prompt: "O que uma context window realmente significa num LLM?"
+    expected_intent: new-concept
+    expected_depth: L2
+    reason: Static concept needing a correct distinction from memory.
+
+  - id: technical-adult
+    prompt: "I understand HTTP and servers. Explain idempotency to me like I'm new to distributed systems."
+    expected_intent: new-concept
+    expected_depth: L2
+    reason: Explicit knowledge boundary should be respected.
+
+  - id: misconception
+    prompt: "Se Kubernetes substitui Docker, por que eu ainda preciso de containers?"
+    expected_intent: distinction
+    expected_depth: L2
+    reason: Useful question contains a misconception that should be repaired briefly.
+
+  - id: current-concept
+    prompt: "Me explica rapidamente como funciona o pricing atual desse serviço e o que significa cada unidade."
+    expected_intent: new-concept
+    expected_depth: L2
+    reason: Explanation requires freshness verification before simplification.
+
+should_not_trigger:
+  - id: cosmetic-rewrite
+    prompt: "Deixe este parágrafo mais elegante e curto."
+    reason: Cosmetic rewriting without a conceptual-learning goal.
+
+  - id: plain-rewrite
+    prompt: "Reescreva este texto em linguagem mais simples sem mudar o conteúdo."
+    reason: Supplied-text rewrite, not a new mental model.
+
+  - id: clarify-audit
+    prompt: "Audite por que esta documentação é confusa e reconstrua a explicação inteira."
+    prefer_skill: clarify
+    reason: Deep transformation and clarity audit belongs to clarify.
+
+  - id: clarify-teaching-artifact
+    prompt: "Transforme esta especificação em um material completo de onboarding com validação de compreensão."
+    prefer_skill: clarify
+    reason: Reusable pedagogy and validation go beyond a fast first mental bridge.
+
+  - id: pure-summary
+    prompt: "Resuma este artigo em cinco bullets."
+    reason: Summarization without concept-learning intent.
+
+  - id: translation-only
+    prompt: "Traduza este texto para português brasileiro."
+    reason: Translation only.
+
+  - id: factual-lookup
+    prompt: "Qual é a capital do Japão?"
+    reason: Direct factual lookup needs no explanatory bridge.
+
+  - id: implementation-only
+    prompt: "Implemente uma função Python que faça exponential backoff."
+    reason: Code implementation without an explanation request.
+
+  - id: visual-only-art
+    prompt: "Crie uma imagem bonita de um servidor futurista."
+    reason: Decorative image generation, not concept explanation.

@@ -1,0 +1,18 @@
+interface:
+  display_name: Concept Bridge
+  short_description: Cria o menor modelo mental correto para entender um conceito novo
+  default_prompt: Use $concept-bridge to build the shortest correct mental bridge from what
+    the user already knows to this unfamiliar concept. Infer the knowledge boundary, choose
+    the minimum useful depth, preserve real terminology, explain the dominant mechanism or
+    distinction first, and stop once the reader can predict what happens next. Write all
+    user-visible explanation and visual text in Brazilian Portuguese unless the user asks
+    for another language.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
