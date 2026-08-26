@@ -1,12 +1,14 @@
 interface:
   display_name: Concept Bridge
-  short_description: Cria o menor modelo mental correto para entender um conceito novo
+  short_description: Cria o menor modelo mental correto e escolhe a representação visual certa
   default_prompt: Use $concept-bridge to build the shortest correct mental bridge from what
     the user already knows to this unfamiliar concept. Infer the knowledge boundary, choose
     the minimum useful depth, preserve real terminology, explain the dominant mechanism or
-    distinction first, and stop once the reader can predict what happens next. Write all
-    user-visible explanation and visual text in Brazilian Portuguese unless the user asks
-    for another language.
+    distinction first, and stop once the reader can predict what happens next. When a visual
+    materially reduces cognitive load, route explicitly between narrative visual, structural
+    diagram, or mixed composition; use the diagram contract for topology, states, causality,
+    hierarchy, flow, architecture, or structural comparison. Write all user-visible explanation
+    and visual text in Brazilian Portuguese unless the user asks for another language.
   icon_small: assets/icon.svg
   icon_large: assets/icon.svg
 policy:
