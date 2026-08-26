@@ -1,0 +1,123 @@
+version: 1
+skill: concept-bridge
+purpose: Verify routing, truth preservation, progressive depth, stopping behavior, and visual selection.
+
+cases:
+  - id: webhook-process
+    prompt: "/eli5 webhook"
+    must:
+      - infer a reasonable adjacent knowledge boundary without interviewing first
+      - explain push-vs-poll as the core distinction
+      - use a process shape with a short numbered main path
+      - introduce webhook URL or endpoint at point of use
+      - avoid implying guaranteed exactly-once delivery
+      - select a story-strip visual when rendering capability is available
+    must_not:
+      - define ordinary concepts such as company or internet
+      - begin with praise or filler
+      - front-load retries, signatures, or implementation edge cases
+
+  - id: docker-vm-comparison
+    prompt: "ELI5 Docker vs VM"
+    must:
+      - use a comparison shape rather than a fake workflow
+      - establish the shared isolation frame
+      - distinguish machine virtualization from process isolation and shared host kernel
+      - explain at least one practical consequence
+      - preserve the boundary that container equals lightweight VM is incomplete
+    must_not:
+      - force five numbered steps
+      - claim containers and VMs provide identical isolation
+
+  - id: context-window-static
+    prompt: "O que é context window de LLM?"
+    must:
+      - use a static-concept shape
+      - distinguish active context from persistent memory
+      - preserve canonical terminology
+      - stop after the minimum correct mental model
+    must_not:
+      - manufacture a lifecycle
+      - force a visual by default
+      - explain tokens from first principles unless needed by the user's boundary
+
+  - id: knowledge-boundary
+    prompt: "Eu já entendo HTTP, API e servidor. O que eu ainda não entendi é webhook."
+    must:
+      - treat HTTP, API, and server as acquired knowledge
+      - focus on initiation direction and event delivery
+    must_not:
+      - redefine HTTP, API, or server
+      - ask what the user already knows
+
+  - id: follow-up-depth
+    prior_turn: "The assistant already explained webhooks at L2 and the user demonstrated understanding."
+    prompt: "Como eu verifico que o webhook veio mesmo do Stripe?"
+    must:
+      - advance to mechanics around signatures and verification
+      - preserve relevant security caveats
+    must_not:
+      - re-explain what a webhook is
+      - restart at L1 or L2 orientation
+
+  - id: truth-gate-merge
+    prompt: "Então quando eu faço merge o código já vai pra produção?"
+    must:
+      - distinguish target-branch change from deployment
+      - explain that production depends on the deployment workflow
+    must_not:
+      - say merge always deploys production
+
+  - id: misconception-kubernetes
+    prompt: "Se Kubernetes substitui Docker, por que ainda existem containers?"
+    must:
+      - repair the premise briefly
+      - distinguish container runtime or containerization from orchestration
+      - continue answering the useful question
+    must_not:
+      - turn the response into a long correction lecture
+
+  - id: causal-index
+    prompt: "Por que índice acelera consulta em banco?"
+    must:
+      - use cause-to-mechanism-to-effect structure
+      - explain reduced search work using a concrete database-relevant model
+      - mention the material tradeoff only if needed for correctness
+    must_not:
+      - rely on an extended childish analogy
+      - list unrelated database internals
+
+  - id: visual-complexity
+    prompt: "Me explica OAuth e mostra visualmente."
+    must:
+      - provide the verbal mental model first
+      - select a sequence-oriented visual
+      - keep each scene to one primary action
+      - make panel titles carry the story independently
+      - require PT-BR visible text for a Portuguese answer
+    must_not:
+      - output raw Mermaid as the finished visual
+      - create a dense architecture map with crossing arrows
+
+  - id: no-visual-decoration
+    prompt: "O que significa latência?"
+    must:
+      - explain the concept in a compact static shape
+    must_not:
+      - force a decorative infographic unless explicitly requested
+
+  - id: ambiguity-bounded-default
+    prompt: "O que é agent aqui em IA?"
+    must:
+      - state a concise reasonable interpretation if needed
+      - proceed without unnecessary clarification
+    must_not:
+      - interview the user before providing value
+
+  - id: current-fact-verification
+    prompt: "Me explica o limite atual de contexto do produto X."
+    must:
+      - verify mutable product facts with available research tools before simplifying
+      - separate verified current facts from conceptual explanation
+    must_not:
+      - confidently use stale remembered specifications
