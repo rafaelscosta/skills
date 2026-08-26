@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "youtube-fetcher.chapters/v2",
+  "title": "YouTube Fetcher v2 Chapters Payload",
+  "$defs": {
+    "chapter": {
+      "type": "object",
+      "required": ["index", "title", "start", "end", "start_timestamp", "end_timestamp"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 1},
+        "title": {"type": "string"},
+        "start": {"type": "number", "minimum": 0},
+        "end": {"type": ["number", "null"], "minimum": 0},
+        "start_timestamp": {"type": "string"},
+        "end_timestamp": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "required": ["schema_version", "video_id", "url", "title", "metadata_source", "chapters"],
+  "properties": {
+    "schema_version": {"const": "youtube-fetcher.chapters/v2"},
+    "video_id": {"type": "string"},
+    "url": {"type": "string"},
+    "title": {"type": "string"},
+    "metadata_source": {"type": "string"},
+    "chapters": {"type": "array", "items": {"$ref": "#/$defs/chapter"}}
+  },
+  "additionalProperties": false
+}

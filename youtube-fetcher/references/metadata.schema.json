@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "youtube-fetcher.metadata/v2",
+  "title": "YouTube Fetcher v2 Metadata Payload",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "video_id",
+    "url",
+    "title",
+    "channel",
+    "description",
+    "duration",
+    "upload_date",
+    "metadata_source",
+    "chapter_count",
+    "chapters"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "youtube-fetcher.metadata/v2"
+    },
+    "video_id": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "upload_date": {
+      "type": "string"
+    },
+    "metadata_source": {
+      "type": "string"
+    },
+    "chapter_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/chapter"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "chapter": {
+      "type": "object",
+      "required": [
+        "index",
+        "title",
+        "start",
+        "end",
+        "start_timestamp",
+        "end_timestamp"
+      ],
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string"
+        },
+        "start": {
+          "type": "number",
+          "minimum": 0
+        },
+        "end": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "start_timestamp": {
+          "type": "string"
+        },
+        "end_timestamp": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

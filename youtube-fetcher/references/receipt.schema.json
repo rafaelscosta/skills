@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "youtube-fetcher.receipt/v2",
+  "title": "YouTube Fetcher v2 Machine Receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "exit_code",
+    "operation",
+    "video_id",
+    "artifact_path",
+    "manifest_path",
+    "language",
+    "caption_type",
+    "warnings",
+    "error"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "youtube-fetcher.receipt/v2"
+    },
+    "status": {
+      "enum": [
+        "success",
+        "error",
+        "duplicate_preserved"
+      ]
+    },
+    "exit_code": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "operation": {
+      "enum": [
+        "archive",
+        "metadata",
+        "chapters",
+        "list",
+        "transcript",
+        "check-deps"
+      ]
+    },
+    "video_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "artifact_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "manifest_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "language": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "caption_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "error": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "data": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

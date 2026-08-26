@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "youtube-fetcher.chunks/v2",
+  "title": "YouTube Fetcher v2 Deterministic Transcript Chunks",
+  "type": "object",
+  "required": [
+    "schema_version", "video_id", "url", "language", "caption_type",
+    "selection", "chunking", "chunks"
+  ],
+  "properties": {
+    "schema_version": {"const": "youtube-fetcher.chunks/v2"},
+    "video_id": {"type": "string"},
+    "url": {"type": "string"},
+    "language": {"type": "string"},
+    "caption_type": {"type": "string"},
+    "selection": {"type": "object"},
+    "chunking": {
+      "type": "object",
+      "required": ["strategy", "chunk_seconds", "boundary", "assignment"],
+      "properties": {
+        "strategy": {"const": "absolute-fixed-time-window"},
+        "chunk_seconds": {"type": "integer", "minimum": 1},
+        "boundary": {"const": "[start,end)"},
+        "assignment": {"const": "snippet-start"}
+      },
+      "additionalProperties": false
+    },
+    "chunks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "chunk_id", "window_start", "window_end", "window_start_timestamp",
+          "window_end_timestamp", "content_start", "content_end", "snippet_count",
+          "char_count", "text", "snippets"
+        ],
+        "properties": {
+          "chunk_id": {"type": "string", "pattern": "^chunk-[0-9]{6,}-[0-9]{6,}$"},
+          "window_start": {"type": "number", "minimum": 0},
+          "window_end": {"type": "number", "minimum": 0},
+          "window_start_timestamp": {"type": "string"},
+          "window_end_timestamp": {"type": "string"},
+          "content_start": {"type": "number", "minimum": 0},
+          "content_end": {"type": "number", "minimum": 0},
+          "snippet_count": {"type": "integer", "minimum": 1},
+          "char_count": {"type": "integer", "minimum": 0},
+          "text": {"type": "string"},
+          "snippets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["text", "start", "duration"],
+              "properties": {
+                "text": {"type": "string"},
+                "start": {"type": "number", "minimum": 0},
+                "duration": {"type": "number", "minimum": 0}
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

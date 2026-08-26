@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "youtube-fetcher.manifest/v2",
+  "title": "YouTube Fetcher v2 Execution Manifest",
+  "type": "object",
+  "required": [
+    "schema_version", "status", "started_at", "completed_at", "input",
+    "operation", "selection", "transcript", "metadata", "output",
+    "manifest_path", "warnings", "error"
+  ],
+  "properties": {
+    "schema_version": {"const": "youtube-fetcher.manifest/v2"},
+    "status": {"enum": ["success", "error", "duplicate_preserved"]},
+    "started_at": {"type": "string"},
+    "completed_at": {"type": "string"},
+    "input": {
+      "type": "object",
+      "required": ["value", "video_id", "url"],
+      "properties": {
+        "value": {"type": "string"},
+        "video_id": {"type": "string"},
+        "url": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "operation": {
+      "type": "object",
+      "required": ["mode", "format", "requested_language", "timestamps", "chunk_seconds"],
+      "properties": {
+        "mode": {"enum": ["archive", "metadata", "chapters", "list", "transcript"]},
+        "format": {"enum": ["text", "json", "srt", "chunks"]},
+        "requested_language": {"type": ["string", "null"]},
+        "timestamps": {"type": "boolean"},
+        "chunk_seconds": {"type": ["integer", "null"], "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "selection": {"type": ["object", "null"]},
+    "transcript": {
+      "type": "object",
+      "required": [
+        "actual_language", "caption_type", "original_snippet_count",
+        "selected_snippet_count", "chunk_count"
+      ],
+      "properties": {
+        "actual_language": {"type": ["string", "null"]},
+        "caption_type": {"type": ["string", "null"]},
+        "original_snippet_count": {"type": ["integer", "null"], "minimum": 0},
+        "selected_snippet_count": {"type": ["integer", "null"], "minimum": 0},
+        "chunk_count": {"type": ["integer", "null"], "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": ["object", "null"],
+      "properties": {
+        "source": {"type": ["string", "null"]},
+        "title": {"type": ["string", "null"]},
+        "channel": {"type": ["string", "null"]},
+        "duration": {"type": ["integer", "null"], "minimum": 0},
+        "upload_date": {"type": ["string", "null"]},
+        "chapter_count": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "output": {
+      "type": "object",
+      "required": ["path", "stdout", "format", "media_type"],
+      "properties": {
+        "path": {"type": ["string", "null"]},
+        "stdout": {"type": "boolean"},
+        "format": {"enum": ["text", "json", "srt", "chunks"]},
+        "media_type": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "bytes": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "manifest_path": {"type": ["string", "null"]},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "error": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

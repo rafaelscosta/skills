@@ -1,0 +1,26 @@
+version: "1.0"
+skill: youtube-fetcher
+cases:
+  - id: trigger-bare-url
+    input: "https://youtu.be/dQw4w9WgXcQ"
+    should_invoke: true
+    expected_route: archive
+  - id: trigger-summary
+    input: "Resuma este vídeo e destaque os argumentos principais: https://youtu.be/dQw4w9WgXcQ"
+    should_invoke: true
+    expected_route: evidence_then_analysis
+  - id: trigger-chapter
+    input: "Pegue apenas o capítulo sobre agentes deste vídeo: https://youtu.be/dQw4w9WgXcQ"
+    should_invoke: true
+    expected_route: chapter
+  - id: trigger-range
+    input: "Transcreva somente de 12:30 até 18:00 deste vídeo: https://youtu.be/dQw4w9WgXcQ"
+    should_invoke: true
+    expected_route: time_range
+  - id: trigger-rag
+    input: "Prepare este vídeo para ingestão RAG em chunks determinísticos: https://youtu.be/dQw4w9WgXcQ"
+    should_invoke: true
+    expected_route: chunks
+  - id: no-trigger-generic-video-writing
+    input: "Escreva um roteiro de vídeo sobre produtividade."
+    should_invoke: false

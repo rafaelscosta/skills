@@ -1,0 +1,13 @@
+interface:
+  display_name: YouTube Fetcher
+  short_description: Extrai evidência do YouTube com contexto mínimo e proveniência
+  default_prompt: Use $youtube-fetcher to route this YouTube request to the smallest evidence primitive needed. Prefer metadata or chapters before transcript ingestion, fetch only relevant ranges or deterministic chunks for analysis, preserve provenance and actual caption language, and use machine receipts/manifests for programmatic pipelines.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

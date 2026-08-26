@@ -1,0 +1,24 @@
+pack:
+  name: youtube-fetcher
+  version: "2.0.0"
+  owner_squad: sinkra-squad
+
+contract:
+  schema: youtube-fetcher/receipt@2
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: output_only
+  network_default: youtube_only
+  provider_default: deny
+  publication_default: deny
+  output_root: dynamic
+  output_precedence: [output, output_dir, YOUTUBE_FETCHER_DIR, ~/yt_transcripts]
+  original_input_overwrite: deny
+  silent_dependency_install: deny
+  lifecycle_states: [PLANNED, INPUTS_BOUND, ORIENTED, EVIDENCE_FETCHED, VERIFIED, HANDOFF, FAILED, BLOCKED]
+  terminal_success: HANDOFF
+  provenance_required: true
+  actual_caption_language_required: true
+  machine_stdout_json_only: true
+  manifest_supported: true
+  deterministic_chunks: true
