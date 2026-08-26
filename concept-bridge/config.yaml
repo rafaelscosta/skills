@@ -1,6 +1,6 @@
 pack:
   name: concept-bridge
-  version: "3.0.0"
+  version: "3.1.0"
   owner_squad: sinkra-squad
 
 contract:
@@ -13,9 +13,12 @@ contract:
   publication_default: deny
   output_root: outputs/businesses/{business}/concept-bridge/{run_id}
   original_input_overwrite: deny
-  lifecycle_states: [PLANNED, BOUNDARY_INFERRED, ROUTED, COMPOSED, VERIFIED, HANDOFF, FAILED, BLOCKED]
+  lifecycle_states: [PLANNED, BOUNDARY_INFERRED, ROUTED, COMPOSED, REPRESENTATION_ROUTED, VERIFIED, HANDOFF, FAILED, BLOCKED]
   terminal_success: HANDOFF
   truth_gate_required: true
   knowledge_boundary_required: true
   stopping_rule_required: true
   visual_required: conditional
+  representation_router_required_when_visual: true
+  diagram_contract_required_when_structural: true
+  rendered_visual_required: true
