@@ -1,0 +1,54 @@
+version: 1
+scale:
+  0: absent, wrong, or materially misleading
+  1: present but incomplete, weakly calibrated, or unnecessarily complex
+  2: complete, correct, and minimal for the reader's actual knowledge boundary
+
+dimensions:
+  - id: correctness
+    question: Would an expert consider the resulting mental model materially true, including necessary qualifications?
+
+  - id: calibration
+    question: Does the explanation target the user's actual unknown edge without re-teaching demonstrated or ordinary adult knowledge?
+
+  - id: mechanism_first
+    question: Does the core mechanism, causal link, or distinction appear before secondary architecture, history, or edge cases?
+
+  - id: vocabulary_preservation
+    question: Are the canonical real terms preserved and introduced at the moment they become useful?
+
+  - id: minimality
+    question: Has the explanation stopped once the reader can identify the concept, describe the main mechanism, predict the next step, and avoid the key misconception?
+
+  - id: shape_fit
+    question: Does the explanation shape match the concept structure rather than forcing every topic into the same template?
+
+  - id: visual_fit
+    question: When a visual is used, does it reduce cognitive load, match the concept structure, remain simpler than the prose, and arrive as an actual rendered visual?
+
+thresholds:
+  standard:
+    minimum_total: 12
+    required_two:
+      - correctness
+      - calibration
+      - mechanism_first
+      - vocabulary_preservation
+
+  visual:
+    minimum_total: 13
+    required_two:
+      - correctness
+      - calibration
+      - visual_fit
+
+automatic_failure:
+  - A common case, default, or vendor-specific behavior is presented as a universal guarantee.
+  - The response infantilizes the reader or defines ordinary adult-life vocabulary without a task-specific reason.
+  - A demonstrated prior concept is unnecessarily re-taught on follow-up.
+  - Essential canonical terminology is replaced by a cute metaphor or omitted entirely.
+  - The main mechanism is buried behind exhaustive detail.
+  - A process template is forced onto a static concept or comparison where it makes the model worse.
+  - A visual is substantially harder to parse than the verbal explanation.
+  - Raw Mermaid, SVG, HTML, or graph source is presented as the finished visual without the user asking for source.
+  - Mutable external facts are confidently simplified without current verification when research capability is available.
