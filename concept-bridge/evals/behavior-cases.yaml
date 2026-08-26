@@ -1,6 +1,6 @@
 version: 1
 skill: concept-bridge
-purpose: Verify routing, truth preservation, progressive depth, stopping behavior, and visual selection.
+purpose: Verify routing, truth preservation, progressive depth, stopping behavior, and representation selection.
 
 cases:
   - id: webhook-process
@@ -11,7 +11,7 @@ cases:
       - use a process shape with a short numbered main path
       - introduce webhook URL or endpoint at point of use
       - avoid implying guaranteed exactly-once delivery
-      - select a story-strip visual when rendering capability is available
+      - select a narrative story-strip visual when rendering capability is available and topology is not the primary lesson
     must_not:
       - define ordinary concepts such as company or internet
       - begin with praise or filler
@@ -25,6 +25,7 @@ cases:
       - distinguish machine virtualization from process isolation and shared host kernel
       - explain at least one practical consequence
       - preserve the boundary that container equals lightweight VM is incomplete
+      - select structural-comparison if a visual is rendered
     must_not:
       - force five numbered steps
       - claim containers and VMs provide identical isolation
@@ -87,17 +88,20 @@ cases:
       - rely on an extended childish analogy
       - list unrelated database internals
 
-  - id: visual-complexity
-    prompt: "Me explica OAuth e mostra visualmente."
+  - id: visual-oauth-mixed
+    prompt: "Me explica OAuth e mostra visualmente quem fala com quem e o que acontece."
     must:
       - provide the verbal mental model first
-      - select a sequence-oriented visual
-      - keep each scene to one primary action
-      - make panel titles carry the story independently
+      - recognize both temporal and structural understanding needs
+      - select mixed composition when it reduces cognitive load
+      - let narrative scenes own temporal consent or action
+      - let a structural or flow diagram own multi-actor relationships
+      - keep one obvious reading order
       - require PT-BR visible text for a Portuguese answer
     must_not:
       - output raw Mermaid as the finished visual
-      - create a dense architecture map with crossing arrows
+      - force the entire concept into one dense mega-diagram
+      - repeat the same fact in prose, scene, and diagram
 
   - id: no-visual-decoration
     prompt: "O que significa latência?"

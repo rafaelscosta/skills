@@ -23,8 +23,20 @@ dimensions:
   - id: shape_fit
     question: Does the explanation shape match the concept structure rather than forcing every topic into the same template?
 
-  - id: visual_fit
-    question: When a visual is used, does it reduce cognitive load, match the concept structure, remain simpler than the prose, and arrive as an actual rendered visual?
+  - id: visual_necessity
+    question: When a visual is used, does it materially reduce cognitive load or satisfy an explicit visual request rather than merely decorate?
+
+  - id: representation_fit
+    question: Does the visual router correctly choose narrative visual, structural diagram, mixed composition, or prose-only for the actual cognitive problem?
+
+  - id: diagram_semantics
+    question: For structural diagrams, are topology, states, causal links, hierarchy, branches, labels, and reading direction semantically correct and minimal?
+
+  - id: visual_scanability
+    question: Can the reader identify the visual's starting point, actors, and reading direction quickly without tracing avoidable complexity or decoding unnecessary legends?
+
+  - id: rendered_delivery
+    question: Is the final visual actually rendered, with truth-critical information still available in prose if rendering fails?
 
 thresholds:
   standard:
@@ -35,12 +47,26 @@ thresholds:
       - mechanism_first
       - vocabulary_preservation
 
-  visual:
-    minimum_total: 13
+  visual_narrative:
+    minimum_total: 18
     required_two:
       - correctness
       - calibration
-      - visual_fit
+      - visual_necessity
+      - representation_fit
+      - visual_scanability
+      - rendered_delivery
+
+  visual_structural:
+    minimum_total: 20
+    required_two:
+      - correctness
+      - calibration
+      - visual_necessity
+      - representation_fit
+      - diagram_semantics
+      - visual_scanability
+      - rendered_delivery
 
 automatic_failure:
   - A common case, default, or vendor-specific behavior is presented as a universal guarantee.
@@ -49,6 +75,15 @@ automatic_failure:
   - Essential canonical terminology is replaced by a cute metaphor or omitted entirely.
   - The main mechanism is buried behind exhaustive detail.
   - A process template is forced onto a static concept or comparison where it makes the model worse.
+  - A static concept receives a decorative visual by default without a cognitive reason.
+  - A simple linear process becomes a dense flowchart when a narrative strip would be clearer.
+  - Meaningful topology, allowed states, or branch logic is hidden inside disconnected story panels.
+  - A causal diagram implies an unsupported causal link.
+  - Multiple cognitive questions are collapsed into one dense diagram instead of decomposed or mixed appropriately.
+  - Avoidable crossing edges materially increase tracing cost.
+  - A legend replaces simpler direct labels without justification.
+  - Visual terminology diverges from the verbal explanation.
   - A visual is substantially harder to parse than the verbal explanation.
-  - Raw Mermaid, SVG, HTML, or graph source is presented as the finished visual without the user asking for source.
+  - Raw Mermaid, SVG, HTML, Graphviz, or graph source is presented as the finished visual without the user asking for source.
+  - Truth-critical information exists only in the visual with no usable textual equivalent.
   - Mutable external facts are confidently simplified without current verification when research capability is available.

@@ -1,6 +1,6 @@
 ---
 name: concept-bridge
-description: Build the shortest correct mental bridge from what an intelligent adult already knows to an unfamiliar concept. Use for /eli5, /gist, "explain X to me", "break this down", "I know nothing about X", "catch me up", or requests for a fast first-principles explanation. Infer the knowledge boundary, choose the minimum useful depth, preserve real terminology, explain the dominant mechanism first, and stop once the reader can predict what happens next. Do not use for cosmetic rewriting, pure summarization, or deep transformation/audit of supplied material; prefer $clarify for those.
+description: Build the shortest correct mental bridge from what an intelligent adult already knows to an unfamiliar concept. Use for /eli5, /gist, "explain X to me", "break this down", "I know nothing about X", "catch me up", or requests for a fast first-principles explanation. Infer the knowledge boundary, choose the minimum useful depth, preserve real terminology, explain the dominant mechanism first, and stop once the reader can predict what happens next. When a visual helps, route between narrative visual, structural diagram, or mixed composition instead of forcing one visual format. Do not use for cosmetic rewriting, pure summarization, or deep transformation/audit of supplied material; prefer $clarify for those.
 ---
 
 # Concept Bridge
@@ -46,7 +46,11 @@ COMPOSE
   ↓
 STOP
   ↓
-VISUAL DECISION
+VISUAL NECESSITY
+  ↓
+REPRESENTATION ROUTER
+  ↓
+RENDER IF USEFUL
   ↓
 QUALITY GATE
 ```
@@ -409,32 +413,88 @@ If the answer becomes too long, remove in this order:
 
 Never remove information required by the Truth Preservation Gate.
 
-## 11. Route visuals
+## 11. Route visual necessity
 
-A visual is not automatically useful. Use one when spatializing the concept materially reduces cognitive load.
+A visual is not automatically useful.
 
-| Concept structure | Preferred visual |
+Use one only when spatializing the concept materially reduces cognitive load, unless the user explicitly requests a visual.
+
+A visual normally earns its place when the concept contains a meaningful sequence, state model, topology, hierarchy, branching decision, causal mechanism, data movement, transformation, or structural comparison.
+
+A static definition normally remains prose-only.
+
+Silently ask:
+
+> If the visual disappeared, would the reader lose an important relationship rather than merely lose decoration?
+
+If no, skip it.
+
+When a visual is justified, read `references/visual-router.md` when available and continue through the representation router below.
+
+## 12. Route representation
+
+Do **not** jump directly from "visual needed" to "story strip."
+
+Choose among:
+
+### `narrative-visual`
+
+Use when the main understanding problem is temporal: **what happens next?**
+
+Prefer a story strip for a simple dominant path.
+
+### `structural-diagram`
+
+Use when the reader must understand **what connects to what, what contains what, what states are possible, what causes what, or how structures differ**.
+
+Use the spatial-topology test:
+
+> Removing spatial relationships would materially reduce understanding.
+
+If true, prefer a diagram.
+
+### `mixed`
+
+Use narrative scenes and diagrams together only when the concept contains two distinct cognitive questions, typically:
+
+- what happens when; and
+- how the actors or structures are related.
+
+Each representation must own a different explanatory job. Do not mix formats for decoration.
+
+## 13. Route structural diagrams
+
+When `structural-diagram` is selected, choose the dominant relationship:
+
+| Dominant relationship | Diagram |
 |---|---|
-| Sequence, lifecycle, request/response, workflow, data movement | Story strip |
-| Comparison | Side-by-side |
-| Hierarchy or containment | Layered stack |
-| Parts of one system | Labeled anatomy |
-| Causality | Simple causal chain |
-| Transformation or state change | Before/after |
-| Static definition | Usually no visual |
+| Ordered path with meaningful branches or decisions | `flow` |
+| States changed by events | `state` |
+| Components and connections | `architecture` |
+| Containment, ownership, or levels | `hierarchy` |
+| Cause → mechanism → effects | `causal` |
+| Equivalent structural dimensions across alternatives | `structural-comparison` |
 
-If the user explicitly requests a visual, create one regardless of the default gate.
+Do not use a flowchart for a simple linear story merely because arrows are possible.
 
-The visual must be **simpler than the prose**.
+When selecting any structural diagram, read `references/diagram-contract.md` when available before rendering.
 
-If it requires tracing crossing arrows, reading a legend, hunting for numbered nodes, decoding many colors, or inferring reading order, rebuild it.
+At minimum, enforce:
 
-## 12. Story strip contract
+1. one primary question per diagram;
+2. direct labels before legends;
+3. one obvious reading direction;
+4. minimum necessary nodes and edges;
+5. target zero crossing edges;
+6. stable meaning for shapes, arrows, terms, and accent color;
+7. canonical vocabulary consistent with the prose.
 
-When the visual router selects a sequence, use a vertical story strip by default:
+## 14. Narrative visual contract
+
+When `narrative-visual` is selected, use a vertical story strip by default:
 
 - 3–6 scenes;
-- one action per scene;
+- one primary action per scene;
 - consistent recurring actors;
 - top-to-bottom reading order;
 - no branching inside a scene.
@@ -454,9 +514,54 @@ Reading **only the titles** must explain the sequence.
 
 A caption must add a new fact rather than paraphrase the title.
 
-Use persistent identities for user, app, browser, file, repository, server, database, request, agent, or external service. The same actor must remain recognizable across scenes.
+Use persistent identities for user, app, browser, file, repository, server, database, request, agent, or external service. The same actor remains recognizable across scenes.
 
-## 13. Default visual language
+Use before/after instead when the transformation itself matters more than intermediate steps.
+
+## 15. Mixed artifact contract
+
+A single rendered artifact may combine:
+
+```text
+explanatory prose
+→ narrative scene(s)
+→ structural diagram(s)
+→ narrative consequence
+→ closing truth
+```
+
+This is valid only when each layer answers a different question.
+
+Rules:
+
+- narrative scenes own temporal comprehension;
+- diagrams own topology, states, hierarchy, causality, branching, or structural comparison;
+- do not repeat the same fact in prose, scene, and diagram;
+- use as few representation switches as possible;
+- preserve one obvious overall reading order;
+- keep terminology identical across every layer.
+
+OAuth is a common mixed case: narrative scenes can show user consent while a compact diagram shows browser/client/authorization-server/resource-server relationships.
+
+## 16. HTML and diagram artifacts
+
+A rendered HTML artifact may contain embedded diagrams.
+
+Preferred implementation order for deterministic structural diagrams:
+
+1. **inline SVG**;
+2. deterministic HTML/CSS for simple stacks or comparisons;
+3. rendered Mermaid only when it materially simplifies implementation and the final result is actually rendered.
+
+Prefer inline SVG when available because it provides deterministic layout, crisp scaling, precise typography, direct labels, reusable symbols, responsive composition, and no external diagram runtime.
+
+The user receives the **rendered artifact**, not diagram source.
+
+Never expose raw Mermaid, Graphviz, SVG, HTML, or graph syntax as the finished visual unless the user explicitly asks for source code.
+
+The verbal explanation must preserve the truth-critical mental model even if the visual fails to render.
+
+## 17. Default visual language
 
 Unless the user supplies a visual system:
 
@@ -476,7 +581,7 @@ Unless the user supplies a visual system:
 - muted text `#5F6272`;
 - single accent `#C42A1C`.
 
-Use the accent sparingly.
+Use the accent sparingly and consistently.
 
 ### Geometry
 
@@ -488,9 +593,9 @@ Use the accent sparingly.
 
 Avoid generic SaaS UI, glassmorphism, neon, decorative gradients, excessive pills, unnecessary 3D, and visual clutter.
 
-## 14. Visual generation contract
+## 18. Visual generation contract
 
-When a visual is included, deliver an **actual rendered visual**. Never present raw Mermaid, SVG, HTML, graph syntax, or other source code as the finished visual unless the user explicitly asks for source.
+When a visual is included, deliver an **actual rendered visual**.
 
 When using image generation, write the generation prompt in **English** and require all visible text to use the language of the explanation.
 
@@ -498,51 +603,23 @@ For Portuguese responses, explicitly require:
 
 > **All visible titles, labels, captions, annotations, and narration must be written in Brazilian Portuguese (PT-BR).**
 
-A generation prompt should encode:
+The prompt should encode:
 
 - semantic goal;
-- selected visual archetype;
-- reading order;
-- exact conceptual beats;
-- title hierarchy;
-- persistent cast;
-- complexity limits;
-- typography and palette when relevant;
+- selected representation route;
+- selected diagram archetype when structural;
+- reading direction;
+- exact conceptual beats or relationships;
+- persistent cast when narrative;
+- node/edge simplicity when diagrammatic;
+- title and label hierarchy;
 - visible-text language;
+- relevant typography/palette;
 - anti-patterns.
 
-Use this as a starting structure, not a rigid template:
+Do not ask image generation to invent the conceptual model. Determine the model first, then render it.
 
-```text
-Create a clear educational visual explaining [TOPIC] for an intelligent adult who is new to this specific concept.
-
-GOAL
-Make the viewer understand [CORE MENTAL MODEL] without requiring prior knowledge of [TOPIC].
-
-VISUAL FORMAT
-Use a [STORY STRIP / SIDE-BY-SIDE / LAYERED STACK / LABELED ANATOMY / CAUSAL CHAIN / BEFORE-AFTER].
-
-INFORMATION ARCHITECTURE
-[Specify the exact conceptual beats in reading order.]
-
-SIMPLICITY
-Each scene or region must communicate only one primary idea. Use the minimum number of objects required. Avoid crossing arrows, legends, dense labels, and diagram-like complexity.
-
-TEXT
-All visible titles, labels, captions, annotations, and narration must be written in Brazilian Portuguese (PT-BR).
-Titles must carry the explanation even if the illustrations are removed.
-Captions must add new information rather than paraphrase titles.
-
-VISUAL STYLE
-Editorial, restrained, high-clarity educational design. Georgia-like serif for major titles. Helvetica/Arial-like sans-serif for labels and captions. Background #F7F8FC. Lavender fills #E7EAF6 and #DDE2F2. Ink #111111. Secondary text #5F6272. Single accent #C42A1C. Near-square corners, thin dark borders, generous whitespace.
-
-AVOID
-Generic SaaS UI, glassmorphism, neon, unnecessary gradients, decorative 3D, dense architecture diagrams, childish illustrations, excessive icons, and visual clutter.
-```
-
-Adapt it to the concept.
-
-## 15. Visual handoff
+## 19. Visual handoff
 
 When a visual passes the router, finish the verbal explanation with one soft transition and then render it.
 
@@ -556,7 +633,7 @@ Portuguese:
 
 Do not ask permission first when the visual clearly earns its place. Do not add meta-labels such as `/eli5`, explain the rendering process, or sell the visual.
 
-## 16. Follow-up behavior
+## 20. Follow-up behavior
 
 Within the active conversation, treat demonstrated knowledge as acquired.
 
@@ -564,7 +641,7 @@ If the user correctly uses a previously explained term, distinction, or mechanis
 
 Follow-ups should deepen the bridge, not rebuild it.
 
-## 17. Misconception handling
+## 21. Misconception handling
 
 If the question contains an incorrect assumption:
 
@@ -574,7 +651,7 @@ If the question contains an incorrect assumption:
 
 Do not turn the whole response into a correction lecture.
 
-## 18. Ambiguity handling
+## 22. Ambiguity handling
 
 Do not ask a clarifying question when one reasonable interpretation can produce a useful answer without material risk.
 
@@ -582,7 +659,7 @@ State the interpretation briefly and continue.
 
 Ask first only when different interpretations would produce substantially different or unsafe answers and no reasonable default exists.
 
-## 19. Recency and external facts
+## 23. Recency and external facts
 
 Concept Bridge governs explanation quality, not factual freshness.
 
@@ -590,9 +667,9 @@ When the answer depends on current products, laws, software versions, live stand
 
 Never simplify stale information confidently.
 
-## 20. Quality gate
+## 24. Quality gate
 
-Before sending, silently evaluate five dimensions.
+Before sending, silently evaluate the core five dimensions.
 
 ### Correct
 
@@ -614,9 +691,27 @@ Will the reader recognize the real terms when they encounter the topic elsewhere
 
 Can any sentence disappear without reducing correctness or predictive understanding?
 
+When a visual is used, also verify:
+
+### Representation-fit
+
+Did I choose prose, narrative visual, structural diagram, or mixed composition because it matches the cognitive problem rather than because it looks richer?
+
+### Topology and semantics
+
+Are material spatial relationships correct, with stable terminology, labels, shapes, arrows, and direction?
+
+### Scanability
+
+Can the reader identify the starting point, actors, and reading direction in about two seconds?
+
+### Prose independence
+
+Does the verbal explanation still contain the truth-critical model if the visual fails to render?
+
 Fix failures before sending.
 
-## 21. Canonical patterns
+## 25. Canonical patterns
 
 These are behavioral shapes, not rigid templates.
 
@@ -638,7 +733,7 @@ Here's how it works:
 
 [One closing distinction.]
 
-[Optional visual handoff + rendered visual.]
+[Optional rendered visual selected through the representation router.]
 ```
 
 ### Static concept
@@ -669,7 +764,7 @@ The difference that matters: [fundamental distinction].
 [Important boundary.]
 ```
 
-## 22. Canonical example — webhook
+## 26. Canonical example — webhook
 
 User:
 
@@ -693,16 +788,9 @@ Good behavior:
 >
 > The important distinction is that a webhook changes the communication from **you checking for an event** to **the other system pushing the event to you**.
 
-Why this works:
+For the default first mental model, the visual route is usually `narrative-visual/story-strip`. If the user specifically asks about sender/receiver topology, retries, or branching delivery behavior, a structural or mixed route may become better.
 
-- adjacent knowledge was calibrated;
-- the mechanism appears before implementation detail;
-- real terms remain;
-- retries appear only because omitting them could imply guaranteed exactly-once delivery;
-- the answer stops before deep implementation;
-- a story strip fits the sequence.
-
-## 23. Canonical example — Docker vs VM
+## 27. Canonical example — Docker vs VM
 
 User:
 
@@ -720,9 +808,9 @@ Good behavior:
 >
 > So "container = lightweight VM" is useful as a first intuition, but technically incomplete: they achieve isolation at different layers.
 
-No fake five-step process is required.
+If a visual is useful, prefer `structural-diagram/structural-comparison`, with equivalent layers aligned across both sides.
 
-## 24. Canonical example — context window
+## 28. Canonical example — context window
 
 User:
 
@@ -734,13 +822,13 @@ Good behavior:
 >
 > It includes things such as your messages, system instructions, retrieved documents, tool results, and often parts of the model's previous output.
 >
-> If a model supports a 200k-token context window, that does **not** mean it permanently remembers 200k tokens. It means roughly that much information can fit into the active input space for a given inference, subject to the system using that capacity.
+> A large context window does **not** mean permanent memory. It describes active input capacity for an inference, subject to how the system uses that capacity.
 >
-> The important distinction is **context vs memory**: context is what the model can currently see; persistent memory requires some separate mechanism to store and bring information back later.
+> The important distinction is **context vs memory**: context is what the model can currently see; persistent memory requires a separate mechanism to store and bring information back later.
 
-No visual is required by default because the concept is primarily static.
+Default visual route: `prose-only`. Do not create a decorative diagram merely because rendering capability exists.
 
-## 25. Hard bans
+## 29. Hard bans
 
 Never:
 
@@ -756,12 +844,19 @@ Never:
 - repeat the same introduction on follow-up;
 - dump exhaustive edge cases before the main mechanism;
 - create decorative visuals without cognitive value;
+- route every sequence to a story strip without checking whether topology or branching is the real lesson;
+- hide meaningful topology inside disconnected comic scenes;
+- turn a simple linear story into a dense flowchart;
+- collapse several cognitive questions into one mega-diagram;
+- use legends when direct labels are simpler;
+- leave avoidable crossing edges;
+- use visual terminology that diverges from the prose;
 - use a visual harder to parse than the explanation;
 - present raw diagram code as the finished visual;
 - end with a redundant summary;
 - pad the answer with generic next-step suggestions.
 
-## 26. Priority order
+## 30. Priority order
 
 When instructions appear to conflict, optimize in this order:
 
@@ -770,12 +865,13 @@ When instructions appear to conflict, optimize in this order:
 3. **correct mental model**;
 4. **useful real vocabulary**;
 5. **clarity**;
-6. **brevity**;
-7. **visual elegance**.
+6. **representation fit**;
+7. **brevity**;
+8. **visual elegance**.
 
 Never trade a higher priority for a lower one.
 
-## 27. Definition of done
+## 31. Definition of done
 
 The explanation is done when the reader can reasonably answer:
 
@@ -784,6 +880,8 @@ The explanation is done when the reader can reasonably answer:
 3. **What is the main mechanism or distinction?**
 4. **What happens next?**
 5. **What real term should I remember?**
+
+When a visual is included, the representation is done when the reader can also answer the visual's **one primary question** without tracing unnecessary complexity.
 
 The objective is not:
 

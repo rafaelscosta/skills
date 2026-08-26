@@ -7,7 +7,7 @@ Catálogo pessoal de skills de Rafael Costa.
 | Skill | O que faz |
 | --- | --- |
 | [clarify](./clarify) | Diagnostica por que um material é difícil de entender e transforma em explicações, fluxos, procedimentos ou auditorias de clareza em português brasileiro. |
-| [concept-bridge](./concept-bridge) | Constrói rapidamente o menor modelo mental correto para um adulto inteligente entender um conceito novo, preservando precisão, terminologia real e a profundidade mínima necessária. |
+| [concept-bridge](./concept-bridge) | Constrói o menor modelo mental correto para entender um conceito novo e, quando um visual ajuda, roteia entre narrativa, diagramas estruturais ou composição mista sem aumentar a carga cognitiva. |
 | [youtube-fetcher](./youtube-fetcher) | Extrai evidência do YouTube com contexto mínimo: metadata, capítulos, transcript, ranges, chunks determinísticos, manifests e Markdown pronto para Obsidian/RAG. |
 
 ## Uso
