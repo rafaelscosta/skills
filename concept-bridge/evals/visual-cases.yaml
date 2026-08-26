@@ -1,0 +1,158 @@
+version: 1
+skill: concept-bridge
+purpose: Verify visual necessity, narrative-vs-structural routing, diagram archetype selection, mixed composition, and diagram quality gates.
+
+cases:
+  - id: pull-request-story
+    prompt: "Explique pull request para alguém que entende Git básico."
+    expected_route: narrative-visual/story-strip
+    must:
+      - keep the main path linear and easy to scan
+      - use a story strip rather than a flowchart when no branch is needed
+      - keep one primary action per scene
+    must_not:
+      - create a dense architecture diagram
+      - add structural nodes that do not improve the first mental model
+
+  - id: rag-components-architecture
+    prompt: "Me explica visualmente os componentes de uma aplicação RAG e quem fala com quem."
+    expected_route: structural-diagram/architecture
+    must:
+      - show only the components necessary for the first correct system model
+      - make communication relationships explicit
+      - preserve the distinction between retrieval/indexing concerns and generation where relevant
+      - use direct labels
+    must_not:
+      - flatten the topology into disconnected comic panels
+      - imply runtime ordering from layout unless explicitly encoded
+
+  - id: github-issue-state
+    prompt: "Mostra como funciona o ciclo de estados de uma issue no GitHub, incluindo reabrir."
+    expected_route: structural-diagram/state
+    must:
+      - represent states as states and transitions as events/actions
+      - make reopen behavior visible
+      - avoid implying invalid transitions
+    must_not:
+      - replace the state model with a generic numbered story
+
+  - id: retry-duplicate-payment-causal
+    prompt: "Por que retries podem causar pagamento duplicado? Quero entender visualmente."
+    expected_route: structural-diagram/causal
+    must:
+      - show the causal mechanism from timeout/uncertain outcome through retry to duplicate side effect
+      - preserve idempotency as the relevant prevention concept when introduced
+      - label causal relationships clearly
+    must_not:
+      - draw mere correlation as causation
+      - add unrelated payment architecture
+
+  - id: docker-vm-structural-comparison
+    prompt: "Docker vs VM: mostra visualmente a diferença estrutural."
+    expected_route: structural-diagram/structural-comparison
+    must:
+      - align equivalent layers across both sides
+      - show guest OS or equivalent VM layer versus shared host-kernel/container structure accurately
+      - use parallel labels and comparable abstraction levels
+    must_not:
+      - use unrelated visual metaphors for each side
+      - hide a missing layer by shifting alignment
+
+  - id: repo-hierarchy
+    prompt: "Mostra a relação entre repositório, branches e commits."
+    expected_route: structural-diagram/hierarchy
+    must:
+      - make containment or belonging relationships clear
+      - avoid implying that hierarchy equals runtime execution
+    must_not:
+      - route to architecture merely because nodes are connected
+
+  - id: auth-branch-flow
+    prompt: "Mostra o fluxo de uma request que pode falhar na autenticação ou seguir para processamento."
+    expected_route: structural-diagram/flow
+    must:
+      - show an obvious entry point
+      - label decision branches and terminal outcomes
+      - keep the branch logic explicit
+    must_not:
+      - use a linear story strip that hides the decision
+
+  - id: json-no-visual
+    prompt: "O que é JSON?"
+    expected_route: prose-only
+    must:
+      - explain the static concept compactly
+    must_not:
+      - create a decorative diagram by default
+      - invent a lifecycle
+
+  - id: latency-explicit-visual
+    prompt: "O que é latência? Mostra visualmente."
+    expected_route: narrative-or-before-after
+    must:
+      - honor the explicit visual request
+      - choose a minimal representation that shows delay without inventing structural complexity
+    must_not:
+      - create a multi-node architecture diagram merely to satisfy the visual request
+
+  - id: oauth-mixed
+    prompt: "Me explica OAuth visualmente: quero entender tanto o que acontece quanto quem fala com quem."
+    expected_route: mixed
+    must:
+      - use narrative representation for temporal consent/action where useful
+      - use a structural or flow diagram for multi-actor relationships
+      - assign different explanatory jobs to narrative and diagram sections
+      - keep one obvious overall reading order
+      - avoid duplicating the same fact in prose, scene, and diagram
+    must_not:
+      - force the entire concept into one dense mega-diagram
+      - alternate formats merely for decoration
+
+  - id: static-to-diagram-rejection
+    prompt: "Crie um diagrama para explicar o que significa open source."
+    expected_route: explicit-visual/minimal
+    must:
+      - honor the explicit visual request
+      - keep the representation minimal and state when the concept is not inherently spatial if useful
+    must_not:
+      - invent false process or topology to make the diagram look richer
+
+  - id: crossing-edge-repair
+    prompt: "Explique visualmente um sistema com frontend, API, banco, cache e fila."
+    expected_route: structural-diagram/architecture
+    must:
+      - prefer a layout with zero crossing edges
+      - group or reorder components before tolerating crossings
+      - label material edges directly when ambiguous
+    must_not:
+      - leave several crossing arrows solely for visual drama
+
+  - id: direct-labels
+    prompt: "Mostra a arquitetura básica browser → API → database."
+    expected_route: structural-diagram/architecture
+    must:
+      - label Browser, API, and Database directly
+      - use an explicit reading direction
+    must_not:
+      - replace names with numeric legend keys
+
+  - id: prose-independence
+    prompt: "Me explica e desenha como um webhook chega no meu app."
+    expected_route: narrative-visual/story-strip
+    must:
+      - keep the truth-critical model in prose before the visual
+      - let the visual augment rather than become the sole source of essential facts
+    must_not:
+      - make the reader depend on successful rendering to understand the main mechanism
+
+  - id: html-inline-svg
+    prompt: "Crie um artefato HTML didático mostrando a arquitetura simples de um app com API e banco."
+    expected_route: structural-diagram/architecture
+    must:
+      - allow an embedded rendered diagram inside the HTML artifact
+      - prefer inline SVG for deterministic diagram construction when available
+      - keep the artifact self-contained where practical
+      - preserve accessible textual equivalent
+    must_not:
+      - expose raw SVG or Mermaid as the finished deliverable
+      - require an external diagram runtime without necessity
