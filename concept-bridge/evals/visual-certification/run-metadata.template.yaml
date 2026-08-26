@@ -1,0 +1,22 @@
+schema_version: concept-bridge.visual-certification-run/v1
+run_id: "YYYY-MM-DD-model-surface"
+skill_version: "3.1.0"
+skill_commit: "<commit-sha>"
+model: "<model-name>"
+product_surface: "<chatgpt|codex|other>"
+model_configuration: "<configuration-or-unknown>"
+isolation:
+  route_suite: "<fresh_case_context|blind_batch>"
+  render_pilot: "<fresh_case_context|blind_batch>"
+  generator_had_repo_access: false
+  oracle_exposed_before_seal: false
+started_at_utc: "<iso-8601>"
+sealed_at_utc: "<iso-8601>"
+judge_started_at_utc: "<iso-8601>"
+artifacts:
+  route_predictions: "route-predictions.yaml"
+  render_receipts: "render-receipts.yaml"
+  hashes: "artifact-hashes.txt"
+  certification_report: "certification-report.md"
+status: "pending"
+notes: ""
