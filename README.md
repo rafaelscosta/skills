@@ -7,6 +7,7 @@ Catálogo pessoal de skills de Rafael Costa.
 | Skill | O que faz |
 | --- | --- |
 | [clarify](./clarify) | Diagnostica por que um material é difícil de entender e transforma em explicações, fluxos, procedimentos ou auditorias de clareza em português brasileiro. |
+| [concept-bridge](./concept-bridge) | Constrói rapidamente o menor modelo mental correto para um adulto inteligente entender um conceito novo, preservando precisão, terminologia real e a profundidade mínima necessária. |
 | [youtube-fetcher](./youtube-fetcher) | Extrai evidência do YouTube com contexto mínimo: metadata, capítulos, transcript, ranges, chunks determinísticos, manifests e Markdown pronto para Obsidian/RAG. |
 
 ## Uso
@@ -16,6 +17,7 @@ Clone o repositório e aponte o runtime de skills para esta pasta, ou copie a sk
 ```bash
 git clone https://github.com/rafaelscosta/skills.git
 cp -R skills/clarify ~/.claude/skills/clarify
+cp -R skills/concept-bridge ~/.claude/skills/concept-bridge
 cp -R skills/youtube-fetcher ~/.claude/skills/youtube-fetcher
 ```
 
