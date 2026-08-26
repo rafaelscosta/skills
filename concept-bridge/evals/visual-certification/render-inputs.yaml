@@ -1,0 +1,23 @@
+version: 1
+suite: concept-bridge-visual-render-pilot
+skill_version: "3.1.0"
+purpose: Blind representative render pilot. This file intentionally contains no expected routes or scoring criteria.
+
+cases:
+  - id: pull-request-story
+    prompt: "Explique pull request para alguém que entende Git básico."
+
+  - id: rag-components-architecture
+    prompt: "Me explica visualmente os componentes de uma aplicação RAG e quem fala com quem."
+
+  - id: github-issue-state
+    prompt: "Mostra como funciona o ciclo de estados de uma issue no GitHub, incluindo reabrir."
+
+  - id: oauth-mixed
+    prompt: "Me explica OAuth visualmente: quero entender tanto o que acontece quanto quem fala com quem."
+
+  - id: crossing-edge-repair
+    prompt: "Explique visualmente um sistema com frontend, API, banco, cache e fila."
+
+  - id: html-inline-svg
+    prompt: "Crie um artefato HTML didático mostrando a arquitetura simples de um app com API e banco."

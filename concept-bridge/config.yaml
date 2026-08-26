@@ -22,3 +22,12 @@ contract:
   representation_router_required_when_visual: true
   diagram_contract_required_when_structural: true
   rendered_visual_required: true
+
+certification:
+  visual_behavior:
+    status: pending
+    protocol: evals/visual-certification/README.md
+    route_gate_required_cases: 15
+    render_gate_required_cases: 6
+    generator_oracle_separation_required: true
+    certified_claim: "CONCEPT-BRIDGE v3.1 VISUAL BEHAVIOR: CERTIFIED"

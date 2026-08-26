@@ -1,0 +1,50 @@
+version: 1
+suite: concept-bridge-visual-routing
+skill_version: "3.1.0"
+purpose: Blind generator inputs for visual-reasoning certification. This file intentionally contains no expected routes, must/must_not criteria, scoring hints, or oracle language.
+
+cases:
+  - id: pull-request-story
+    prompt: "Explique pull request para alguém que entende Git básico."
+
+  - id: rag-components-architecture
+    prompt: "Me explica visualmente os componentes de uma aplicação RAG e quem fala com quem."
+
+  - id: github-issue-state
+    prompt: "Mostra como funciona o ciclo de estados de uma issue no GitHub, incluindo reabrir."
+
+  - id: retry-duplicate-payment-causal
+    prompt: "Por que retries podem causar pagamento duplicado? Quero entender visualmente."
+
+  - id: docker-vm-structural-comparison
+    prompt: "Docker vs VM: mostra visualmente a diferença estrutural."
+
+  - id: repo-hierarchy
+    prompt: "Mostra a relação entre repositório, branches e commits."
+
+  - id: auth-branch-flow
+    prompt: "Mostra o fluxo de uma request que pode falhar na autenticação ou seguir para processamento."
+
+  - id: json-no-visual
+    prompt: "O que é JSON?"
+
+  - id: latency-explicit-visual
+    prompt: "O que é latência? Mostra visualmente."
+
+  - id: oauth-mixed
+    prompt: "Me explica OAuth visualmente: quero entender tanto o que acontece quanto quem fala com quem."
+
+  - id: static-to-diagram-rejection
+    prompt: "Crie um diagrama para explicar o que significa open source."
+
+  - id: crossing-edge-repair
+    prompt: "Explique visualmente um sistema com frontend, API, banco, cache e fila."
+
+  - id: direct-labels
+    prompt: "Mostra a arquitetura básica browser → API → database."
+
+  - id: prose-independence
+    prompt: "Me explica e desenha como um webhook chega no meu app."
+
+  - id: html-inline-svg
+    prompt: "Crie um artefato HTML didático mostrando a arquitetura simples de um app com API e banco."
