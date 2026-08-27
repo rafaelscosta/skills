@@ -1,0 +1,59 @@
+version: 1
+skill: visual-semantic-compiler
+purpose: Verify semantic compilation and deterministic validator boundaries.
+
+cases:
+  - id: concept-bridge-rag-architecture
+    source_skill: concept-bridge
+    expected_type: architecture
+    must:
+      - preserve a single primary question
+      - use direct labels
+      - keep the first model within the authored node budget
+      - provide text_equivalent
+
+  - id: concept-bridge-api-sequence
+    source_skill: concept-bridge
+    expected_type: sequence
+    must:
+      - use unique positive order for every message relationship
+      - distinguish chronology from static architecture
+
+  - id: concept-bridge-etl-dataflow
+    source_skill: concept-bridge
+    expected_type: dataflow
+    must:
+      - use data/reads/writes/flow relationship semantics
+      - preserve data movement rather than generic dependency
+
+  - id: clarify-source-bound-flow
+    source_skill: clarify
+    expected_type: flow
+    must:
+      - preserve branch labels
+      - retain explicit versus inferred provenance
+      - preserve source-bound conditions
+
+  - id: causal-provenance
+    source_skill: clarify
+    expected_type: causal
+    must:
+      - use causation or feedback edges only
+      - avoid strengthening inferred causality into explicit evidence
+
+  - id: mixed-oauth
+    source_skill: concept-bridge
+    expected_type: mixed
+    must:
+      - contain at least one narrative and one structural view
+      - assign distinct questions to the views
+
+  - id: invalid-missing-endpoint
+    expected_validation: invalid
+    must:
+      - return missing-endpoint error
+
+  - id: invalid-state-contract
+    expected_validation: invalid
+    must:
+      - reject non-state entities or non-transition relationships in a state diagram
