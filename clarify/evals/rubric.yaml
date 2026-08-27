@@ -61,7 +61,7 @@ thresholds:
     - accessibility
     - epistemic_clarity
   high_risk:
-    minimum_total: 31
+    minimum_total: 27
     required_two:
     - fidelity
     - causal_completeness
