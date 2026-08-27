@@ -1,0 +1,40 @@
+version: 1
+scale:
+  0: absent, incorrect, or semantically unsafe
+  1: present but incomplete or weakly bounded
+  2: complete, correct, minimal, and renderer-independent
+
+dimensions:
+  - id: semantic_fidelity
+    question: Does the IR preserve the upstream mental model or source invariants without strengthening unsupported claims?
+  - id: representation_fit
+    question: Does class/type match the already-selected cognitive representation?
+  - id: relationship_semantics
+    question: Does every material edge state a real semantic relationship with valid endpoints?
+  - id: provenance
+    question: Are explicit, inferred, general-knowledge, and unknown claims bounded truthfully?
+  - id: minimality
+    question: Does every entity, edge, beat, group, and view earn its place at the selected depth?
+  - id: prose_independence
+    question: Does text_equivalent preserve the truth-critical model without rendering?
+  - id: deterministic_validation
+    question: Does the frozen candidate pass the bundled validator without fabricated claims about deferred layout?
+
+thresholds:
+  standard:
+    minimum_total: 13
+    required_two:
+      - semantic_fidelity
+      - representation_fit
+      - relationship_semantics
+      - prose_independence
+      - deterministic_validation
+
+automatic_failure:
+  - Missing or dangling relationship endpoint.
+  - Unsupported causal relationship strengthened beyond its provenance.
+  - Mixed views repeat the same cognitive question.
+  - Canonical terminology diverges from upstream prose without explicit equivalence.
+  - Text equivalent is absent.
+  - Validator returns non-zero but the run claims success.
+  - Layout or perceptual review is claimed from the R1 semantic validator.
