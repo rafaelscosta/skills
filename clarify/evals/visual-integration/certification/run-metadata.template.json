@@ -1,0 +1,15 @@
+{
+  "schema_version": "clarify-visual-ab-run-metadata/v1",
+  "run_id": "",
+  "condition": "control|treatment",
+  "repository_commit": "",
+  "model": "GPT-5.6 Sol",
+  "surface": "codex|chatgpt|other",
+  "isolation": "fresh_condition_context",
+  "case_count": 3,
+  "oracle_seen": false,
+  "opposite_condition_seen": false,
+  "prior_judgment_seen": false,
+  "started_at": null,
+  "completed_at": null
+}
