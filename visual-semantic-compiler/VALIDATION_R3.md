@@ -12,10 +12,13 @@ python3 -m unittest tests/test_perceptual_r3.py -v
 
 - Python compile: PASS
 - Node syntax check: PASS
-- R3 review/binding tests: **9/9 PASS**
+- R3 review/binding tests: **12/12 PASS**
 - `passed` review requires browser evidence PASS: covered
 - artifact SHA mismatch: rejected
 - evidence SHA mismatch: rejected
+- incomplete required viewport coverage: rejected
+- missing retained screenshot: rejected
+- tampered screenshot SHA/byte evidence: rejected
 - failed review without a defect: rejected
 - failed review with concrete defect: preserved as `perceptually-failed`
 - skipped review without reason: rejected
@@ -72,6 +75,19 @@ delivery_status: perceptually-passed
 
 This is a smoke proof for the R3 protocol and fixture, not a certification of every renderer output.
 
+## Screenshot evidence hardening
+
+For a `passed` perceptual review, the binding validator now requires more than the declarations inside the evidence JSON. It independently verifies:
+
+- exact required viewport coverage: 1440×900, 1600×1000, 1920×1080, 2048×1320;
+- exact retained screenshot coverage: 1440×900 and 2048×1320;
+- each referenced PNG exists beside the evidence receipt;
+- each PNG SHA-256 matches the evidence receipt;
+- each PNG byte count matches the evidence receipt;
+- screenshot references are safe relative filenames.
+
+Deleting or modifying a retained screenshot therefore invalidates a later `perceptually-passed` claim even when the evidence JSON itself remains unchanged.
+
 ## Negative live browser case
 
 ```bash
@@ -100,6 +116,8 @@ render_source: exact-artifact-bytes-via-Page.setDocumentContent
 
 Before every browser run, the checker removes its previous receipt, contact sheet, and known screenshot sidecars. A skipped or failed recapture cannot leave old screenshots positioned as current evidence.
 
+The final review-binding validator additionally checks the retained PNG bytes themselves, so stale or tampered screenshot sidecars cannot satisfy a trusted visual delivery claim.
+
 ## Claim boundary
 
 R3 v1 certifies only the declared desktop perceptual-delivery protocol:
@@ -111,4 +129,4 @@ R3 v1 certifies only the declared desktop perceptual-delivery protocol:
 
 It does **not** certify mobile/narrow usability.
 
-Automated browser evidence does not itself prove perceptual quality. A final perceptual pass still requires inspection by an identified human or vision-capable model and a hash-bound review receipt.
+Automated browser evidence does not itself prove perceptual quality. A final perceptual pass still requires inspection by an identified human or vision-capable model and a hash-bound review receipt whose required screenshot evidence is present and byte-valid.
