@@ -1,0 +1,37 @@
+{
+  "schema_version": "visual-semantic-ir/v1",
+  "source_skill": "concept-bridge",
+  "intent": {
+    "question": "Quem fala com quem em uma aplicação RAG básica?",
+    "audience": "adulto inteligente novo em RAG",
+    "depth": "L2",
+    "language": "pt-BR",
+    "desired_outcome": "identificar os componentes e o caminho principal"
+  },
+  "representation": {
+    "class": "structural-diagram",
+    "type": "architecture",
+    "reading_direction": "left-to-right",
+    "primary_question": "Quem fala com quem em uma aplicação RAG básica?"
+  },
+  "entities": [
+    {"id":"user","label":"Usuário","kind":"actor","provenance":{"status":"general-knowledge"}},
+    {"id":"app","label":"Aplicação","kind":"component","provenance":{"status":"general-knowledge"}},
+    {"id":"retriever","label":"Retriever","kind":"component","provenance":{"status":"general-knowledge"}},
+    {"id":"store","label":"Vector database","kind":"storage","provenance":{"status":"general-knowledge"}},
+    {"id":"llm","label":"LLM","kind":"component","provenance":{"status":"general-knowledge"}}
+  ],
+  "relationships": [
+    {"id":"r1","from":"user","to":"app","kind":"flow","semantic":"envia pergunta"},
+    {"id":"r2","from":"app","to":"retriever","kind":"call","semantic":"solicita contexto"},
+    {"id":"r3","from":"retriever","to":"store","kind":"reads","semantic":"busca trechos relevantes"},
+    {"id":"r4","from":"app","to":"llm","kind":"call","semantic":"envia pergunta e contexto"},
+    {"id":"r5","from":"llm","to":"app","kind":"return","semantic":"retorna resposta"}
+  ],
+  "narrative_beats": [],
+  "groups": [],
+  "views": [],
+  "constraints": {"direct_labels": true, "target_zero_crossings": true, "max_primary_nodes": 7, "text_equivalent_required": true},
+  "omissions": ["pipeline de ingestão", "reranking", "detalhes de embeddings"],
+  "text_equivalent": "O usuário pergunta à aplicação; ela recupera contexto relevante no vector database por meio do retriever e envia pergunta mais contexto ao LLM, que devolve a resposta."
+}
