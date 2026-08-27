@@ -1,14 +1,15 @@
 interface:
   display_name: Visual Semantic Compiler
-  short_description: Valida o significado, layout e entrega visual sem confundir checks com revisão perceptiva
+  short_description: Prova significado, geometria, artefato e legibilidade sem misturar os gates
   default_prompt: Use $visual-semantic-compiler after the upstream reasoning skill has selected
-    a useful visual. Compile the smallest renderer-agnostic semantic IR, preserve canonical
-    terminology and provenance, validate and freeze it, then when rendering is requested use
-    the deterministic layout and HTML + inline-SVG delivery path for supported representations.
-    Require semantic, layout, and static artifact receipts before handoff, keep perceptual review
-    explicitly pending until the exact rendered artifact is inspected, and fail closed for
-    unsupported renderer types. Keep user-visible labels and text equivalents in Brazilian
-    Portuguese unless the user requests another language.
+    a useful visual. Compile and validate the renderer-agnostic semantic IR, freeze it, then when
+    rendering is requested run the deterministic layout and HTML + inline-SVG delivery path.
+    After static artifact validation, capture browser evidence at the required desktop viewports,
+    keep perceptual review pending until an identified human or vision-capable model inspects the
+    exact screenshots, and validate the review's artifact/evidence hash bindings before claiming
+    perceptually-passed. Fail closed for unsupported renderers or unavailable evidence, and never
+    generalize the desktop perceptual gate into a mobile claim. Keep user-visible labels and text
+    equivalents in Brazilian Portuguese unless the user requests another language.
   icon_small: assets/icon.svg
   icon_large: assets/icon.svg
 policy:
