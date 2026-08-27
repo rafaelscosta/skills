@@ -1,0 +1,30 @@
+version: 1
+suite: clarify-visual-integration-ab
+
+control:
+  label: clarify-v1.0-control
+  repository_commit: a10b7e80f3dbe29422226aa31758f7c679e829af
+  clarify_version: "1.0.0"
+  skill_path: clarify/SKILL.md
+  integration: disabled
+  note: >-
+    This commit is the last main baseline before the Clarify→Visual Semantic Compiler integration.
+    A control generator must execute from this checkout or from an exact materialized copy of the
+    listed skill bytes. It must not inspect later Clarify/VSC integration files.
+
+treatment:
+  label: clarify-v1.1-vsc-treatment
+  repository_commit: 78cb5cde584ddc9b022b7b4de91930f1ac76a1b1
+  clarify_version: "1.1.0"
+  visual_compiler_version: "1.2.1"
+  clarify_path: clarify/
+  compiler_path: visual-semantic-compiler/
+  integration: enabled
+
+matching:
+  same_model_required: true
+  same_reasoning_effort_required: true
+  same_case_prompts_required: true
+  same_rendering_capability_required: true
+  same_external_research_policy_required: true
+  fresh_context_per_condition_required: true
