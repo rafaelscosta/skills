@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "visual-layout/v1",
+  "title": "Visual Layout Candidate v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","semantic_ir_sha256","representation_type","reading_direction","viewport","nodes","edges","lifelines","constraints","text_equivalent","layout_sha256"],
+  "properties": {
+    "schema_version": {"const":"visual-layout/v1"},
+    "semantic_ir_sha256": {"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "representation_type": {"type":"string","minLength":1},
+    "reading_direction": {"enum":["left-to-right","top-to-bottom","other"]},
+    "viewport": {"type":"object","additionalProperties":false,"required":["width","height","padding"],"properties":{"width":{"type":"number","exclusiveMinimum":0},"height":{"type":"number","exclusiveMinimum":0},"padding":{"type":"number","minimum":0}}},
+    "nodes": {"type":"array","items":{"$ref":"#/$defs/node"}},
+    "edges": {"type":"array","items":{"$ref":"#/$defs/edge"}},
+    "lifelines": {"type":"array","items":{"$ref":"#/$defs/lifeline"}},
+    "constraints": {"type":"object","additionalProperties":false,"properties":{"target_zero_crossings":{"type":"boolean"}}},
+    "text_equivalent": {"type":"string","minLength":1},
+    "layout_sha256": {"type":"string","pattern":"^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "point":{"type":"array","prefixItems":[{"type":"number"},{"type":"number"}],"items":false,"minItems":2,"maxItems":2},
+    "box":{"type":"object","additionalProperties":false,"required":["x","y","width","height"],"properties":{"x":{"type":"number"},"y":{"type":"number"},"width":{"type":"number","exclusiveMinimum":0},"height":{"type":"number","exclusiveMinimum":0}}},
+    "node":{"type":"object","required":["id","label","kind","x","y","width","height"],"properties":{"id":{"type":"string"},"label":{"type":"string"},"kind":{"type":"string"},"description":{"type":"string"},"group_id":{"type":"string"},"x":{"type":"number"},"y":{"type":"number"},"width":{"type":"number","exclusiveMinimum":0},"height":{"type":"number","exclusiveMinimum":0}},"additionalProperties":false},
+    "edge":{"type":"object","required":["id","from","to","kind","semantic","points","label","label_box"],"properties":{"id":{"type":"string"},"from":{"type":"string"},"to":{"type":"string"},"kind":{"type":"string"},"semantic":{"type":"string"},"points":{"type":"array","minItems":2,"items":{"$ref":"#/$defs/point"}},"label":{"type":"string"},"label_box":{"$ref":"#/$defs/box"}},"additionalProperties":false},
+    "lifeline":{"type":"object","additionalProperties":false,"required":["entity_id","x","y1","y2"],"properties":{"entity_id":{"type":"string"},"x":{"type":"number"},"y1":{"type":"number"},"y2":{"type":"number"}}}
+  }
+}
