@@ -4,7 +4,14 @@ surface: generator-blind
 
 cases:
   - id: refund-operational-flow
-    source_file: ../refund-policy.md
+    source_inline: >-
+      O atendimento recebe o pedido de reembolso e confirma o identificador do pedido. Um pedido é
+      elegível quando foi solicitado em até 7 dias da compra e não houve consumo do conteúdo premium.
+      Se as duas condições forem verdadeiras, o atendimento aprova o reembolso. Se qualquer condição
+      falhar, o atendimento nega o reembolso e informa o motivo ao cliente. Depois da aprovação, o
+      processamento financeiro pode levar de 3 a 5 dias úteis; esse prazo não altera a decisão de
+      elegibilidade. Se os dados do pedido estiverem incompletos, o atendimento não deve aprovar nem
+      negar; deve solicitar os dados faltantes e retomar a análise depois.
     prompt: >-
       Transforme esta política em uma explicação operacional clara para a equipe de atendimento
       e inclua um visual que permita aplicar corretamente a decisão de reembolso, inclusive quando
