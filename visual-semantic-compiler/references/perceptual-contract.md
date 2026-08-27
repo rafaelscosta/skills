@@ -149,7 +149,18 @@ A valid combined receipt reports one of:
 - `perceptually-failed`;
 - `perceptual-review-skipped`.
 
-The validator checks provenance and bindings. It does **not** inspect pixels itself.
+The validator checks provenance and revision binding. For a `passed` review it also independently verifies the evidence surface rather than trusting declarations alone:
+
+- all four required desktop viewports are present;
+- both required retained screenshots are present;
+- each screenshot reference is a safe relative filename;
+- each referenced PNG exists beside the evidence receipt;
+- each PNG SHA-256 matches the browser evidence receipt;
+- each PNG byte count matches the browser evidence receipt.
+
+Deleting, replacing, or tampering with a retained PNG therefore invalidates a later `perceptually-passed` claim even if the evidence JSON itself was not edited.
+
+The validator does **not** inspect pixels itself. The reviewer remains responsible for the perceptual judgment.
 
 ## Immutability
 
@@ -163,6 +174,8 @@ Any change to the HTML bytes invalidates:
 Capture and review again.
 
 A reviewer must never approve screenshots from a previous artifact revision.
+
+Likewise, changing or deleting the retained screenshots invalidates the review-binding gate.
 
 ## Correction loop
 
@@ -199,7 +212,7 @@ A canonical visual delivery may claim `perceptually-passed` only when:
 2. layout validation passed;
 3. static artifact validation passed;
 4. browser evidence passed on every required desktop viewport;
-5. retained screenshots are bound to the artifact;
-6. an identified reviewer inspected them;
+5. both retained screenshots exist and their bytes match the evidence receipt;
+6. an identified reviewer inspected those exact screenshots;
 7. the reviewer reported no visible defects;
-8. the review receipt passes the binding validator.
+8. the review receipt passes artifact, evidence, viewport, and screenshot binding validation.
