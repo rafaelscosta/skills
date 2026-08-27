@@ -4,6 +4,8 @@
 
 `clarify` é uma skill para diagnosticar **por que um material é difícil de entender** e reconstruí-lo como uma explicação, fluxo, comparação, procedimento, visual ou auditoria de clareza adequada ao público e ao resultado desejado.
 
+A partir da v1.1, Clarify também pode preservar invariantes de uma fonte até um visual renderizado verificável usando [`visual-semantic-compiler`](../visual-semantic-compiler), sem confundir um diagrama gerado com um diagrama realmente provado.
+
 A ideia central não é apenas deixar o texto mais curto ou amigável. A skill trata clareza como um problema de engenharia:
 
 ```text
@@ -13,7 +15,7 @@ Detectable difficulty
 → verifiable understanding
 ```
 
-A versão atual do pack é `1.0.0`.
+A versão atual do pack é `1.1.0`.
 
 ## Para que serve
 
@@ -28,6 +30,7 @@ Use `clarify` quando o objetivo real for melhorar **compreensão, decisão, prev
 - diagnosticar por que uma documentação está confusa;
 - reconstruir políticas e procedimentos para serem executáveis;
 - escolher ou especificar uma representação visual adequada;
+- criar um visual source-bound sem perder regras, thresholds, exceções ou recovery;
 - separar fatos, inferências, incerteza e fora de escopo;
 - explicar números com baseline, denominador, unidade e incerteza;
 - criar explicações de alto risco sem apagar restrições importantes;
@@ -64,7 +67,7 @@ Por que esta documentação parece sofisticada, mas ninguém entende? Audite e r
 ```
 
 ```text
-Explique de forma inequívoca a diferença entre agente, assistente e chatbot, incluindo casos de borda.
+Transforme esta política em um fluxo visual que a equipe consiga executar sem perder nenhuma condição ou caminho de recuperação.
 ```
 
 ### Explícita
@@ -91,7 +94,7 @@ A skill escolhe o **modo mais leve capaz de resolver o problema**.
 | `flow` | há processo, workflow, lifecycle ou cadeia de responsabilidade | happy path + decisões + falhas + recovery + diagrama adequado |
 | `compare` | conceitos, estados ou opções semelhantes estão sendo confundidos | comparação orientada à decisão + casos de borda |
 | `audit` | material existente precisa ser diagnosticado e reparado | findings + invariantes + versão reconstruída + testes |
-| `visual` | a dificuldade principal é relacional ou espacial | especificação visual + equivalente textual acessível |
+| `visual` | a dificuldade principal é relacional ou espacial | especificação visual + equivalente textual; render verificado quando solicitado |
 | `high-risk` | erro de compreensão pode causar dano material | explicação verificada + restrições exatas + incerteza + validação |
 
 Um modo pedido explicitamente pelo usuário é tratado como vinculante, salvo quando isso criaria falha de segurança ou fidelidade.
@@ -147,22 +150,7 @@ Se a fonte é inconsistente, ambígua ou incompleta, o conflito não é silencio
 
 ### A — Analyze the difficulty
 
-Diagnostica a causa dominante da dificuldade, como:
-
-- jargon;
-- terminologia inconsistente;
-- ambiguidade sintática;
-- pré-requisitos faltando;
-- abstração excessiva;
-- modelo causal fraco;
-- estrutura ruim;
-- processo complexo;
-- regras demais;
-- conceitos parecidos;
-- dificuldade numérica;
-- overload visual;
-- incerteza epistemológica;
-- alto risco de interpretação errada.
+Diagnostica a causa dominante da dificuldade, como jargon, terminologia inconsistente, ambiguidade sintática, pré-requisitos faltando, abstração excessiva, modelo causal fraco, processo complexo, overload visual ou risco de interpretação errada.
 
 ### R — Route the intervention
 
@@ -206,6 +194,7 @@ Antes de entregar, verifica se:
 - exemplos representam a regra;
 - analogias têm mapeamento e limite;
 - visuais usam notação semanticamente correta;
+- invariantes visualmente relevantes estão explicitamente cobertos;
 - incerteza continua visível;
 - restrições de alto risco estão exatas e proeminentes;
 - a ação pedida é possível a partir da explicação.
@@ -224,108 +213,6 @@ A validação muda conforme o objetivo.
 | detectar erros | diagnosticar e corrigir um caso propositalmente errado |
 | transferir | aplicar em um caso estruturalmente semelhante |
 | lembrar | recuperação posterior, não apenas reconhecimento imediato |
-
-## Exemplos de uso
-
-### Explicação técnica
-
-```text
-$clarify O que significa "429 with exponential backoff and jitter"? Explique e mostre o comportamento esperado.
-```
-
-### Workflow
-
-```text
-$clarify Explique este processo de aprovação, incluindo responsável por cada etapa, decisões, rejeições e recuperação.
-```
-
-### Auditoria
-
-```text
-$clarify Audite por que esta documentação está difícil de entender e reconstrua a versão mais clara possível sem alterar requisitos.
-```
-
-### Comparação
-
-```text
-$clarify Diferencie agente, assistente e chatbot usando critérios que permitam classificar casos de borda.
-```
-
-### Arquitetura para outro público
-
-```text
-$clarify Explique esta arquitetura para o time de marketing sem misturar estrutura com sequência de execução.
-```
-
-### Alto risco
-
-```text
-$clarify Torne este procedimento de rotação de credenciais impossível de interpretar errado e adicione validação antes da revogação.
-```
-
-## Contratos de saída
-
-A skill não força um template gigante em toda resposta.
-
-### Quick
-
-```markdown
-## Em uma frase
-
-## Em termos simples
-
-## Exemplo
-```
-
-### Standard
-
-```markdown
-## Ideia central
-
-## Explicação simples
-
-## Como funciona
-
-## Exemplo concreto
-
-## Termos indispensáveis
-
-## Limites ou exceções
-```
-
-### Deep
-
-Pode adicionar somente as seções relevantes, como:
-
-- outcome operacional do público;
-- mapa de pré-requisitos;
-- visão do sistema;
-- mecanismo detalhado;
-- fluxo ou visual;
-- exemplo e non-example;
-- decision/action guide;
-- falhas e recovery;
-- camada técnica;
-- conhecido, assumido, incerto e fora de escopo;
-- testes de compreensão e transferência.
-
-### Audit
-
-```markdown
-## Veredito
-
-## Por que o material está difícil
-
-## Invariantes preservados
-
-## Problemas por prioridade
-
-## Versão reconstruída
-
-## O que mudou e por quê
-
-## Como validar com o público
-```
 
 ## Fluxos e diagramas
 
@@ -351,19 +238,45 @@ Regras visuais importantes:
 - ação, decisão, estado, dado, ator e storage semanticamente distintos;
 - macro, responsabilidade, sequência, estado e infraestrutura separados quando necessário;
 - equivalente textual acessível;
-- cor nunca como único portador de significado.
+- cor nunca como único portador de significado;
+- regras operacionais decisivas permanecem explícitas, mesmo quando precisam quebrar em várias linhas;
+- recovery paths reais não são apagados apenas para o desenho ficar mais simples.
+
+### Visual source-bound verificável
+
+Quando o visual depende de uma fonte e o usuário quer um artefato renderizado/reutilizável, Clarify usa `references/visual-delivery.md` e cria uma cobertura de invariantes antes do handoff.
+
+Cada invariante visual relevante precisa terminar como:
+
+```text
+represented
+text-only
+omitted-with-reason
+blocked
+```
+
+O gate determinístico é:
+
+```bash
+python3 scripts/validate_invariant_coverage.py coverage.json --ir visual-ir.json --json
+```
+
+Depois, `visual-semantic-compiler` assume a cadeia de prova:
+
+```text
+Visual Semantic IR
+→ semantic validation
+→ deterministic layout
+→ artifact validation
+→ browser evidence
+→ perceptual review
+```
+
+Um render não revisado não é chamado de visual confiável. `perceptually-passed` só existe para a mesma revisão de bytes/artefato que recebeu browser evidence e revisão visual hash-bound.
 
 ## High-risk mode
 
-Use `high-risk` quando interpretação incorreta pode afetar:
-
-- saúde;
-- direitos;
-- dinheiro;
-- segurança;
-- privacidade;
-- compliance;
-- operações críticas.
+Use `high-risk` quando interpretação incorreta pode afetar saúde, direitos, dinheiro, segurança, privacidade, compliance ou operações críticas.
 
 A regra central é:
 
@@ -375,35 +288,29 @@ Nesse modo, constraints exatas, thresholds, datas, unidades, prerequisites, appr
 
 ## Evals
 
-A pasta `evals/` contém:
+A pasta `evals/` contém os casos gerais e, na v1.1, um protocolo específico de integração visual:
 
 ```text
 evals/
 ├── clarity-cases.yaml
 ├── rubric.yaml
-└── trigger-cases.yaml
+├── trigger-cases.yaml
+└── visual-integration/
+    ├── README.md
+    ├── ab-cases.yaml
+    ├── refund-policy.md
+    ├── refund.ir.json
+    └── refund.coverage.json
 ```
 
-O rubric avalia dimensões como:
+O rubric passou a avaliar também:
 
-- audience fit;
-- main message;
-- logical order;
-- terminology;
-- sentence clarity;
-- causal completeness;
-- fidelity;
-- example quality;
-- visual fit;
-- actionability;
-- exceptions/recovery;
-- epistemic clarity;
-- accessibility;
-- validation.
+- `visual_invariant_coverage`;
+- `visual_delivery_proof`.
 
-Existem gates diferentes para quick, reusable, operational e high-risk.
+Existe um gate `trusted_visual` que não pode ser satisfeito apenas com uma imagem bonita ou um HTML que renderiza.
 
-Falhas automáticas incluem perda de invariante material, causalidade não suportada, termo canônico redefinido incorretamente, visual semanticamente errado e apagamento de incerteza de alto risco.
+A integração determinística já possui um piloto perceptualmente aprovado; a comparação comportamental A/B em fresh context permanece separada e pendente.
 
 ## Scripts determinísticos
 
@@ -413,15 +320,11 @@ Falhas automáticas incluem perda de invariante material, causalidade não supor
 python3 scripts/validate_bundle.py .
 ```
 
-O validator checa a estrutura e integridade básica do pack.
-
 ### Lint de clareza PT-BR
 
 ```bash
 python3 scripts/clarity_lint.py ARQUIVO.md
 ```
-
-Esse lint procura riscos de superfície em português brasileiro. Ele **não prova** compreensão, precisão semântica ou fidelidade à fonte.
 
 ### Scoring
 
@@ -429,7 +332,13 @@ Esse lint procura riscos de superfície em português brasileiro. Ele **não pro
 python3 scripts/score_clarity.py resultado.json
 ```
 
-O scorer aplica as dimensões e gates críticos definidos para os diferentes níveis de risco.
+### Cobertura de invariantes para visual source-bound
+
+```bash
+python3 scripts/validate_invariant_coverage.py coverage.json --ir visual-ir.json --json
+```
+
+Esse validator não decide pedagogia. Ele prova que nenhum invariante visual relevante desapareceu silenciosamente entre a fonte Clarify e o IR visual.
 
 ## Progressive disclosure
 
@@ -443,6 +352,7 @@ O `SKILL.md` contém o protocolo central. Referências maiores são carregadas c
 | PT-BR controlado | `references/pt-br-controlled-language.md` |
 | explicar fluxos | `references/flow-protocol.md` |
 | escolher diagramas | `references/visual-grammar.md` |
+| entregar visual source-bound/renderizado | `references/visual-delivery.md` + `$visual-semantic-compiler` |
 | pipelines recorrentes | `references/pipelines.md` |
 | validação e evals | `references/validation-and-evals.md` |
 | alto risco | `references/high-risk-protocol.md` |
@@ -451,9 +361,7 @@ O `SKILL.md` contém o protocolo central. Referências maiores são carregadas c
 | padrões e exemplos | `references/examples.md` |
 | deploy/tuning GPT-5.6 | `references/gpt-5.6-runtime.md` |
 
-Há também JSON Schemas em `references/` para outputs estruturados.
-
-## Estrutura
+## Estrutura relevante
 
 ```text
 clarify/
@@ -461,65 +369,23 @@ clarify/
 ├── SKILL.md
 ├── config.yaml
 ├── agents/
-│   └── openai.yaml
-├── assets/
-│   └── icon.svg
 ├── evals/
-│   ├── clarity-cases.yaml
-│   ├── rubric.yaml
-│   └── trigger-cases.yaml
+│   └── visual-integration/
 ├── references/
-│   ├── diagnostic-taxonomy.md
-│   ├── technique-selector.md
-│   ├── technique-scoring.md
-│   ├── pt-br-controlled-language.md
-│   ├── flow-protocol.md
 │   ├── visual-grammar.md
-│   ├── pipelines.md
-│   ├── validation-and-evals.md
-│   ├── high-risk-protocol.md
-│   ├── evidence-map.md
-│   ├── failure-catalog.md
-│   ├── examples.md
-│   ├── gpt-5.6-runtime.md
-│   └── *.schema.json
+│   └── visual-delivery.md
 └── scripts/
     ├── clarity_lint.py
     ├── score_clarity.py
-    └── validate_bundle.py
+    ├── validate_bundle.py
+    └── validate_invariant_coverage.py
 ```
-
-## Instalação
-
-Clone o catálogo:
-
-```bash
-git clone https://github.com/rafaelscosta/skills.git
-```
-
-Copie a skill para um catálogo local compatível:
-
-```bash
-cp -R skills/clarify ~/.claude/skills/clarify
-```
-
-Ou configure seu runtime para carregar diretamente a pasta `clarify`.
 
 ## Política operacional
 
-O `config.yaml` define, por padrão:
+O `config.yaml` mantém input untrusted, repositório read-only, sem publicação/provedor/rede por default e sem sobrescrever a fonte.
 
-```text
-input trust      → untrusted
-repository       → read-only
-mutation         → none
-network          → deny
-provider         → deny
-publication      → deny
-source overwrite → deny
-```
-
-O estado terminal de sucesso é `HANDOFF`.
+Na v1.1, um visual source-bound exige cobertura de invariantes antes de um handoff visual confiável, e um claim de `trusted visual` exige revisão perceptiva atual via Visual Semantic Compiler.
 
 ## Clarify vs Concept Bridge
 
@@ -558,6 +424,15 @@ Uma saída é considerada boa somente quando:
 [ ] Exceções e recovery paths aparecem quando operacionalmente relevantes.
 [ ] O público consegue demonstrar o resultado pretendido.
 ```
+
+Para visual source-bound, adicione:
+
+```text
+[ ] Todos os invariantes visualmente relevantes têm cobertura explícita.
+[ ] Nenhuma regra ou recovery path foi enfraquecido para caber no layout.
+```
+
+Para um visual chamado de confiável/verificado, adicione ainda o perceptual gate da mesma revisão de artefato.
 
 O objetivo não é produzir “texto fácil”.
 
