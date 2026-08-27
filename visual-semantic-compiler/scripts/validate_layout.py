@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, hashlib, json, math, sys
+import argparse, hashlib, json, sys
 from pathlib import Path
 
 SCHEMA='visual-layout/v1'
@@ -35,6 +35,17 @@ def segment_hits_rect(a,b,r):
     if point_inside_rect(a,r) or point_inside_rect(b,r): return True
     cs=[(r['x'],r['y']),(r['x']+r['width'],r['y']),(r['x']+r['width'],r['y']+r['height']),(r['x'],r['y']+r['height'])]
     return any(seg_intersect(a,b,cs[i],cs[(i+1)%4]) for i in range(4))
+def explicit_outer_back_route(edge,nodes,direction):
+    pts=edge.get('points',[])
+    if len(pts)<4 or not nodes:return False
+    xs=[p[0] for p in pts]; ys=[p[1] for p in pts]
+    left=min(n['x'] for n in nodes); right=max(n['x']+n['width'] for n in nodes)
+    top=min(n['y'] for n in nodes); bottom=max(n['y']+n['height'] for n in nodes)
+    gutter=24
+    if direction=='top-to-bottom': return max(xs)>=right+gutter or min(xs)<=left-gutter
+    if direction=='left-to-right': return max(ys)>=bottom+gutter or min(ys)<=top-gutter
+    return False
+
 def validate(layout):
     E=[];W=[];checks={k:'pending' for k in ['shape','containment','node_separation','edge_node_clearance','edge_crossings','label_clearance','reading_direction','artifact_readiness']}
     if not isinstance(layout,dict): error(E,'shape','$','layout must be object'); return receipt(layout,E,W,checks)
@@ -74,8 +85,8 @@ def validate(layout):
             if e1['id']==e2['id'] or {e1.get('from'),e1.get('to')} & {e2.get('from'),e2.get('to')}:continue
             if seg_intersect(a,b,c,d):crossings.append((e1['id'],e2['id']))
     if crossings:
-        fn=error if layout.get('constraints',{}).get('target_zero_crossings') else warning
-        fn(E if fn is error else W,'edge-crossing','edges',f'{len(crossings)} unrelated edge crossings',crossings[:8])
+        if layout.get('constraints',{}).get('target_zero_crossings'): error(E,'edge-crossing','edges',f'{len(crossings)} unrelated edge crossings',crossings[:8])
+        else: warning(W,'edge-crossing','edges',f'{len(crossings)} unrelated edge crossings',crossings[:8])
     for i,(e,lb) in enumerate(label_boxes):
         for n in nodes:
             if rect_overlap(lb,n,4):error(E,'label-node-collision',e['id'],f"label overlaps node {n['id']}")
@@ -88,8 +99,10 @@ def validate(layout):
             a=nmap.get(e.get('from'));b=nmap.get(e.get('to'))
             if not a or not b:continue
             ac=(a['x']+a['width']/2,a['y']+a['height']/2);bc=(b['x']+b['width']/2,b['y']+b['height']/2)
-            if direction=='left-to-right' and bc[0]+4<ac[0]:error(E,'reading-direction',e['id'],'primary edge moves right-to-left')
-            if direction=='top-to-bottom' and bc[1]+4<ac[1]:error(E,'reading-direction',e['id'],'primary edge moves bottom-to-top')
+            backward=(direction=='left-to-right' and bc[0]+4<ac[0]) or (direction=='top-to-bottom' and bc[1]+4<ac[1])
+            if backward and not explicit_outer_back_route(e,nodes,direction):
+                message='primary edge moves right-to-left' if direction=='left-to-right' else 'primary edge moves bottom-to-top'
+                error(E,'reading-direction',e['id'],message)
     for k in checks:checks[k]='failed' if E else 'passed'
     return receipt(layout,E,W,checks)
 def receipt(layout,E,W,checks):

@@ -1,0 +1,17 @@
+{
+  "schema_version": "clarify-invariant-coverage/v1",
+  "invariants": [
+    {"id":"INV-001","statement":"Dados incompletos bloqueiam a decisão e exigem complementação antes de retomar.","visual_relevant":true},
+    {"id":"INV-002","statement":"Elegibilidade exige simultaneamente pedido em até 7 dias e nenhum consumo premium.","visual_relevant":true},
+    {"id":"INV-003","statement":"Aprova apenas se ambas as condições de elegibilidade forem verdadeiras.","visual_relevant":true},
+    {"id":"INV-004","statement":"Se qualquer condição de elegibilidade falhar, negar e explicar o motivo.","visual_relevant":true},
+    {"id":"INV-005","statement":"Processamento financeiro leva de 3 a 5 dias úteis e não altera elegibilidade.","visual_relevant":false}
+  ],
+  "coverage": [
+    {"invariant_id":"INV-001","status":"represented","ir_refs":["complete","request_data","f3","f6"]},
+    {"invariant_id":"INV-002","status":"represented","ir_refs":["eligible","f4","f5"]},
+    {"invariant_id":"INV-003","status":"represented","ir_refs":["approve","f4"]},
+    {"invariant_id":"INV-004","status":"represented","ir_refs":["deny","f5"]},
+    {"invariant_id":"INV-005","status":"text-only","ir_refs":[],"reason":"É pós-decisão; permanece no text_equivalent para não sobrecarregar o fluxo de elegibilidade."}
+  ]
+}

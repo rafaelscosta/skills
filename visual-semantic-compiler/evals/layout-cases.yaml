@@ -1,6 +1,6 @@
-version: 1
+version: 2
 skill: visual-semantic-compiler
-purpose: Verify deterministic R2 layout, artifact, and fail-closed renderer behavior.
+purpose: Verify deterministic layout, artifact, fail-closed renderer behavior, and operational-flow fidelity.
 
 cases:
   - id: rag-architecture-layout
@@ -20,6 +20,20 @@ cases:
       - preserve yes/no branch labels
       - maintain top-to-bottom reading direction
       - pass node, edge, label, and containment checks
+
+  - id: clarify-recovery-flow
+    input: ../clarify/evals/visual-integration/refund.ir.json
+    expected_renderer: flow
+    must:
+      - preserve the missing-data recovery loop
+      - route the recovery back-edge outside the primary forward rail
+      - preserve the explicit eligibility rule in the visual node
+      - wrap long operational labels instead of weakening their semantics
+      - pass zero-crossing and edge-through-node checks
+      - remain perceptually reviewable at the certified desktop viewports
+    must_not:
+      - delete the recovery relation to make geometry pass
+      - replace the eligibility rule with a vague label solely to fit the node
 
   - id: reciprocal-state
     expected_renderer: state

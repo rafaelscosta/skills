@@ -1,0 +1,88 @@
+version: 1
+suite: clarify-visual-integration-ab
+status: pending_fresh_context_run
+purpose: Compare Clarify-only visual behavior against Clarify v1.1 + Visual Semantic Compiler v1.2.1 under matched conditions.
+
+cases:
+  - id: refund-operational-flow
+    source: refund-policy.md
+    prompt: >-
+      Transforme esta política em uma explicação operacional clara para a equipe de atendimento
+      e inclua um visual que permita aplicar corretamente a decisão de reembolso, inclusive quando
+      os dados do pedido estiverem incompletos.
+    audience: equipe de atendimento
+    critical_invariants:
+      - incomplete data blocks approve/deny and requires recovery before re-analysis
+      - eligibility requires both within 7 days and no premium consumption
+      - approve only when both eligibility conditions pass
+      - deny and explain reason when either eligibility condition fails
+      - 3–5 business day finance processing is post-decision and does not change eligibility
+    judge_dimensions:
+      - fidelity
+      - visual_fit
+      - visual_invariant_coverage
+      - exceptions_recovery
+      - accessibility
+      - visual_delivery_proof
+      - operational_scanability
+      - execution_cost
+
+  - id: approval-loop
+    source_inline: >-
+      Um pedido começa em rascunho. Ao enviar, entra em revisão. O revisor pode aprovar,
+      rejeitar ou pedir correções. Se pedir correções, o autor altera o pedido e o envia
+      novamente para revisão. A aprovação encerra o processo; a rejeição também encerra,
+      mas precisa registrar o motivo.
+    prompt: >-
+      Clarifique este processo para novos operadores e crie o visual mais adequado sem perder
+      estados terminais nem o ciclo de correção.
+    critical_invariants:
+      - correction request returns to author work and then to review
+      - approve and reject are distinct terminal outcomes
+      - rejection requires a reason
+    judge_dimensions:
+      - fidelity
+      - representation_fit
+      - recovery_visibility
+      - terminal_state_visibility
+      - perceptual_scanability
+      - execution_cost
+
+  - id: source-bound-causal
+    source_inline: >-
+      Quando o sistema não recebe confirmação do primeiro pagamento dentro do timeout,
+      ele pode reenviar a operação. Se o provedor tiver processado a primeira tentativa mas
+      a resposta tiver se perdido, o retry pode produzir uma segunda cobrança. Uma chave de
+      idempotência permite ao provedor reconhecer tentativas equivalentes e evitar o segundo efeito.
+    prompt: >-
+      Ensine este mecanismo a uma equipe de produto e mostre visualmente a cadeia causal,
+      preservando o limite entre timeout observado e resultado real do primeiro pagamento.
+    critical_invariants:
+      - timeout does not prove first attempt failed
+      - lost response plus retry can produce duplicate side effect
+      - idempotency is the relevant prevention mechanism
+    judge_dimensions:
+      - causal_completeness
+      - epistemic_clarity
+      - visual_fit
+      - source_bound_provenance
+      - perceptual_scanability
+      - execution_cost
+
+control:
+  skill: clarify
+  integration: disabled
+
+treatment:
+  skill: clarify
+  version: "1.1.0"
+  visual_compiler: visual-semantic-compiler
+  visual_compiler_version: "1.2.1"
+
+validity:
+  same_model_required: true
+  same_tool_budget_required: true
+  same_prompt_required: true
+  oracle_hidden_from_generators: true
+  immutable_outputs_before_judging: true
+  implementation_session_ineligible_as_blind_generator: true

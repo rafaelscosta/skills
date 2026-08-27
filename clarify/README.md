@@ -4,6 +4,8 @@
 
 `clarify` é uma skill para diagnosticar **por que um material é difícil de entender** e reconstruí-lo como uma explicação, fluxo, comparação, procedimento, visual ou auditoria de clareza adequada ao público e ao resultado desejado.
 
+A partir da v1.1, visuais source-bound podem preservar invariantes até uma entrega renderizada verificável por meio de [`visual-semantic-compiler`](../visual-semantic-compiler), mantendo separados os gates de semântica, layout, artefato e revisão perceptiva.
+
 A ideia central não é apenas deixar o texto mais curto ou amigável. A skill trata clareza como um problema de engenharia:
 
 ```text
@@ -13,7 +15,7 @@ Detectable difficulty
 → verifiable understanding
 ```
 
-A versão atual do pack é `1.0.0`.
+A versão atual do pack é `1.1.0`.
 
 ## Para que serve
 
@@ -28,6 +30,7 @@ Use `clarify` quando o objetivo real for melhorar **compreensão, decisão, prev
 - diagnosticar por que uma documentação está confusa;
 - reconstruir políticas e procedimentos para serem executáveis;
 - escolher ou especificar uma representação visual adequada;
+- entregar um visual source-bound sem perder regras, thresholds, exceções ou recovery paths;
 - separar fatos, inferências, incerteza e fora de escopo;
 - explicar números com baseline, denominador, unidade e incerteza;
 - criar explicações de alto risco sem apagar restrições importantes;
@@ -91,7 +94,7 @@ A skill escolhe o **modo mais leve capaz de resolver o problema**.
 | `flow` | há processo, workflow, lifecycle ou cadeia de responsabilidade | happy path + decisões + falhas + recovery + diagrama adequado |
 | `compare` | conceitos, estados ou opções semelhantes estão sendo confundidos | comparação orientada à decisão + casos de borda |
 | `audit` | material existente precisa ser diagnosticado e reparado | findings + invariantes + versão reconstruída + testes |
-| `visual` | a dificuldade principal é relacional ou espacial | especificação visual + equivalente textual acessível |
+| `visual` | a dificuldade principal é relacional ou espacial | especificação visual + equivalente textual acessível; render verificado quando solicitado |
 | `high-risk` | erro de compreensão pode causar dano material | explicação verificada + restrições exatas + incerteza + validação |
 
 Um modo pedido explicitamente pelo usuário é tratado como vinculante, salvo quando isso criaria falha de segurança ou fidelidade.
@@ -206,6 +209,7 @@ Antes de entregar, verifica se:
 - exemplos representam a regra;
 - analogias têm mapeamento e limite;
 - visuais usam notação semanticamente correta;
+- invariantes visualmente relevantes estão explicitamente cobertos em visuais source-bound;
 - incerteza continua visível;
 - restrições de alto risco estão exatas e proeminentes;
 - a ação pedida é possível a partir da explicação.
@@ -255,6 +259,12 @@ $clarify Diferencie agente, assistente e chatbot usando critérios que permitam 
 
 ```text
 $clarify Explique esta arquitetura para o time de marketing sem misturar estrutura com sequência de execução.
+```
+
+### Visual source-bound
+
+```text
+$clarify Transforme esta política em um fluxo visual executável sem perder nenhuma condição, exceção ou recovery path. Entregue um artefato visual verificável.
 ```
 
 ### Alto risco
@@ -351,7 +361,32 @@ Regras visuais importantes:
 - ação, decisão, estado, dado, ator e storage semanticamente distintos;
 - macro, responsabilidade, sequência, estado e infraestrutura separados quando necessário;
 - equivalente textual acessível;
-- cor nunca como único portador de significado.
+- cor nunca como único portador de significado;
+- uma regra operacional decisiva permanece explícita mesmo quando precisa de multiline;
+- um recovery path verdadeiro não é apagado apenas para simplificar layout.
+
+### Entrega visual verificável
+
+Quando o visual é source-bound e o usuário quer uma entrega renderizada ou confiável, Clarify primeiro registra a cobertura de invariantes descrita em `references/visual-delivery.md`.
+
+Cada invariante visual relevante deve terminar como:
+
+```text
+represented
+text-only
+omitted-with-reason
+blocked
+```
+
+Valide com:
+
+```bash
+python3 scripts/validate_invariant_coverage.py coverage.json --ir visual-ir.json --json
+```
+
+Depois, `visual-semantic-compiler` assume semântica IR, layout, HTML/SVG, browser evidence e perceptual review.
+
+Um HTML que renderiza não é automaticamente um visual confiável. Um claim `perceptually-passed` exige o mesmo artefato/hash que recebeu evidência de browser e revisão perceptiva válida.
 
 ## High-risk mode
 
@@ -381,7 +416,13 @@ A pasta `evals/` contém:
 evals/
 ├── clarity-cases.yaml
 ├── rubric.yaml
-└── trigger-cases.yaml
+├── trigger-cases.yaml
+└── visual-integration/
+    ├── README.md
+    ├── ab-cases.yaml
+    ├── refund-policy.md
+    ├── refund.ir.json
+    └── refund.coverage.json
 ```
 
 O rubric avalia dimensões como:
@@ -395,15 +436,19 @@ O rubric avalia dimensões como:
 - fidelity;
 - example quality;
 - visual fit;
+- visual invariant coverage;
+- visual delivery proof;
 - actionability;
 - exceptions/recovery;
 - epistemic clarity;
 - accessibility;
 - validation.
 
-Existem gates diferentes para quick, reusable, operational e high-risk.
+Existem gates diferentes para quick, reusable, operational, trusted visual e high-risk.
 
-Falhas automáticas incluem perda de invariante material, causalidade não suportada, termo canônico redefinido incorretamente, visual semanticamente errado e apagamento de incerteza de alto risco.
+Falhas automáticas incluem perda de invariante material, causalidade não suportada, termo canônico redefinido incorretamente, visual semanticamente errado, perda silenciosa de invariante/recovery em visual source-bound, claim de trusted visual sem prova atual e apagamento de incerteza de alto risco.
+
+A integração determinística possui um piloto perceptualmente aprovado. A comparação comportamental control-vs-treatment em fresh context permanece separada e pendente.
 
 ## Scripts determinísticos
 
@@ -431,6 +476,14 @@ python3 scripts/score_clarity.py resultado.json
 
 O scorer aplica as dimensões e gates críticos definidos para os diferentes níveis de risco.
 
+### Cobertura de invariantes visuais
+
+```bash
+python3 scripts/validate_invariant_coverage.py coverage.json --ir visual-ir.json --json
+```
+
+O validator prova que cada invariante visual relevante foi contabilizado e que refs declaradas existem no Visual Semantic IR. Ele não substitui o Fidelity Gate do Clarify.
+
 ## Progressive disclosure
 
 O `SKILL.md` contém o protocolo central. Referências maiores são carregadas conforme a tarefa:
@@ -443,6 +496,7 @@ O `SKILL.md` contém o protocolo central. Referências maiores são carregadas c
 | PT-BR controlado | `references/pt-br-controlled-language.md` |
 | explicar fluxos | `references/flow-protocol.md` |
 | escolher diagramas | `references/visual-grammar.md` |
+| entregar visual source-bound/renderizado | `references/visual-delivery.md` + `$visual-semantic-compiler` |
 | pipelines recorrentes | `references/pipelines.md` |
 | validação e evals | `references/validation-and-evals.md` |
 | alto risco | `references/high-risk-protocol.md` |
@@ -467,7 +521,8 @@ clarify/
 ├── evals/
 │   ├── clarity-cases.yaml
 │   ├── rubric.yaml
-│   └── trigger-cases.yaml
+│   ├── trigger-cases.yaml
+│   └── visual-integration/
 ├── references/
 │   ├── diagnostic-taxonomy.md
 │   ├── technique-selector.md
@@ -475,6 +530,7 @@ clarify/
 │   ├── pt-br-controlled-language.md
 │   ├── flow-protocol.md
 │   ├── visual-grammar.md
+│   ├── visual-delivery.md
 │   ├── pipelines.md
 │   ├── validation-and-evals.md
 │   ├── high-risk-protocol.md
@@ -486,7 +542,8 @@ clarify/
 └── scripts/
     ├── clarity_lint.py
     ├── score_clarity.py
-    └── validate_bundle.py
+    ├── validate_bundle.py
+    └── validate_invariant_coverage.py
 ```
 
 ## Instalação
@@ -505,6 +562,8 @@ cp -R skills/clarify ~/.claude/skills/clarify
 
 Ou configure seu runtime para carregar diretamente a pasta `clarify`.
 
+Para trusted visual delivery, instale/carregue também `visual-semantic-compiler` no mesmo catálogo.
+
 ## Política operacional
 
 O `config.yaml` define, por padrão:
@@ -520,6 +579,8 @@ source overwrite → deny
 ```
 
 O estado terminal de sucesso é `HANDOFF`.
+
+Na v1.1, um visual source-bound exige invariant coverage antes de um trusted visual handoff, e um claim de visual perceptualmente aprovado exige a cadeia correspondente no Visual Semantic Compiler.
 
 ## Clarify vs Concept Bridge
 
@@ -558,6 +619,15 @@ Uma saída é considerada boa somente quando:
 [ ] Exceções e recovery paths aparecem quando operacionalmente relevantes.
 [ ] O público consegue demonstrar o resultado pretendido.
 ```
+
+Para um visual source-bound, adicione:
+
+```text
+[ ] Todo invariante visual relevante tem uma coverage state explícita.
+[ ] Nenhuma regra ou recovery path foi enfraquecido apenas para caber no layout.
+```
+
+Para um visual chamado de confiável/verificado, adicione a prova perceptiva atual da mesma revisão de artefato.
 
 O objetivo não é produzir “texto fácil”.
 
