@@ -1,8 +1,8 @@
-version: 1
+version: 2
 scale:
-  0: absent, incorrect, or semantically unsafe
-  1: present but incomplete or weakly bounded
-  2: complete, correct, minimal, and renderer-independent
+  0: absent, incorrect, unsafe, or unverifiable
+  1: present but incomplete, weakly bounded, or only partially validated
+  2: complete, correct, minimal, and proven at the claimed layer
 
 dimensions:
   - id: semantic_fidelity
@@ -17,18 +17,22 @@ dimensions:
     question: Does every entity, edge, beat, group, and view earn its place at the selected depth?
   - id: prose_independence
     question: Does text_equivalent preserve the truth-critical model without rendering?
-  - id: deterministic_validation
-    question: Does the frozen candidate pass the bundled validator without fabricated claims about deferred layout?
+  - id: semantic_validation
+    question: Does the frozen semantic candidate pass the R1 validator?
+  - id: layout_validation
+    question: When canonical rendering is used, does visual-layout/v1 pass containment, separation, edge-node, crossing, label, and reading-direction checks?
+  - id: artifact_integrity
+    question: Does the delivered HTML bind to the semantic digest, use accessible inline SVG, remain self-contained, and pass static artifact validation?
+  - id: claim_honesty
+    question: Are semantic, layout, artifact, and perceptual-review claims kept strictly separate?
 
 thresholds:
-  standard:
+  semantic_only:
     minimum_total: 13
-    required_two:
-      - semantic_fidelity
-      - representation_fit
-      - relationship_semantics
-      - prose_independence
-      - deterministic_validation
+    required_two: [semantic_fidelity, representation_fit, relationship_semantics, prose_independence, semantic_validation]
+  canonical_render:
+    minimum_total: 19
+    required_two: [semantic_fidelity, representation_fit, semantic_validation, layout_validation, artifact_integrity, claim_honesty]
 
 automatic_failure:
   - Missing or dangling relationship endpoint.
@@ -36,5 +40,9 @@ automatic_failure:
   - Mixed views repeat the same cognitive question.
   - Canonical terminology diverges from upstream prose without explicit equivalence.
   - Text equivalent is absent.
-  - Validator returns non-zero but the run claims success.
-  - Layout or perceptual review is claimed from the R1 semantic validator.
+  - Semantic validator returns non-zero but the run claims semantic success.
+  - Layout validator returns non-zero but the run delivers the canonical artifact as trusted.
+  - A truthful semantic relationship is deleted solely to make geometry pass.
+  - Artifact validator returns non-zero but the run claims successful delivery.
+  - Raw Mermaid, external diagram runtime, or unbound artifact bytes are substituted for the canonical delivered visual.
+  - Perceptual review is claimed passed without inspection of the exact artifact bytes.
