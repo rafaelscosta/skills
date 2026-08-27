@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, hashlib, json, sys
+import argparse, hashlib, json, math, sys
 from pathlib import Path
 
 SCHEMA='visual-layout/v1'
 
 def sha(b): return hashlib.sha256(b).hexdigest()
+def canonical_layout_sha(layout):
+    if not isinstance(layout,dict): return sha(b'')
+    body={k:v for k,v in layout.items() if k!='layout_sha256'}
+    return sha(json.dumps(body,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode())
 def error(E,c,s,m,e=None):
     x={'code':c,'subject':s,'message':m}
     if e is not None:x['evidence']=e
@@ -35,6 +39,8 @@ def validate(layout):
     E=[];W=[];checks={k:'pending' for k in ['shape','containment','node_separation','edge_node_clearance','edge_crossings','label_clearance','reading_direction','artifact_readiness']}
     if not isinstance(layout,dict): error(E,'shape','$','layout must be object'); return receipt(layout,E,W,checks)
     if layout.get('schema_version')!=SCHEMA:error(E,'schema-version','schema_version',f'must equal {SCHEMA}')
+    declared=layout.get('layout_sha256'); actual=canonical_layout_sha(layout)
+    if declared!=actual:error(E,'layout-digest','layout_sha256','declared layout digest does not match canonical layout bytes',{'declared':declared,'actual':actual})
     vp=layout.get('viewport',{}); nodes=layout.get('nodes',[]); edges=layout.get('edges',[])
     if not all(isinstance(vp.get(k),(int,float)) and vp[k]>0 for k in ['width','height']): error(E,'viewport','viewport','invalid width/height')
     ids=set()
@@ -87,8 +93,8 @@ def validate(layout):
     for k in checks:checks[k]='failed' if E else 'passed'
     return receipt(layout,E,W,checks)
 def receipt(layout,E,W,checks):
-    raw=json.dumps(layout,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode() if isinstance(layout,dict) else b''
-    return {'schema_version':'visual-layout-receipt/v1','status':'invalid' if E else 'valid','layout_sha256':sha(raw),'checks':checks,'errors':E,'warnings':W,'metrics':{'nodes':len(layout.get('nodes',[])) if isinstance(layout,dict) else 0,'edges':len(layout.get('edges',[])) if isinstance(layout,dict) else 0}}
+    digest=canonical_layout_sha(layout)
+    return {'schema_version':'visual-layout-receipt/v1','status':'invalid' if E else 'valid','layout_sha256':digest,'checks':checks,'errors':E,'warnings':W,'metrics':{'nodes':len(layout.get('nodes',[])) if isinstance(layout,dict) else 0,'edges':len(layout.get('edges',[])) if isinstance(layout,dict) else 0}}
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('layout');ap.add_argument('--json',action='store_true');a=ap.parse_args()
     try:data=json.loads(Path(a.layout).read_text())
