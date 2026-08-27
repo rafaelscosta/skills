@@ -1,0 +1,34 @@
+version: 1
+suite: clarify-visual-integration-ab
+surface: generator-blind
+
+cases:
+  - id: refund-operational-flow
+    source_file: ../refund-policy.md
+    prompt: >-
+      Transforme esta política em uma explicação operacional clara para a equipe de atendimento
+      e inclua um visual que permita aplicar corretamente a decisão de reembolso, inclusive quando
+      os dados do pedido estiverem incompletos.
+    audience: equipe de atendimento
+
+  - id: approval-loop
+    source_inline: >-
+      Um pedido começa em rascunho. Ao enviar, entra em revisão. O revisor pode aprovar,
+      rejeitar ou pedir correções. Se pedir correções, o autor altera o pedido e o envia
+      novamente para revisão. A aprovação encerra o processo; a rejeição também encerra,
+      mas precisa registrar o motivo.
+    prompt: >-
+      Clarifique este processo para novos operadores e crie o visual mais adequado sem perder
+      estados terminais nem o ciclo de correção.
+    audience: novos operadores
+
+  - id: source-bound-causal
+    source_inline: >-
+      Quando o sistema não recebe confirmação do primeiro pagamento dentro do timeout,
+      ele pode reenviar a operação. Se o provedor tiver processado a primeira tentativa mas
+      a resposta tiver se perdido, o retry pode produzir uma segunda cobrança. Uma chave de
+      idempotência permite ao provedor reconhecer tentativas equivalentes e evitar o segundo efeito.
+    prompt: >-
+      Ensine este mecanismo a uma equipe de produto e mostre visualmente a cadeia causal,
+      preservando o limite entre timeout observado e resultado real do primeiro pagamento.
+    audience: equipe de produto
