@@ -1,12 +1,13 @@
 pack:
   name: visual-semantic-compiler
-  version: "1.1.0"
+  version: "1.2.0"
   owner_squad: sinkra-squad
 
 contract:
-  schema: visual-semantic-compiler/receipt@2
+  schema: visual-semantic-compiler/receipt@3
   semantic_ir_schema: visual-semantic-ir/v1
   layout_schema: visual-layout/v1
+  perceptual_review_schema: visual-perceptual-review/v1
   input_trust: untrusted
   repository_scope: read_only
   mutation_scope: output_only
@@ -15,7 +16,7 @@ contract:
   publication_default: deny
   output_root: outputs/businesses/{business}/visual-semantic-compiler/{run_id}
   original_input_overwrite: deny
-  lifecycle_states: [PLANNED, MODEL_BOUND, IR_COMPILED, SEMANTIC_VALIDATED, SEMANTIC_FROZEN, LAYOUT_COMPILED, LAYOUT_VALIDATED, RENDERED, ARTIFACT_VALIDATED, HANDOFF, FAILED, BLOCKED]
+  lifecycle_states: [PLANNED, MODEL_BOUND, IR_COMPILED, SEMANTIC_VALIDATED, SEMANTIC_FROZEN, LAYOUT_COMPILED, LAYOUT_VALIDATED, RENDERED, ARTIFACT_VALIDATED, BROWSER_EVIDENCE_CAPTURED, PERCEPTUAL_REVIEWED, HANDOFF, FAILED, BLOCKED]
   terminal_success: HANDOFF
   deterministic_validation_required: true
   provenance_supported: true
@@ -23,8 +24,12 @@ contract:
   layout_validation: deterministic_when_canonical_renderer
   artifact_validation: deterministic_when_canonical_renderer
   canonical_renderer: html-inline-svg/v1
-  perceptual_review: downstream
+  browser_evidence: required_before_perceptual_review
+  perceptual_review: reviewer_required_for_trusted_visual_delivery
   perceptual_review_default: pending
+  perceptual_review_binding_required: true
+  perceptual_correction_rounds_max: 2
+  mobile_perceptual_certification: deferred
 
 integration:
   upstream_skills:
@@ -45,3 +50,9 @@ canonical_renderer_support:
   - story-strip
   - before-after
   - timeline
+
+perceptual_desktop_viewports:
+  - 1440x900
+  - 1600x1000
+  - 1920x1080
+  - 2048x1320
