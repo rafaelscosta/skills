@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "visual-semantic-ir/v1",
+  "title": "Visual Semantic IR v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_skill", "intent", "representation", "entities", "relationships", "narrative_beats", "groups", "views", "constraints", "omissions", "text_equivalent"],
+  "properties": {
+    "schema_version": {"const": "visual-semantic-ir/v1"},
+    "source_skill": {"type": "string", "minLength": 1},
+    "intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "audience", "language"],
+      "properties": {
+        "question": {"type": "string", "minLength": 1},
+        "audience": {"type": "string", "minLength": 1},
+        "depth": {"type": "string", "minLength": 1},
+        "language": {"type": "string", "minLength": 1},
+        "desired_outcome": {"type": "string", "minLength": 1}
+      }
+    },
+    "representation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["class", "type", "reading_direction", "primary_question"],
+      "properties": {
+        "class": {"enum": ["narrative-visual", "structural-diagram", "mixed"]},
+        "type": {"enum": ["story-strip", "before-after", "storyboard", "timeline", "flow", "state", "architecture", "sequence", "dataflow", "hierarchy", "causal", "structural-comparison", "decision-tree", "decision-table", "concept-map", "argument-map", "swimlane", "bpmn", "sipoc", "service-blueprint", "c4", "event-storming", "statistical-chart", "other", "mixed"]},
+        "reading_direction": {"enum": ["left-to-right", "top-to-bottom", "other"]},
+        "primary_question": {"type": "string", "minLength": 1}
+      }
+    },
+    "entities": {"type": "array", "items": {"$ref": "#/$defs/entity"}},
+    "relationships": {"type": "array", "items": {"$ref": "#/$defs/relationship"}},
+    "narrative_beats": {"type": "array", "items": {"$ref": "#/$defs/beat"}},
+    "groups": {"type": "array", "items": {"$ref": "#/$defs/group"}},
+    "views": {"type": "array", "items": {"$ref": "#/$defs/view"}},
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "direct_labels": {"type": "boolean"},
+        "target_zero_crossings": {"type": "boolean"},
+        "max_primary_nodes": {"type": "integer", "minimum": 1},
+        "text_equivalent_required": {"type": "boolean"}
+      }
+    },
+    "omissions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "text_equivalent": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {"enum": ["explicit", "inferred", "general-knowledge", "unknown"]},
+        "source_ref": {"type": "string", "minLength": 1},
+        "locator": {"type": "string", "minLength": 1},
+        "confidence": {"enum": ["high", "medium", "low", "unknown"]},
+        "note": {"type": "string"}
+      }
+    },
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "kind"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "label": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["actor", "component", "state", "decision", "data", "concept", "stage", "outcome", "storage", "process", "evidence", "claim", "other"]},
+        "description": {"type": "string"},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "from", "to", "kind", "semantic"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "from": {"$ref": "#/$defs/id"},
+        "to": {"$ref": "#/$defs/id"},
+        "kind": {"enum": ["flow", "transition", "call", "return", "data", "dependency", "containment", "causation", "comparison", "handoff", "reads", "writes", "supports", "attacks", "feedback", "other"]},
+        "semantic": {"type": "string", "minLength": 1},
+        "label": {"type": "string"},
+        "order": {"type": "integer", "minimum": 1},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "beat": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "action", "order"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "title": {"type": "string", "minLength": 1},
+        "action": {"type": "string", "minLength": 1},
+        "actor": {"type": "string"},
+        "order": {"type": "integer", "minimum": 1},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "kind", "members"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "label": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["boundary", "lane", "layer", "comparison-side", "phase", "other"]},
+        "members": {"type": "array", "items": {"$ref": "#/$defs/id"}}
+      }
+    },
+    "view": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "class", "type", "question", "reading_direction", "entity_ids", "relationship_ids", "beat_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "class": {"enum": ["narrative-visual", "structural-diagram"]},
+        "type": {"enum": ["story-strip", "before-after", "storyboard", "timeline", "flow", "state", "architecture", "sequence", "dataflow", "hierarchy", "causal", "structural-comparison", "decision-tree", "decision-table", "concept-map", "argument-map", "swimlane", "bpmn", "sipoc", "service-blueprint", "c4", "event-storming", "statistical-chart", "other"]},
+        "question": {"type": "string", "minLength": 1},
+        "reading_direction": {"enum": ["left-to-right", "top-to-bottom", "other"]},
+        "entity_ids": {"type": "array", "items": {"$ref": "#/$defs/id"}},
+        "relationship_ids": {"type": "array", "items": {"$ref": "#/$defs/id"}},
+        "beat_ids": {"type": "array", "items": {"$ref": "#/$defs/id"}}
+      }
+    }
+  }
+}
