@@ -10,7 +10,7 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 ## Result
 
 - Python compile: PASS
-- R2 test suite: **11/11 PASS**
+- R2 test suite: **13/13 PASS**
 - Existing Concept Bridge RAG IR → deterministic architecture layout: PASS
 - Existing Clarify refund-flow IR → deterministic flow layout: PASS
 - Sequence layout: PASS
@@ -20,13 +20,15 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 - HTML delivery with semantic-gate stub: layout + artifact validation PASS
 - Archify architecture adapter contract: PASS
 
-## Negative geometry contracts covered
+## Negative geometry and integrity contracts covered
 
 - node overlap;
 - edge through unrelated node;
 - unrelated edge crossing under zero-crossing policy;
 - external runtime in canonical HTML;
-- unsupported canonical renderer type.
+- unsupported canonical renderer type;
+- tampered layout digest;
+- embedded artifact receipt/layout binding mismatch.
 
 ## Important scope boundary
 
