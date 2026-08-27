@@ -1,6 +1,6 @@
 pack:
   name: visual-semantic-compiler
-  version: "1.2.0"
+  version: "1.2.1"
   owner_squad: sinkra-squad
 
 contract:
@@ -50,6 +50,11 @@ canonical_renderer_support:
   - story-strip
   - before-after
   - timeline
+
+renderer_capabilities:
+  flow_recovery_loops: outer_rail
+  multiline_node_labels: true
+  truthful_rule_shortening_for_layout: deny
 
 perceptual_desktop_viewports:
   - 1440x900
