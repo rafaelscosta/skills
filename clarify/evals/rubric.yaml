@@ -1,8 +1,8 @@
-version: 1
+version: 2
 scale:
-  0: absent, wrong, or materially unsafe
-  1: present but incomplete, ambiguous, or weakly fitted
-  2: complete, correct, and fitted to the audience and task
+  0: absent, wrong, materially unsafe, or unverifiable
+  1: present but incomplete, ambiguous, weakly fitted, or weakly evidenced
+  2: complete, correct, fitted to the audience/task, and proven at the claimed layer
 dimensions:
 - id: audience_fit
   question: Is the explanation operationally fitted to the audience, context, and desired outcome?
@@ -22,6 +22,10 @@ dimensions:
   question: Are examples representative and are boundaries or non-examples available when needed?
 - id: visual_fit
   question: Does each visual use the correct notation and answer one primary question?
+- id: visual_invariant_coverage
+  question: For source-bound visuals, is every visual-relevant invariant represented, intentionally text-only, omitted with a reason, or explicitly blocked without silent loss?
+- id: visual_delivery_proof
+  question: When a trusted rendered visual is claimed, are semantic, layout, artifact, browser-evidence, screenshot, and perceptual-review bindings current and passing?
 - id: actionability
   question: Can the audience perform the intended action and verify completion?
 - id: exceptions_recovery
@@ -47,8 +51,17 @@ thresholds:
     - fidelity
     - actionability
     - exceptions_recovery
+  trusted_visual:
+    minimum_total: 30
+    required_two:
+    - fidelity
+    - visual_fit
+    - visual_invariant_coverage
+    - visual_delivery_proof
+    - accessibility
+    - epistemic_clarity
   high_risk:
-    minimum_total: 27
+    minimum_total: 31
     required_two:
     - fidelity
     - causal_completeness
@@ -62,5 +75,8 @@ automatic_failure:
 - Safety-critical condition appears after the governed action.
 - Canonical term is redefined incorrectly.
 - Visual notation changes the meaning of a relation.
+- A source-bound visual silently loses a visual-relevant invariant or recovery path.
+- A truthful rule, condition, or edge is shortened or deleted solely to make the layout easier.
+- A trusted visual is claimed without current semantic/layout/artifact/browser/perceptual proof bound to the same artifact revision.
 - High-risk uncertainty is erased.
 - Validation measures preference only when action or transfer is required.
