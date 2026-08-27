@@ -30,14 +30,44 @@ The source intentionally combines:
 Executed against the integration runtime:
 
 ```text
-Clarify invariant-coverage suite:       7/7 PASS
-VSC semantic-validator suite:           7/7 PASS
-VSC existing R2 layout regression:     13/13 PASS
-Clarify recovery-flow renderer tests:   4/4 PASS
-Python compile checks:                       PASS
+Clarify invariant-coverage suite:        7/7 PASS
+Clarify rubric-v2 scorer suite:         10/10 PASS
+VSC semantic-validator suite:            7/7 PASS
+VSC existing R2 layout regression:      13/13 PASS
+Clarify recovery-flow renderer tests:    4/4 PASS
+VSC R3 perceptual/binding regression:   12/12 PASS
+Python / Node syntax checks:                  PASS
 ```
 
-Total targeted automated tests in the integration run: **31/31 PASS**.
+Total targeted automated tests across the final integration regression: **53/53 PASS**.
+
+### Scorer v2 compatibility proof
+
+`score_clarity.py` now supports the two new visual proof dimensions without breaking the original 14-dimension contract.
+
+Verified behavior:
+
+- legacy `risk_level` payloads retain `clarify-rubric/v1-legacy`, maximum 28, and the original critical gates;
+- explicit non-visual rubric-v2 profiles still score only the original 14 dimensions, so visual-proof points cannot inflate prose/operational scores;
+- `trusted_visual` requires all 16 dimensions, maximum 32, threshold 30;
+- `visual_invariant_coverage` and `visual_delivery_proof` are hard `2` gates for `trusted_visual`;
+- `high_risk` remains reachable without artificial visual dimensions, maximum 28 and threshold 27;
+- boolean values are rejected rather than being accepted as Python integers.
+
+The v2 rubric threshold for non-visual `high_risk` is therefore 27. The earlier draft value 31 was internally unreachable without visual dimensions and was corrected before merge.
+
+### Bundle structural check
+
+The final branch was checked against the contract implemented by `scripts/validate_bundle.py`:
+
+- valid `clarify` frontmatter with positive `Use when` and negative `Do not use` boundaries;
+- `SKILL.md` remains below the 500-line warning threshold;
+- every newly referenced `references/`, `scripts/`, and `evals/` path exists in the branch tree;
+- metadata still contains the required interface fields and explicit `$clarify` invocation;
+- changed/new Python modules compile and their unit tests pass;
+- changed/new JSON fixtures parse successfully.
+
+The repository container had no external DNS and could not clone the branch to invoke `validate_bundle.py` against a fresh checkout. The only expected finding from that script beyond these checks is the pre-existing non-blocking `B025` warning for keeping `clarify/README.md` in the portable bundle.
 
 ## Why the renderer changed
 
@@ -156,6 +186,8 @@ evidence_sha256:
 This pilot proves that the integration contracts can preserve source-bound operational truth through semantic compilation, invariant coverage, deterministic layout, HTML/SVG rendering, browser evidence, and perceptual review.
 
 It also proves that the gates can expose real integration defects before handoff: the recovery-loop and long-label defects were both caught and repaired without deleting source truth.
+
+The scorer regression additionally proves that adopting verified visuals does not silently alter the score surface for legacy/non-visual Clarify evaluations.
 
 ## What this does not prove
 
