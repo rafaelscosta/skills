@@ -1,10 +1,10 @@
 pack:
   name: clarify
-  version: "1.0.0"
+  version: "1.1.0"
   owner_squad: sinkra-squad
 
 contract:
-  schema: clarify/receipt@1
+  schema: clarify/receipt@2
   input_trust: untrusted
   repository_scope: read_only
   mutation_scope: none
@@ -13,8 +13,23 @@ contract:
   publication_default: deny
   output_root: outputs/businesses/{business}/clarify/{run_id}
   original_input_overwrite: deny
-  lifecycle_states: [PLANNED, INPUTS_BOUND, DIAGNOSED, TRANSFORMED, VERIFIED, HANDOFF, FAILED, BLOCKED]
+  lifecycle_states: [PLANNED, INPUTS_BOUND, DIAGNOSED, TRANSFORMED, VISUAL_HANDOFF_BOUND, INVARIANT_COVERAGE_VALIDATED, VERIFIED, HANDOFF, FAILED, BLOCKED]
   terminal_success: HANDOFF
   exact_symptom_required: false
   source_sha_required: false
   evidence_ledger_required: false
+  invariant_coverage_required_for_source_bound_visual: true
+  trusted_visual_claim_requires_perceptual_review: true
+
+integration:
+  visual_compiler: visual-semantic-compiler
+  minimum_visual_compiler_version: "1.2.1"
+  visual_handoff_contract: references/visual-delivery.md
+  invariant_coverage_validator: scripts/validate_invariant_coverage.py
+  unsupported_renderer_policy: fail_closed_preserve_semantics
+
+certification:
+  visual_integration:
+    deterministic_smoke: passed
+    behavioral_ab: pending
+    protocol: evals/visual-integration/README.md
