@@ -1,0 +1,39 @@
+{
+  "schema_version": "visual-semantic-ir/v1",
+  "source_skill": "clarify",
+  "intent": {
+    "question": "Qual caminho um pedido de reembolso pode seguir?",
+    "audience": "equipe de atendimento",
+    "depth": "operational",
+    "language": "pt-BR",
+    "desired_outcome": "aplicar a regra sem alterar condições"
+  },
+  "representation": {
+    "class": "structural-diagram",
+    "type": "flow",
+    "reading_direction": "top-to-bottom",
+    "primary_question": "Qual caminho um pedido de reembolso pode seguir?"
+  },
+  "entities": [
+    {"id":"request","label":"Pedido recebido","kind":"process","provenance":{"status":"explicit","source_ref":"refund-policy.md","locator":"1"}},
+    {"id":"complete","label":"Dados completos?","kind":"decision","provenance":{"status":"explicit","source_ref":"refund-policy.md","locator":"6"}},
+    {"id":"eligible","label":"Até 7 dias E sem consumo premium?","kind":"decision","provenance":{"status":"explicit","source_ref":"refund-policy.md","locator":"2"}},
+    {"id":"approve","label":"Aprovar reembolso","kind":"outcome","provenance":{"status":"explicit","source_ref":"refund-policy.md","locator":"3"}},
+    {"id":"deny","label":"Negar e explicar motivo","kind":"outcome","provenance":{"status":"explicit","source_ref":"refund-policy.md","locator":"4"}},
+    {"id":"request_data","label":"Solicitar dados faltantes","kind":"process","provenance":{"status":"explicit","source_ref":"refund-policy.md","locator":"6"}}
+  ],
+  "relationships": [
+    {"id":"f1","from":"request","to":"complete","kind":"flow","semantic":"verifica dados"},
+    {"id":"f2","from":"complete","to":"eligible","kind":"flow","semantic":"continua análise","label":"sim"},
+    {"id":"f3","from":"complete","to":"request_data","kind":"flow","semantic":"solicita complementação","label":"não"},
+    {"id":"f4","from":"eligible","to":"approve","kind":"flow","semantic":"aprova quando ambas as condições passam","label":"sim"},
+    {"id":"f5","from":"eligible","to":"deny","kind":"flow","semantic":"nega quando alguma condição falha","label":"não"},
+    {"id":"f6","from":"request_data","to":"complete","kind":"flow","semantic":"retoma após completar dados","label":"dados recebidos"}
+  ],
+  "narrative_beats": [],
+  "groups": [],
+  "views": [],
+  "constraints": {"direct_labels":true,"target_zero_crossings":true,"max_primary_nodes":7,"text_equivalent_required":true},
+  "omissions": ["prazo financeiro de 3 a 5 dias úteis, que acontece depois da decisão"],
+  "text_equivalent": "O atendimento recebe o pedido e primeiro confirma se os dados estão completos. Se faltarem dados, solicita a complementação e só então retoma a análise. Com dados completos, verifica simultaneamente se o pedido foi feito em até 7 dias e se não houve consumo do conteúdo premium. Só quando as duas condições passam o reembolso é aprovado; caso contrário, ele é negado com o motivo. O prazo financeiro de 3 a 5 dias úteis acontece depois da aprovação e não altera a elegibilidade."
+}
