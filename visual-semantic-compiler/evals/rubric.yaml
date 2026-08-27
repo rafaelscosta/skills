@@ -1,4 +1,4 @@
-version: 2
+version: 3
 scale:
   0: absent, incorrect, unsafe, or unverifiable
   1: present but incomplete, weakly bounded, or only partially validated
@@ -22,9 +22,15 @@ dimensions:
   - id: layout_validation
     question: When canonical rendering is used, does visual-layout/v1 pass containment, separation, edge-node, crossing, label, and reading-direction checks?
   - id: artifact_integrity
-    question: Does the delivered HTML bind to the semantic digest, use accessible inline SVG, remain self-contained, and pass static artifact validation?
+    question: Does the delivered HTML bind to semantic/layout digests, use accessible inline SVG, remain self-contained, and pass static artifact validation?
+  - id: browser_evidence
+    question: Does the exact delivered artifact pass the R3 Chromium evidence gate at every required desktop viewport with current screenshots bound to its SHA-256?
+  - id: perceptual_review_grounding
+    question: Did an identified human or vision-capable model inspect the exact retained screenshots and record concrete defects or a zero-defect pass?
+  - id: revision_binding
+    question: Do the review artifact SHA and evidence SHA match the exact bytes reviewed, with no stale evidence carried across revisions?
   - id: claim_honesty
-    question: Are semantic, layout, artifact, and perceptual-review claims kept strictly separate?
+    question: Are semantic, layout, artifact, browser-evidence, perceptual, and mobile-support claims kept strictly separate?
 
 thresholds:
   semantic_only:
@@ -33,6 +39,9 @@ thresholds:
   canonical_render:
     minimum_total: 19
     required_two: [semantic_fidelity, representation_fit, semantic_validation, layout_validation, artifact_integrity, claim_honesty]
+  trusted_visual_delivery:
+    minimum_total: 25
+    required_two: [semantic_fidelity, representation_fit, semantic_validation, layout_validation, artifact_integrity, browser_evidence, perceptual_review_grounding, revision_binding, claim_honesty]
 
 automatic_failure:
   - Missing or dangling relationship endpoint.
@@ -45,4 +54,10 @@ automatic_failure:
   - A truthful semantic relationship is deleted solely to make geometry pass.
   - Artifact validator returns non-zero but the run claims successful delivery.
   - Raw Mermaid, external diagram runtime, or unbound artifact bytes are substituted for the canonical delivered visual.
-  - Perceptual review is claimed passed without inspection of the exact artifact bytes.
+  - Browser evidence fails or is skipped but the run claims a trusted perceptual pass.
+  - A perceptual pass is claimed without inspecting screenshots from the exact artifact revision.
+  - Reviewer identity is missing from a perceptual pass.
+  - A passed perceptual review contains known defects.
+  - Artifact or evidence hashes in the review do not match the exact evidence receipt.
+  - Stale screenshots survive a failed or skipped recapture and are presented as current evidence.
+  - A desktop perceptual pass is generalized into a mobile usability claim.

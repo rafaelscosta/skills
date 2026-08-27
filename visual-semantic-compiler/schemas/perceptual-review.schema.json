@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "visual-perceptual-review/v1",
+  "title": "Visual Perceptual Review v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_sha256", "evidence_sha256", "reviewer", "status", "defects"],
+  "properties": {
+    "schema_version": {"const": "visual-perceptual-review/v1"},
+    "artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "type": {"enum": ["human", "model"]}
+      }
+    },
+    "status": {"enum": ["passed", "failed", "skipped"]},
+    "reason": {"type": "string", "minLength": 1},
+    "notes": {"type": "string"},
+    "defects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "severity", "evidence"],
+        "properties": {
+          "code": {"type": "string", "minLength": 1},
+          "severity": {"enum": ["critical", "major", "minor"]},
+          "viewport": {"type": "string"},
+          "evidence": {"type": "string", "minLength": 1},
+          "notes": {"type": "string"}
+        }
+      }
+    }
+  }
+}

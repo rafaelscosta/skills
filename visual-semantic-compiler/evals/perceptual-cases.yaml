@@ -1,0 +1,56 @@
+version: 1
+skill: visual-semantic-compiler
+purpose: Verify R3 browser evidence, reviewer binding, and perceptual-claim honesty.
+
+cases:
+  - id: exact-artifact-browser-evidence
+    must:
+      - bind evidence to the delivered artifact SHA-256
+      - measure 1440x900, 1600x1000, 1920x1080, and 2048x1320
+      - retain screenshots at 1440x900 and 2048x1320
+      - leave perceptual_review pending
+
+  - id: desktop-horizontal-overflow
+    expected_status: failed
+    must:
+      - reject document horizontal overflow
+      - reject internal diagram-panel horizontal scrolling on certified desktop viewports
+
+  - id: projected-text-floor
+    expected_status: failed
+    must:
+      - reject projected node labels below 12px
+      - reject projected edge labels below 9px
+      - reject body text below 14px
+
+  - id: perceptual-pass-binding
+    expected_status: perceptually-passed
+    must:
+      - require automated evidence status passed
+      - require artifact SHA binding
+      - require evidence SHA binding
+      - require identified reviewer
+      - require zero defects
+
+  - id: failed-review-with-defect
+    expected_status: perceptually-failed
+    must:
+      - preserve concrete defect evidence
+      - preserve severity
+      - never rewrite failed review as passed
+
+  - id: changed-artifact-invalidates-review
+    expected_status: invalid
+    must:
+      - reject review whose artifact SHA differs from browser evidence
+
+  - id: changed-evidence-invalidates-review
+    expected_status: invalid
+    must:
+      - reject review whose evidence SHA does not match exact evidence JSON bytes
+
+  - id: skipped-review
+    expected_status: perceptual-review-skipped
+    must:
+      - require a reason
+      - never present skipped as passed

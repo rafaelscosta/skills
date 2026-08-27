@@ -1,6 +1,6 @@
 ---
 name: visual-semantic-compiler
-description: Compile an already-selected educational or explanatory visual plan into a provenance-aware Visual Semantic IR, validate its meaning, deterministically lay out supported representations, and deliver a self-contained HTML + inline-SVG artifact with semantic/layout/artifact receipts. Use after Clarify, Concept Bridge, or another reasoning skill decides that a visual materially helps; also use to validate diagram specifications or separate semantic correctness from layout/rendering/perceptual review. Do not choose visual necessity from scratch when an upstream skill owns that decision, and never treat deterministic checks as perceptual visual review.
+description: Compile an already-selected educational or explanatory visual plan into a provenance-aware Visual Semantic IR, validate its meaning, deterministically lay out supported representations, deliver self-contained HTML + inline SVG, capture browser evidence, and bind a separate perceptual review before claiming trusted visual delivery. Use after Clarify, Concept Bridge, or another reasoning skill decides that a visual materially helps; also use to validate diagram specifications or separate semantic correctness from layout/rendering/perceptual review. Do not choose visual necessity from scratch when an upstream skill owns that decision, and never treat deterministic or browser checks as perceptual visual review.
 ---
 
 # Visual Semantic Compiler
@@ -28,10 +28,12 @@ canonical renderer or adapter
   ↓
 artifact validator
   ↓
-perceptual review
+browser evidence
+  ↓
+identified perceptual reviewer
 ```
 
-Its job is not to make diagrams attractive. Its job is to make the intended meaning explicit, machine-checkable, provenance-aware, and renderer-independent.
+Its job is not to make diagrams attractive. Its job is to make intended meaning explicit, machine-checkable, provenance-aware, renderer-independent, and provable at each downstream layer.
 
 ## Core principle
 
@@ -41,9 +43,10 @@ Separate:
 
 1. **semantic intent** — what question the visual answers;
 2. **semantic structure** — entities, relationships, beats, groups, omissions, evidence;
-3. **deterministic validation** — whether the structure obeys the selected representation contract;
-4. **rendering** — layout, SVG/HTML/image production;
-5. **perceptual review** — whether a human can actually read and use the rendered result.
+3. **deterministic semantic validation** — whether the structure obeys the selected representation contract;
+4. **rendering and layout** — geometry, SVG/HTML/image production;
+5. **browser evidence** — whether the exact delivered bytes remain contained and legible at declared viewports;
+6. **perceptual review** — whether an identified human or vision-capable model can actually read and use the rendered result.
 
 A pass at one layer never implies a pass at a later layer.
 
@@ -61,7 +64,7 @@ Do **not** silently override the upstream skill's pedagogical decision. If Conce
 
 ## Source of truth
 
-The canonical artifact is a JSON document matching:
+The canonical semantic artifact is a JSON document matching:
 
 `visual-semantic-ir/v1`
 
@@ -104,7 +107,7 @@ Author only what the reader needs at the selected depth:
 - `omissions` — important complexity intentionally excluded;
 - `text_equivalent` — a usable prose equivalent of the truth-critical model.
 
-Do not add geometry, coordinates, CSS, palette, icons, or renderer-specific fields to the IR.
+Do not add geometry, coordinates, CSS, palette, icons, or renderer-specific fields to the semantic IR.
 
 ### 3. Preserve provenance
 
@@ -137,7 +140,7 @@ Run:
 python3 scripts/validate_ir.py candidate.json --json
 ```
 
-The receipt separates:
+The R1 receipt separates:
 
 - `schema_shape`;
 - `unique_ids`;
@@ -146,7 +149,7 @@ The receipt separates:
 - `type_contract`;
 - `provenance_integrity`;
 - `pedagogical_contract`;
-- `layout_geometry` — intentionally `deferred` in R1.
+- `layout_geometry` — intentionally `deferred` in the semantic-only receipt.
 
 Exit code:
 
@@ -174,7 +177,7 @@ After the candidate passes, do not modify it casually during rendering.
 
 Record the validator's `input_sha256` as the semantic candidate digest.
 
-If perceptual review later requires a semantic change, edit the IR and validate again. A prior receipt no longer applies to changed bytes.
+If downstream review later requires a semantic change, edit the IR and validate again. A prior receipt no longer applies to changed bytes.
 
 ## Representation contract
 
@@ -221,7 +224,7 @@ Do not use mixed merely to make an artifact richer.
 
 ## Type-specific invariants
 
-The bundled validator currently enforces these semantic rules:
+The bundled semantic validator currently enforces these rules:
 
 ### Flow
 
@@ -374,6 +377,112 @@ The built-in renderer produces self-contained HTML with inline SVG. It embeds th
 
 Read `references/adapters/archify.md` when using it. The Visual Semantic IR remains authoritative.
 
+## R3 perceptual delivery gate
+
+R3 is required only when claiming a **trusted final visual delivery** from the canonical renderer. Semantic-only compilation and ordinary rendered handoff may stop earlier with truthful status.
+
+Read `references/perceptual-contract.md` before starting R3.
+
+### Stage 1 — Capture browser evidence
+
+After R2 semantic, layout, and artifact gates pass, run:
+
+```bash
+node scripts/visual_check.mjs output.html output.visual-evidence/
+```
+
+The checker renders the exact self-contained artifact bytes in Chromium/Chrome and measures:
+
+- 1440×900;
+- 1600×1000;
+- 1920×1080;
+- 2048×1320.
+
+It retains screenshots at 1440×900 and 2048×1320 and writes a `visual-evidence-receipt/v1` bound to the artifact SHA-256.
+
+Automated evidence checks include:
+
+- SVG visible/non-zero;
+- no document horizontal overflow;
+- no diagram-panel horizontal scroll at certified desktop sizes;
+- node text contained by node boxes;
+- projected node labels at least 12px;
+- projected relationship labels at least 9px;
+- body text at least 14px;
+- successful screenshot capture.
+
+A browser evidence PASS still reports:
+
+```text
+perceptual_review: pending
+```
+
+It is not a visual-quality verdict.
+
+If Chrome/Chromium is unavailable, report evidence as skipped. Do not synthesize screenshots or upgrade the run to passed.
+
+### Stage 2 — Inspect the pixels
+
+An identified human or vision-capable model must inspect the exact retained screenshots.
+
+The reviewer checks hierarchy, routes, labels, clipping, crowding/whitespace, contrast, reading direction, and semantic emphasis. A visible defect is recorded rather than repaired silently inside the review receipt.
+
+Author a `visual-perceptual-review/v1` receipt using the exact artifact SHA and evidence-receipt SHA.
+
+A pass requires:
+
+- browser evidence status `passed`;
+- identified reviewer;
+- exact artifact binding;
+- exact evidence binding;
+- zero known defects.
+
+A failed review requires at least one concrete defect with severity and evidence. A skipped review requires a reason.
+
+### Stage 3 — Validate the perceptual claim
+
+Run:
+
+```bash
+python3 scripts/validate_perceptual_review.py \
+  output.visual-evidence/output.visual-evidence.json \
+  review.json --json
+```
+
+Only a valid combined receipt with:
+
+```text
+delivery_status: perceptually-passed
+```
+
+may be described as a trusted perceptual delivery.
+
+The validator proves review identity and byte bindings. It does not inspect the pixels itself.
+
+### Stale evidence rule
+
+Any change to the delivered HTML bytes invalidates all R3 evidence and review receipts.
+
+The browser checker removes previous known sidecars before recapture so a failed or skipped run cannot leave old screenshots positioned as current evidence.
+
+Never reuse a prior screenshot set after artifact revision.
+
+### Perceptual correction loop
+
+Maximum: **two focused correction rounds**.
+
+Repair the narrowest responsible layer, then rerun every invalidated downstream gate:
+
+- CSS/artifact change → artifact validation + R3 again;
+- geometry/layout change → layout + artifact + R3 again;
+- semantic topology change → semantic + layout + artifact + R3 again.
+
+Do not edit a failed review receipt into a pass.
+
+### Mobile boundary
+
+R3 v1 certifies only the declared desktop viewports. Do not generalize a desktop perceptual pass into a mobile/narrow usability claim.
+
 ## Archify relationship
 
 This skill adopts architectural lessons from typed-IR visual systems but is **not coupled to Archify**.
@@ -402,11 +511,15 @@ Before handoff, verify:
 5. **Representation fit** — IR class/type matches the upstream decision.
 6. **Evidence** — source-bound facts preserve explicit/inferred/unknown distinctions.
 7. **Text equivalent** — truth-critical meaning survives without rendering.
-8. **Deterministic validation** — bundled validator passes on the frozen bytes.
+8. **Semantic validation** — bundled semantic validator passes on frozen bytes.
+9. **Layout/artifact validation** — when canonical rendering is used, geometry and static artifact gates pass.
+10. **Browser evidence** — when trusted final visual delivery is claimed, every certified desktop viewport passes current evidence capture.
+11. **Perceptual grounding** — a trusted visual pass is backed by an identified reviewer inspecting exact current screenshots.
+12. **Revision binding** — artifact, browser evidence, and perceptual review hashes refer to the same revision.
 
 ## Hard failures
 
-Never claim successful compilation when:
+Never claim successful compilation or trusted delivery when:
 
 - a relationship points to a missing entity;
 - IDs collide;
@@ -417,27 +530,40 @@ Never claim successful compilation when:
 - mixed views answer the same question redundantly;
 - source-bound inference is presented as explicit evidence;
 - the text equivalent is missing;
-- the validator returns non-zero;
-- the candidate changed after the receipt without revalidation.
+- a semantic/layout/artifact validator returns non-zero while the corresponding layer is claimed passed;
+- browser evidence fails or is skipped while a perceptual pass is claimed;
+- a perceptual pass has no identified reviewer;
+- the reviewer did not inspect screenshots from the exact artifact revision;
+- a passed review contains known defects;
+- artifact/evidence review hashes do not match current bytes;
+- stale screenshots are presented as current evidence;
+- a desktop pass is described as mobile-certified.
 
 ## Output
 
-A successful compiler handoff should report:
+A successful compiler handoff should report only the layers actually executed:
 
 ```text
 semantic_ir: <path>
-semantic_ir_sha256: <validator receipt value>
-validation: passed
-checks: schema_shape, unique_ids, relationship_integrity, representation_contract, type_contract, provenance_integrity, pedagogical_contract
+semantic_ir_sha256: <semantic validator receipt>
+semantic_validation: passed
 layout_geometry: deferred | passed
-layout_sha256: <layout receipt value when rendered>
-artifact_sha256: <artifact receipt value when rendered>
+layout_sha256: <layout receipt when rendered>
+artifact_sha256: <artifact receipt when rendered>
 renderer_status: not_run | handed_off | rendered
+browser_evidence: not_run | passed | failed | skipped
+browser_evidence_receipt: <path when run>
 perceptual_review: pending | passed | failed | skipped
+perceptual_review_receipt: <path when reviewed>
+delivery_status: semantic-only | rendered-unreviewed | perceptually-passed | perceptually-failed | perceptual-review-skipped
 ```
 
-Do not call `layout_geometry: deferred` a layout pass.
+Do not call `layout_geometry: deferred` a layout pass. Do not call browser evidence a perceptual pass.
 
 ## Definition of done
 
-The semantic compiler is done when a renderer receives a frozen semantic candidate whose meaning is explicit enough that independent renderers preserve the same important nodes, relationships, narrative beats, omissions, and evidence boundaries. When the built-in R2 renderer is requested, delivery is done only after semantic, layout, and static artifact gates pass; perceptual quality remains a separate review claim.
+The semantic compiler is done when a renderer receives a frozen semantic candidate whose meaning is explicit enough that independent renderers preserve the same important nodes, relationships, narrative beats, omissions, and evidence boundaries.
+
+When the built-in renderer is requested, rendered handoff requires semantic, layout, and static artifact gates to pass.
+
+When a **trusted final visual delivery** is requested, done additionally requires current browser evidence across every certified desktop viewport plus a hash-bound zero-defect perceptual review from an identified human or vision-capable model.
