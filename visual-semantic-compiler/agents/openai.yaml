@@ -1,0 +1,18 @@
+interface:
+  display_name: Visual Semantic Compiler
+  short_description: Compila planos visuais em IR semântico validável antes da renderização
+  default_prompt: Use $visual-semantic-compiler after the upstream reasoning skill has selected
+    a useful visual. Compile the smallest renderer-agnostic semantic IR, preserve canonical
+    terminology and source provenance, validate it with the bundled deterministic validator,
+    freeze the passing candidate bytes, and hand the validated meaning to the renderer. Never
+    treat deterministic IR validation as perceptual visual review. Keep user-visible labels and
+    text equivalents in Brazilian Portuguese unless the user requests another language.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
