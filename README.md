@@ -8,7 +8,7 @@ Catálogo pessoal de skills de Rafael Costa.
 | --- | --- |
 | [clarify](./clarify) | Diagnostica por que um material é difícil de entender e transforma em explicações, fluxos, procedimentos ou auditorias de clareza em português brasileiro. |
 | [concept-bridge](./concept-bridge) | Constrói o menor modelo mental correto para entender um conceito novo e, quando um visual ajuda, roteia entre narrativa, diagramas estruturais ou composição mista sem aumentar a carga cognitiva. |
-| [visual-semantic-compiler](./visual-semantic-compiler) | Compila decisões visuais de Clarify, Concept Bridge ou outras skills em um IR semântico renderer-agnostic, com provenance, validação determinística e hash antes da renderização. |
+| [visual-semantic-compiler](./visual-semantic-compiler) | Compila decisões visuais em IR semântico verificável e, para tipos suportados, gera layout determinístico e HTML + inline SVG com gates separados de semântica, geometria, integridade do artefato e revisão perceptiva. |
 | [youtube-fetcher](./youtube-fetcher) | Extrai evidência do YouTube com contexto mínimo: metadata, capítulos, transcript, ranges, chunks determinísticos, manifests e Markdown pronto para Obsidian/RAG. |
 
 ## Uso
