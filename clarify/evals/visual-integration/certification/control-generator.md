@@ -71,9 +71,20 @@ Receipt fields:
   "output_bytes": 0,
   "render_succeeded": true,
   "artifact_files": [],
+  "proof": {
+    "semantic_validation": "not_provided",
+    "invariant_coverage": "not_provided",
+    "layout_validation": "not_provided",
+    "artifact_validation": "not_provided",
+    "browser_evidence": "not_provided",
+    "perceptual_review": "not_provided",
+    "bindings_valid": "not_provided"
+  },
   "notes": ""
 }
 ```
+
+If the control's ordinary behavior independently produces equivalent proof, record it truthfully using only `passed`, `failed`, `skipped`, or `not_provided`. Do not simulate treatment-specific proof just to improve the score.
 
 Use null when a metric is not available; never invent cost metrics.
 
