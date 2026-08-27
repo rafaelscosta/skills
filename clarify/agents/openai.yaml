@@ -1,10 +1,13 @@
 interface:
   display_name: Clarify
-  short_description: Torna conteúdo complexo claro sem perder precisão
+  short_description: Torna conteúdo complexo claro sem perder precisão e prova visuais source-bound
   default_prompt: Use $clarify to diagnose why this material is difficult to understand
     and transform it into a clear, accurate, audience-fit explanation in Brazilian
-    Portuguese. Preserve all material invariants and include only the validation needed
-    for the intended outcome.
+    Portuguese. Preserve every material invariant and include only the validation needed
+    for the intended outcome. When a rendered or source-bound visual materially helps,
+    lock the visual question and invariant coverage first, then hand off to
+    $visual-semantic-compiler for semantic, layout, artifact, browser, and perceptual gates;
+    never call a visual trusted without a current hash-bound perceptual pass.
   icon_small: assets/icon.svg
   icon_large: assets/icon.svg
 policy:
