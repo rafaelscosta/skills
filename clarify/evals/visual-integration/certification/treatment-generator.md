@@ -71,9 +71,20 @@ Receipt fields:
   "render_succeeded": true,
   "artifact_files": [],
   "evidence_files": [],
+  "proof": {
+    "semantic_validation": "passed",
+    "invariant_coverage": "passed",
+    "layout_validation": "passed",
+    "artifact_validation": "passed",
+    "browser_evidence": "passed",
+    "perceptual_review": "passed",
+    "bindings_valid": "passed"
+  },
   "notes": ""
 }
 ```
+
+The example values above illustrate the fields, not expected results. Record the actual state using only `passed`, `failed`, `skipped`, or `not_provided`. A failure or unavailable reviewer must remain visible.
 
 Use null when a metric is unavailable; never invent cost metrics.
 
