@@ -1,0 +1,16 @@
+{
+  "schema_version": "clarify-visual-ab-promotion-policy/v1",
+  "treatment_case_wins_minimum": 2,
+  "treatment_case_losses_maximum": 1,
+  "critical_invariant_regressions_allowed": 0,
+  "treatment_automatic_failures_allowed": 0,
+  "fidelity_losses_allowed": 0,
+  "aggregate_score_must_not_regress": true,
+  "cost_guard": {
+    "enabled_when_metrics_comparable": true,
+    "catastrophic_multiplier": 2.0,
+    "wins_required_to_override_catastrophic_cost": 3
+  },
+  "claim_on_pass": "CLARIFY VERIFIED VISUAL INTEGRATION: BEHAVIORALLY SUPERIOR",
+  "claim_on_fail": "CLARIFY VISUAL INTEGRATION: BEHAVIORAL SUPERIORITY NOT PROVEN"
+}
