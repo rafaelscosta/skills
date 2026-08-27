@@ -7,14 +7,16 @@ import json
 import shutil
 from pathlib import Path
 
-SENSITIVE_KEYS = {
-    "condition",
-    "repository_commit",
-    "clarify_version",
-    "visual_compiler_version",
-    "integration",
-    "skill_version",
-}
+PROOF_KEYS = (
+    "semantic_validation",
+    "invariant_coverage",
+    "layout_validation",
+    "artifact_validation",
+    "browser_evidence",
+    "perceptual_review",
+    "bindings_valid",
+)
+PROOF_VALUES = {"passed", "failed", "skipped", "not_provided"}
 
 
 def sha256(path: Path) -> str:
@@ -25,12 +27,27 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def sanitize(value):
-    if isinstance(value, dict):
-        return {k: sanitize(v) for k, v in value.items() if k not in SENSITIVE_KEYS}
-    if isinstance(value, list):
-        return [sanitize(v) for v in value]
-    return value
+def clean_metric(value):
+    return value if isinstance(value, (int, float)) and not isinstance(value, bool) else None
+
+
+def standardized_receipt(raw: dict, label: str) -> dict:
+    proof_in = raw.get("proof") if isinstance(raw.get("proof"), dict) else {}
+    proof = {}
+    for key in PROOF_KEYS:
+        value = proof_in.get(key, "not_provided")
+        proof[key] = value if value in PROOF_VALUES else "not_provided"
+    return {
+        "case_id": raw.get("case_id"),
+        "candidate": label,
+        "model": raw.get("model") if isinstance(raw.get("model"), str) else None,
+        "surface": raw.get("surface") if isinstance(raw.get("surface"), str) else None,
+        "elapsed_ms": clean_metric(raw.get("elapsed_ms")),
+        "tool_calls": clean_metric(raw.get("tool_calls")),
+        "output_bytes": clean_metric(raw.get("output_bytes")),
+        "render_succeeded": raw.get("render_succeeded") if isinstance(raw.get("render_succeeded"), bool) else None,
+        "proof": proof,
+    }
 
 
 def copy_candidate(source: Path, destination: Path, label: str) -> dict:
@@ -47,22 +64,28 @@ def copy_candidate(source: Path, destination: Path, label: str) -> dict:
             raise ValueError(f"case {case_dir.name} must contain response.md and receipt.json")
         shutil.copy2(response, out / "response.md")
         raw_receipt = json.loads(receipt.read_text(encoding="utf-8"))
-        clean_receipt = sanitize(raw_receipt)
-        clean_receipt["candidate"] = label
+        clean_receipt = standardized_receipt(raw_receipt, label)
+        if clean_receipt["case_id"] != case_dir.name:
+            raise ValueError(f"receipt case_id mismatch for {case_dir.name}")
         (out / "receipt.json").write_text(
             json.dumps(clean_receipt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
+
         artifacts = case_dir / "artifacts"
         copied_artifacts = []
         if artifacts.is_dir():
             target_artifacts = out / "artifacts"
             target_artifacts.mkdir(parents=True, exist_ok=True)
-            for item in sorted(p for p in artifacts.rglob("*") if p.is_file()):
-                rel = item.relative_to(artifacts)
-                target = target_artifacts / rel
-                target.parent.mkdir(parents=True, exist_ok=True)
+            files = sorted(p for p in artifacts.rglob("*") if p.is_file())
+            for idx, item in enumerate(files, start=1):
+                suffix = "".join(item.suffixes).lower()
+                if len(suffix) > 20 or any(ch not in ".abcdefghijklmnopqrstuvwxyz0123456789" for ch in suffix):
+                    suffix = ""
+                generic = f"artifact-{idx:03d}{suffix}"
+                target = target_artifacts / generic
                 shutil.copy2(item, target)
-                copied_artifacts.append(str(Path("artifacts") / rel))
+                copied_artifacts.append(str(Path("artifacts") / generic))
+
         manifest["cases"][case_dir.name] = {
             "response_sha256": sha256(out / "response.md"),
             "receipt_sha256": sha256(out / "receipt.json"),
