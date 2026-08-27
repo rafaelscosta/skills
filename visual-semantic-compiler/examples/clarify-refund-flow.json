@@ -1,0 +1,34 @@
+{
+  "schema_version": "visual-semantic-ir/v1",
+  "source_skill": "clarify",
+  "intent": {
+    "question": "O que acontece com um pedido de reembolso e quem decide?",
+    "audience": "equipe de atendimento",
+    "depth": "operational",
+    "language": "pt-BR",
+    "desired_outcome": "executar o fluxo sem interpretar a regra de aprovação errado"
+  },
+  "representation": {
+    "class": "structural-diagram",
+    "type": "flow",
+    "reading_direction": "top-to-bottom",
+    "primary_question": "Qual caminho um pedido de reembolso pode seguir?"
+  },
+  "entities": [
+    {"id":"request","label":"Pedido recebido","kind":"process","provenance":{"status":"explicit","source_ref":"refund-policy.md","locator":"L10-L18"}},
+    {"id":"eligible","label":"Elegível?","kind":"decision","provenance":{"status":"explicit","source_ref":"refund-policy.md","locator":"L20-L32"}},
+    {"id":"approve","label":"Aprovar reembolso","kind":"outcome","provenance":{"status":"explicit","source_ref":"refund-policy.md","locator":"L34-L38"}},
+    {"id":"deny","label":"Negar e explicar motivo","kind":"outcome","provenance":{"status":"explicit","source_ref":"refund-policy.md","locator":"L40-L45"}}
+  ],
+  "relationships": [
+    {"id":"f1","from":"request","to":"eligible","kind":"flow","semantic":"verifica elegibilidade"},
+    {"id":"f2","from":"eligible","to":"approve","kind":"flow","semantic":"segue para aprovação","label":"sim"},
+    {"id":"f3","from":"eligible","to":"deny","kind":"flow","semantic":"segue para negativa","label":"não"}
+  ],
+  "narrative_beats": [],
+  "groups": [],
+  "views": [],
+  "constraints": {"direct_labels": true, "target_zero_crossings": true, "max_primary_nodes": 6, "text_equivalent_required": true},
+  "omissions": ["tempo de processamento financeiro após aprovação"],
+  "text_equivalent": "O atendimento recebe o pedido e verifica a regra de elegibilidade. Se o pedido for elegível, aprova o reembolso; se não for, nega e comunica o motivo."
+}
