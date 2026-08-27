@@ -29,30 +29,45 @@ See `../../VALIDATION_VISUAL_INTEGRATION.md` for the dated implementation eviden
 
 ## What is not yet proven
 
-This implementation session authored the integration and observed the pilot. It is therefore not valid evidence for a blind behavioral comparison of model behavior before versus after the integration.
+The implementation session authored the integration and observed the pilot. It is therefore not valid evidence for a blind behavioral comparison of model behavior before versus after the integration.
 
 The correct status is:
 
 ```text
 DETERMINISTIC INTEGRATION: PASSED
 FRESH-CONTEXT BEHAVIORAL A/B: PENDING
+BLIND A/B HARNESS: READY
 ```
 
-## Behavioral A/B frontier
+## Behavioral A/B certification
 
-Use fresh isolated contexts to compare:
+The executable blind protocol now lives in:
 
-### Control
+`certification/README.md`
 
-Clarify without the `visual-delivery.md` / Visual Semantic Compiler handoff.
+It replaces ad-hoc control/treatment comparison with:
 
-### Treatment
+```text
+frozen control generator
++ separate frozen treatment generator
+→ immutable outputs
+→ candidate A/B blinding
+→ separate blind Judge
+→ sealed pre-unblind judgment
+→ deterministic post-unblind promotion scorer
+```
 
-Clarify v1.1 with source-bound invariant coverage and Visual Semantic Compiler v1.2.1 available.
+Key protections:
 
-Both conditions receive the same source material, audience, requested outcome, rendering capability, time/tool budget, and evaluation cases.
+- control pinned to the pre-integration commit;
+- treatment pinned to Clarify v1.1 + VSC v1.2.1;
+- generator-safe `inputs.yaml` contains no critical invariants or judge dimensions;
+- `oracle.yaml` is judge-only;
+- `seal_pair.py` removes condition/version/commit identity from Judge receipts;
+- `private/condition-map.json` is withheld until judgment is sealed;
+- `score_ab.py` enforces the promotion policy after unblinding.
 
-Do not expose either condition to expected answers, the opposite condition's output, prior judgments, or integration-development discussions before generation.
+`ab-cases.yaml` remains the original development specification and is **not generator-safe** because it contains critical invariants and judge dimensions.
 
 ## Primary outcome
 
@@ -66,15 +81,10 @@ The treatment earns promotion only if it improves or preserves all of:
 6. artifact integrity;
 7. perceptual usability;
 
-without unacceptable regression in:
-
-- time/token burden;
-- unnecessary visual generation;
-- verbosity;
-- routing precision.
+without unacceptable regression in execution cost or routing precision.
 
 ## Acceptance rule
 
 Do not claim `CLARIFY VERIFIED VISUAL INTEGRATION: BEHAVIORALLY SUPERIOR` from the deterministic fixture alone.
 
-A fresh-context A/B judge must be able to inspect immutable control and treatment outputs and report the denominators, wins/losses/ties, and any regression cluster.
+That claim is permitted only when the fresh-context blind run completes and `certification/score_ab.py` returns a passing promotion receipt.

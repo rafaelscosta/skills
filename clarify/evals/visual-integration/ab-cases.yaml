@@ -1,6 +1,10 @@
 version: 1
 suite: clarify-visual-integration-ab
-status: pending_fresh_context_run
+status: superseded_by_blind_certification_harness
+role: development-spec-judge-only
+generator_safe: false
+generator_surface: certification/inputs.yaml
+judge_surface: certification/oracle.yaml
 purpose: Compare Clarify-only visual behavior against Clarify v1.1 + Visual Semantic Compiler v1.2.1 under matched conditions.
 
 cases:
