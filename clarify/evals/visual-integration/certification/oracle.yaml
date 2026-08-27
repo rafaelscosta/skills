@@ -1,0 +1,80 @@
+version: 1
+suite: clarify-visual-integration-ab
+surface: judge-only
+
+cases:
+  - id: refund-operational-flow
+    critical_invariants:
+      - incomplete data blocks approve/deny and requires recovery before re-analysis
+      - eligibility requires both within 7 days and no premium consumption
+      - approve only when both eligibility conditions pass
+      - deny and explain reason when either eligibility condition fails
+      - 3–5 business day finance processing is post-decision and does not change eligibility
+    dimensions:
+      - fidelity
+      - visual_fit
+      - visual_invariant_coverage
+      - exceptions_recovery
+      - accessibility
+      - visual_delivery_proof
+      - operational_scanability
+    automatic_failure:
+      - eligibility is reduced to an unlabeled or ambiguous generic decision
+      - incomplete-data recovery is missing or permits a terminal decision before re-analysis
+      - finance timing is presented as an eligibility condition
+
+  - id: approval-loop
+    critical_invariants:
+      - correction request returns to author work and then to review
+      - approve and reject are distinct terminal outcomes
+      - rejection requires a reason
+    dimensions:
+      - fidelity
+      - representation_fit
+      - recovery_visibility
+      - terminal_state_visibility
+      - perceptual_scanability
+      - accessibility
+    automatic_failure:
+      - correction loop is omitted
+      - approval and rejection collapse into one terminal state
+      - rejection reason requirement disappears
+
+  - id: source-bound-causal
+    critical_invariants:
+      - timeout does not prove first attempt failed
+      - lost response plus retry can produce duplicate side effect
+      - idempotency is the relevant prevention mechanism
+    dimensions:
+      - causal_completeness
+      - epistemic_clarity
+      - visual_fit
+      - source_bound_provenance
+      - perceptual_scanability
+      - accessibility
+    automatic_failure:
+      - timeout is shown as proof that the first payment failed
+      - duplicate charge is asserted without the lost-response plus retry mechanism
+      - idempotency is omitted or misrepresented
+
+scoring:
+  scale:
+    0: absent, wrong, materially unsafe, or unusable
+    1: partially correct but incomplete, ambiguous, or weakly evidenced
+    2: complete, correct, usable, and supported by the supplied source/output evidence
+  pairwise_values: [A, B, tie]
+
+promotion_rule:
+  no_critical_regression: true
+  treatment_case_wins_minimum: 2
+  treatment_case_losses_maximum: 1
+  fidelity_losses_allowed: 0
+  automatic_failures_allowed: 0
+  cost_guard:
+    comparable_metrics_only: true
+    catastrophic_multiplier: 2.0
+    note: >-
+      If comparable execution metrics exist for both conditions, flag treatment when both elapsed
+      time and tool-call burden exceed 2x control median without a clear case-level quality win.
+
+claim_on_pass: CLARIFY VERIFIED VISUAL INTEGRATION: BEHAVIORALLY SUPERIOR
