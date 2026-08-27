@@ -11,10 +11,11 @@ Do not run from current `main` and do not inspect later commits to reconstruct w
 ## Allowed evaluation surface
 
 - the control checkout's `clarify/SKILL.md` and only the Clarify references it normally routes to;
-- `certification/inputs.yaml`;
-- the source named by each blind input;
+- the externally supplied `certification/inputs.yaml` blind bundle;
 - ordinary rendering capability available equally to both conditions;
 - stable general knowledge needed to execute the prompts.
+
+The blind input bundle is supplied by the Controller and is independent of the old control checkout.
 
 ## Forbidden
 
@@ -88,8 +89,27 @@ If the control's ordinary behavior independently produces equivalent proof, reco
 
 Use null when a metric is not available; never invent cost metrics.
 
-At the end write `run-metadata.json` with the exact tested commit, model, surface, case count, and `oracle_seen: false`.
+## Run metadata and sealing
 
-Seal the generated files with SHA-256 in `hashes.sha256`.
+Write `run-metadata.json` using `run-metadata.template.json` and record truthfully:
+
+- exact frozen repository commit;
+- model;
+- surface;
+- reasoning effort/configuration;
+- matched tool-budget profile;
+- `case_count: 3`;
+- `oracle_seen: false`;
+- `opposite_condition_seen: false`;
+- `prior_judgment_seen: false`.
+
+The Controller must use the same `model`, `surface`, `reasoning_effort`, and `tool_budget_profile` for treatment.
+
+After generation is complete, treat outputs as immutable and create `hashes.sha256` covering:
+
+- `run-metadata.json`;
+- every file under `cases/`.
+
+The pair sealer verifies these hashes before it will create the blinded Judge package.
 
 Do not judge, compare, or revise outputs after seeing another condition.
