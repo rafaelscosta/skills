@@ -4,9 +4,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import shutil
 from pathlib import Path
 
+CONTROL_COMMIT = "a10b7e80f3dbe29422226aa31758f7c679e829af"
+TREATMENT_COMMIT = "78cb5cde584ddc9b022b7b4de91930f1ac76a1b1"
+EXPECTED_CASES = {"refund-operational-flow", "approval-loop", "source-bound-causal"}
 PROOF_KEYS = (
     "semantic_validation",
     "invariant_coverage",
@@ -17,6 +21,7 @@ PROOF_KEYS = (
     "bindings_valid",
 )
 PROOF_VALUES = {"passed", "failed", "skipped", "not_provided"}
+HASH_LINE = re.compile(r"^([0-9a-f]{64})\s+\*?(.+)$")
 
 
 def sha256(path: Path) -> str:
@@ -50,18 +55,97 @@ def standardized_receipt(raw: dict, label: str) -> dict:
     }
 
 
-def copy_candidate(source: Path, destination: Path, label: str) -> dict:
-    cases = source / "cases"
+def safe_relative(root: Path, relative: str) -> Path:
+    rel = Path(relative)
+    if rel.is_absolute() or ".." in rel.parts:
+        raise ValueError(f"unsafe hashed path: {relative}")
+    target = (root / rel).resolve()
+    try:
+        target.relative_to(root.resolve())
+    except ValueError as exc:
+        raise ValueError(f"hashed path escapes run root: {relative}") from exc
+    return target
+
+
+def verify_hash_manifest(root: Path) -> None:
+    manifest = root / "hashes.sha256"
+    if not manifest.is_file():
+        raise ValueError(f"missing hashes.sha256 in {root}")
+    entries: dict[str, str] = {}
+    for line in manifest.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        match = HASH_LINE.match(line)
+        if not match:
+            raise ValueError(f"invalid hashes.sha256 line: {line!r}")
+        digest, relative = match.groups()
+        target = safe_relative(root, relative)
+        if not target.is_file():
+            raise ValueError(f"hashed file missing: {relative}")
+        if sha256(target) != digest:
+            raise ValueError(f"hash mismatch: {relative}")
+        entries[relative] = digest
+
+    required = {"run-metadata.json"}
+    cases = root / "cases"
     if not cases.is_dir():
         raise ValueError(f"missing cases directory: {cases}")
+    for item in cases.rglob("*"):
+        if item.is_file():
+            required.add(item.relative_to(root).as_posix())
+    missing = sorted(required - set(entries))
+    if missing:
+        raise ValueError(f"hash manifest does not cover required files: {missing}")
+
+
+def validate_condition(root: Path, condition: str, expected_commit: str) -> dict:
+    metadata_path = root / "run-metadata.json"
+    if not metadata_path.is_file():
+        raise ValueError(f"missing run-metadata.json in {root}")
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    if metadata.get("schema_version") != "clarify-visual-ab-run-metadata/v1":
+        raise ValueError(f"unexpected run metadata schema for {condition}")
+    if metadata.get("condition") != condition:
+        raise ValueError(f"run metadata condition mismatch for {condition}")
+    if metadata.get("repository_commit") != expected_commit:
+        raise ValueError(f"wrong frozen commit for {condition}")
+    if metadata.get("case_count") != 3:
+        raise ValueError(f"case_count must be 3 for {condition}")
+    for flag in ("oracle_seen", "opposite_condition_seen", "prior_judgment_seen"):
+        if metadata.get(flag) is not False:
+            raise ValueError(f"{condition} metadata requires {flag}=false")
+    for field in ("model", "surface", "reasoning_effort", "tool_budget_profile"):
+        if not isinstance(metadata.get(field), str) or not metadata[field].strip():
+            raise ValueError(f"{condition} metadata requires non-empty {field}")
+
+    cases_root = root / "cases"
+    case_set = {p.name for p in cases_root.iterdir() if p.is_dir()} if cases_root.is_dir() else set()
+    if case_set != EXPECTED_CASES:
+        raise ValueError(f"{condition} case set mismatch: {sorted(case_set)}")
+    for case_id in EXPECTED_CASES:
+        receipt_path = cases_root / case_id / "receipt.json"
+        response_path = cases_root / case_id / "response.md"
+        if not receipt_path.is_file() or not response_path.is_file():
+            raise ValueError(f"{condition}/{case_id} missing response.md or receipt.json")
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        if receipt.get("case_id") != case_id or receipt.get("condition") != condition:
+            raise ValueError(f"{condition}/{case_id} receipt identity mismatch")
+        if receipt.get("model") != metadata["model"] or receipt.get("surface") != metadata["surface"]:
+            raise ValueError(f"{condition}/{case_id} receipt model/surface mismatch")
+
+    verify_hash_manifest(root)
+    return metadata
+
+
+def copy_candidate(source: Path, destination: Path, label: str) -> dict:
+    cases = source / "cases"
     manifest = {"candidate": label, "cases": {}}
     for case_dir in sorted(p for p in cases.iterdir() if p.is_dir()):
         out = destination / "cases" / case_dir.name
         out.mkdir(parents=True, exist_ok=True)
         response = case_dir / "response.md"
         receipt = case_dir / "receipt.json"
-        if not response.is_file() or not receipt.is_file():
-            raise ValueError(f"case {case_dir.name} must contain response.md and receipt.json")
         shutil.copy2(response, out / "response.md")
         raw_receipt = json.loads(receipt.read_text(encoding="utf-8"))
         clean_receipt = standardized_receipt(raw_receipt, label)
@@ -97,7 +181,7 @@ def copy_candidate(source: Path, destination: Path, label: str) -> dict:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Blind control/treatment outputs as candidate A/B.")
+    ap = argparse.ArgumentParser(description="Validate, match, and blind control/treatment outputs as candidate A/B.")
     ap.add_argument("control_dir")
     ap.add_argument("treatment_dir")
     ap.add_argument("output_dir")
@@ -109,6 +193,13 @@ def main() -> int:
     root = Path(args.output_dir).resolve()
     if root.exists() and any(root.iterdir()):
         raise SystemExit("output_dir must be absent or empty")
+
+    control_meta = validate_condition(control, "control", CONTROL_COMMIT)
+    treatment_meta = validate_condition(treatment, "treatment", TREATMENT_COMMIT)
+    for field in ("model", "surface", "reasoning_effort", "tool_budget_profile"):
+        if control_meta[field] != treatment_meta[field]:
+            raise SystemExit(f"matched-condition violation: {field} differs")
+
     blinded = root / "blinded"
     private = root / "private"
     blinded.mkdir(parents=True, exist_ok=True)
@@ -117,7 +208,14 @@ def main() -> int:
     bit = int(hashlib.sha256(args.seed.encode("utf-8")).hexdigest(), 16) & 1
     mapping = {"A": "control", "B": "treatment"} if bit == 0 else {"A": "treatment", "B": "control"}
     sources = {"control": control, "treatment": treatment}
-    public = {"schema_version": "clarify-visual-ab-blinded/v1", "candidates": {}}
+    public = {
+        "schema_version": "clarify-visual-ab-blinded/v1",
+        "matched_model": control_meta["model"],
+        "matched_surface": control_meta["surface"],
+        "matched_reasoning_effort": control_meta["reasoning_effort"],
+        "matched_tool_budget_profile": control_meta["tool_budget_profile"],
+        "candidates": {},
+    }
     for label in ("A", "B"):
         dest = blinded / f"candidate-{label}"
         dest.mkdir(parents=True, exist_ok=True)
@@ -136,6 +234,12 @@ def main() -> int:
         "judge_package": str(blinded),
         "private_map": str(private / "condition-map.json"),
         "manifest_sha256": private_map["blinded_manifest_sha256"],
+        "matched": {
+            "model": control_meta["model"],
+            "surface": control_meta["surface"],
+            "reasoning_effort": control_meta["reasoning_effort"],
+            "tool_budget_profile": control_meta["tool_budget_profile"],
+        },
     }, indent=2))
     return 0
 
