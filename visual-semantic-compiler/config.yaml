@@ -1,0 +1,30 @@
+pack:
+  name: visual-semantic-compiler
+  version: "1.0.0"
+  owner_squad: sinkra-squad
+
+contract:
+  schema: visual-semantic-compiler/receipt@1
+  semantic_ir_schema: visual-semantic-ir/v1
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: output_only
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+  output_root: outputs/businesses/{business}/visual-semantic-compiler/{run_id}
+  original_input_overwrite: deny
+  lifecycle_states: [PLANNED, MODEL_BOUND, IR_COMPILED, VALIDATED, FROZEN, HANDOFF, FAILED, BLOCKED]
+  terminal_success: HANDOFF
+  deterministic_validation_required: true
+  provenance_supported: true
+  text_equivalent_required: true
+  layout_validation: deferred
+  perceptual_review: downstream
+
+integration:
+  upstream_skills:
+    - clarify
+    - concept-bridge
+  renderer_coupling: none
+  archify_adapter: planned
