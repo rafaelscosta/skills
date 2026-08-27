@@ -1,11 +1,12 @@
 pack:
   name: visual-semantic-compiler
-  version: "1.0.0"
+  version: "1.1.0"
   owner_squad: sinkra-squad
 
 contract:
-  schema: visual-semantic-compiler/receipt@1
+  schema: visual-semantic-compiler/receipt@2
   semantic_ir_schema: visual-semantic-ir/v1
+  layout_schema: visual-layout/v1
   input_trust: untrusted
   repository_scope: read_only
   mutation_scope: output_only
@@ -14,17 +15,33 @@ contract:
   publication_default: deny
   output_root: outputs/businesses/{business}/visual-semantic-compiler/{run_id}
   original_input_overwrite: deny
-  lifecycle_states: [PLANNED, MODEL_BOUND, IR_COMPILED, VALIDATED, FROZEN, HANDOFF, FAILED, BLOCKED]
+  lifecycle_states: [PLANNED, MODEL_BOUND, IR_COMPILED, SEMANTIC_VALIDATED, SEMANTIC_FROZEN, LAYOUT_COMPILED, LAYOUT_VALIDATED, RENDERED, ARTIFACT_VALIDATED, HANDOFF, FAILED, BLOCKED]
   terminal_success: HANDOFF
   deterministic_validation_required: true
   provenance_supported: true
   text_equivalent_required: true
-  layout_validation: deferred
+  layout_validation: deterministic_when_canonical_renderer
+  artifact_validation: deterministic_when_canonical_renderer
+  canonical_renderer: html-inline-svg/v1
   perceptual_review: downstream
+  perceptual_review_default: pending
 
 integration:
   upstream_skills:
     - clarify
     - concept-bridge
   renderer_coupling: none
-  archify_adapter: planned
+  archify_adapter: architecture-only-optional
+
+canonical_renderer_support:
+  - architecture
+  - flow
+  - state
+  - sequence
+  - dataflow
+  - hierarchy
+  - causal
+  - structural-comparison
+  - story-strip
+  - before-after
+  - timeline

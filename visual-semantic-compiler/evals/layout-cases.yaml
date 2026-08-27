@@ -1,0 +1,59 @@
+version: 1
+skill: visual-semantic-compiler
+purpose: Verify deterministic R2 layout, artifact, and fail-closed renderer behavior.
+
+cases:
+  - id: rag-architecture-layout
+    input: examples/concept-bridge-rag.json
+    expected_renderer: architecture
+    must:
+      - semantic validation passes before layout
+      - layout passes with zero unrelated crossings
+      - return edge routes outside the primary rail
+      - relationship labels do not overlap nodes
+      - final HTML binds to semantic IR SHA-256
+
+  - id: refund-flow-layout
+    input: examples/clarify-refund-flow.json
+    expected_renderer: flow
+    must:
+      - preserve yes/no branch labels
+      - maintain top-to-bottom reading direction
+      - pass node, edge, label, and containment checks
+
+  - id: reciprocal-state
+    expected_renderer: state
+    must:
+      - route reciprocal transitions on distinct rails
+      - preserve both truthful transitions
+      - avoid solving geometry by deleting an edge
+
+  - id: sequence-order-layout
+    expected_renderer: sequence
+    must:
+      - place participants on stable lifelines
+      - order messages by semantic relationship order
+      - keep chronology independent of static architecture layout
+
+  - id: artifact-self-contained
+    expected_artifact: html-inline-svg
+    must:
+      - include accessible inline SVG
+      - include semantic digest binding
+      - include text equivalent
+      - require no external diagram runtime
+      - leave perceptual_review pending
+
+  - id: unsupported-bpmn
+    expected_status: error
+    must:
+      - preserve semantically valid IR
+      - fail canonical renderer explicitly
+      - require another renderer instead of generic fallback
+
+  - id: archify-architecture-adapter
+    expected_adapter: archify/architecture/v1
+    must:
+      - leave Visual Semantic IR authoritative
+      - emit an architecture candidate only
+      - require Archify's own validation before trusted delivery

@@ -1,12 +1,14 @@
 interface:
   display_name: Visual Semantic Compiler
-  short_description: Compila planos visuais em IR semântico validável antes da renderização
+  short_description: Valida o significado, layout e entrega visual sem confundir checks com revisão perceptiva
   default_prompt: Use $visual-semantic-compiler after the upstream reasoning skill has selected
     a useful visual. Compile the smallest renderer-agnostic semantic IR, preserve canonical
-    terminology and source provenance, validate it with the bundled deterministic validator,
-    freeze the passing candidate bytes, and hand the validated meaning to the renderer. Never
-    treat deterministic IR validation as perceptual visual review. Keep user-visible labels and
-    text equivalents in Brazilian Portuguese unless the user requests another language.
+    terminology and provenance, validate and freeze it, then when rendering is requested use
+    the deterministic layout and HTML + inline-SVG delivery path for supported representations.
+    Require semantic, layout, and static artifact receipts before handoff, keep perceptual review
+    explicitly pending until the exact rendered artifact is inspected, and fail closed for
+    unsupported renderer types. Keep user-visible labels and text equivalents in Brazilian
+    Portuguese unless the user requests another language.
   icon_small: assets/icon.svg
   icon_large: assets/icon.svg
 policy:

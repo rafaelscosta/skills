@@ -1,6 +1,6 @@
 ---
 name: visual-semantic-compiler
-description: Compile an already-selected educational or explanatory visual plan into a renderer-agnostic, provenance-aware Visual Semantic IR and validate it deterministically before rendering. Use after Clarify, Concept Bridge, or another reasoning skill decides that a visual materially helps; also use when the user asks to validate a diagram specification, preserve node/edge evidence, or separate semantic correctness from layout/rendering. Do not use to choose whether a visual is pedagogically necessary from scratch when an upstream skill already owns that decision, and do not treat deterministic IR validation as perceptual visual review.
+description: Compile an already-selected educational or explanatory visual plan into a provenance-aware Visual Semantic IR, validate its meaning, deterministically lay out supported representations, and deliver a self-contained HTML + inline-SVG artifact with semantic/layout/artifact receipts. Use after Clarify, Concept Bridge, or another reasoning skill decides that a visual materially helps; also use to validate diagram specifications or separate semantic correctness from layout/rendering/perceptual review. Do not choose visual necessity from scratch when an upstream skill owns that decision, and never treat deterministic checks as perceptual visual review.
 ---
 
 # Visual Semantic Compiler
@@ -20,7 +20,13 @@ deterministic validator
   ↓
 frozen semantic candidate
   ↓
-renderer
+deterministic layout candidate
+  ↓
+geometry validator
+  ↓
+canonical renderer or adapter
+  ↓
+artifact validator
   ↓
 perceptual review
 ```
@@ -308,6 +314,66 @@ Possible downstreams:
 
 The renderer consumes validated meaning; it does not get to silently reinterpret semantic topology.
 
+## R2 deterministic render path
+
+After the semantic IR passes R1 validation, R2 may continue to a deterministic renderer for supported types.
+
+Read `references/layout-contract.md` and `references/renderer-contract.md` only when rendering is actually requested.
+
+Canonical command:
+
+```bash
+python3 scripts/render_html.py candidate.json output.html --layout-output output.layout.json --json
+```
+
+The delivery path is fail-closed:
+
+```text
+semantic validator PASS
+→ visual-layout/v1
+→ geometry validator PASS
+→ HTML + inline SVG
+→ static artifact validator PASS
+→ atomic commit
+→ perceptual review PENDING
+```
+
+R2 canonical rendering currently supports:
+
+- `architecture`;
+- `flow`;
+- `state`;
+- `sequence`;
+- `dataflow`;
+- `hierarchy`;
+- `causal`;
+- `structural-comparison`;
+- `story-strip`;
+- `before-after`;
+- `timeline`.
+
+Unsupported types fail explicitly. A semantically valid BPMN, C4, concept map, statistical chart, or other IR must use another renderer rather than being flattened into generic boxes and arrows.
+
+### Geometry receipt
+
+The R2 layout validator checks viewport containment, node separation, edge-through-node, unrelated crossings, relationship-label collisions, endpoint integrity, and dominant reading direction.
+
+When `target_zero_crossings` is true, unrelated crossings are hard failures.
+
+Do not delete truthful semantic relationships merely to make layout pass. If geometry cannot preserve the frozen model, change the renderer or revise the semantic model and revalidate it.
+
+### Canonical artifact
+
+The built-in renderer produces self-contained HTML with inline SVG. It embeds the semantic IR SHA-256, preserves the text equivalent in visible prose and SVG accessibility text, records omissions, and requires no external diagram runtime.
+
+`validate_artifact.py` proves only static artifact properties. Its success never upgrades `perceptual_review` beyond `pending`.
+
+### Optional Archify adapter
+
+`adapt_archify.py` is an optional renderer adapter. R2 supports only `architecture` and fails closed for other types. The adapter produces an Archify candidate but does not invoke Archify. Archify must still run its own `validate` and `deliver` gates.
+
+Read `references/adapters/archify.md` when using it. The Visual Semantic IR remains authoritative.
+
 ## Archify relationship
 
 This skill adopts architectural lessons from typed-IR visual systems but is **not coupled to Archify**.
@@ -332,7 +398,7 @@ Before handoff, verify:
 1. **Question** — exactly one primary question per simple view.
 2. **Truth** — no relationship is stronger than its evidence.
 3. **Vocabulary** — canonical terms match upstream prose.
-4. **Minimality** — every entity/edge/beat/group/view earns its place at the selected depth.
+4. **Minimality** — every entity/edge earns its place at the selected depth.
 5. **Representation fit** — IR class/type matches the upstream decision.
 6. **Evidence** — source-bound facts preserve explicit/inferred/unknown distinctions.
 7. **Text equivalent** — truth-critical meaning survives without rendering.
@@ -363,12 +429,15 @@ semantic_ir: <path>
 semantic_ir_sha256: <validator receipt value>
 validation: passed
 checks: schema_shape, unique_ids, relationship_integrity, representation_contract, type_contract, provenance_integrity, pedagogical_contract
-layout_geometry: deferred
-renderer_status: not_run | handed_off
+layout_geometry: deferred | passed
+layout_sha256: <layout receipt value when rendered>
+artifact_sha256: <artifact receipt value when rendered>
+renderer_status: not_run | handed_off | rendered
+perceptual_review: pending | passed | failed | skipped
 ```
 
 Do not call `layout_geometry: deferred` a layout pass.
 
 ## Definition of done
 
-The compiler is done when the renderer receives a frozen semantic candidate whose meaning is explicit enough that two independent renderers should preserve the same important nodes, relationships, narrative beats, omissions, and evidence boundaries.
+The semantic compiler is done when a renderer receives a frozen semantic candidate whose meaning is explicit enough that independent renderers preserve the same important nodes, relationships, narrative beats, omissions, and evidence boundaries. When the built-in R2 renderer is requested, delivery is done only after semantic, layout, and static artifact gates pass; perceptual quality remains a separate review claim.
