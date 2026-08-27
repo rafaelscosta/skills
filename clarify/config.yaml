@@ -32,4 +32,9 @@ certification:
   visual_integration:
     deterministic_smoke: passed
     behavioral_ab: pending
-    protocol: evals/visual-integration/README.md
+    behavioral_ab_harness: ready
+    protocol: evals/visual-integration/certification/README.md
+    control_commit: a10b7e80f3dbe29422226aa31758f7c679e829af
+    treatment_commit: 78cb5cde584ddc9b022b7b4de91930f1ac76a1b1
+    blind_judge_required: true
+    preunblind_judgment_required: true
