@@ -8,6 +8,7 @@ Catálogo pessoal de skills de Rafael Costa.
 | --- | --- |
 | [clarify](./clarify) | Diagnostica por que um material é difícil de entender e transforma em explicações, fluxos, procedimentos ou auditorias de clareza em português brasileiro. |
 | [concept-bridge](./concept-bridge) | Constrói o menor modelo mental correto para entender um conceito novo e, quando um visual ajuda, roteia entre narrativa, diagramas estruturais ou composição mista sem aumentar a carga cognitiva. |
+| [visual-semantic-compiler](./visual-semantic-compiler) | Compila decisões visuais de Clarify, Concept Bridge ou outras skills em um IR semântico renderer-agnostic, com provenance, validação determinística e hash antes da renderização. |
 | [youtube-fetcher](./youtube-fetcher) | Extrai evidência do YouTube com contexto mínimo: metadata, capítulos, transcript, ranges, chunks determinísticos, manifests e Markdown pronto para Obsidian/RAG. |
 
 ## Uso
@@ -18,6 +19,7 @@ Clone o repositório e aponte o runtime de skills para esta pasta, ou copie a sk
 git clone https://github.com/rafaelscosta/skills.git
 cp -R skills/clarify ~/.claude/skills/clarify
 cp -R skills/concept-bridge ~/.claude/skills/concept-bridge
+cp -R skills/visual-semantic-compiler ~/.claude/skills/visual-semantic-compiler
 cp -R skills/youtube-fetcher ~/.claude/skills/youtube-fetcher
 ```
 
