@@ -4,6 +4,8 @@ interface:
   default_prompt: Use $visual-semantic-compiler after the upstream reasoning skill has selected
     a useful visual. Compile and validate the renderer-agnostic semantic IR, freeze it, then when
     rendering is requested run the deterministic layout and HTML + inline-SVG delivery path.
+    Preserve operationally decisive labels and truthful recovery/back edges even when they require
+    multiline nodes or an outer routing rail; never weaken a rule solely to make geometry easier.
     After static artifact validation, capture browser evidence at the required desktop viewports,
     keep perceptual review pending until an identified human or vision-capable model inspects the
     exact screenshots, and validate the review's artifact/evidence hash bindings before claiming
