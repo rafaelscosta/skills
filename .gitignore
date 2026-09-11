@@ -3,3 +3,7 @@
 *.tmp
 .env
 .env.*
+
+# Python bytecode
+__pycache__/
+*.pyc

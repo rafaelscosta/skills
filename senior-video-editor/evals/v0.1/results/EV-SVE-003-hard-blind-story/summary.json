@@ -1,0 +1,10 @@
+{
+  "wins": {
+    "treatment": 3,
+    "control": 0,
+    "tie": 0
+  },
+  "treatment_block_fail_judgments": 0,
+  "control_block_fail_judgments": 0,
+  "discriminative_promotion_pass": true
+}

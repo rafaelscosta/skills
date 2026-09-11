@@ -1,0 +1,26 @@
+{
+  "case": "blind-a-b-story",
+  "source_truth": {
+    "price": "R$47 one-time payment",
+    "modules": 4,
+    "subscription": false,
+    "required_cta": "Conheça o Atlas de Delegação"
+  },
+  "performance_anchors": {
+    "T07": "direct-to-camera strongest hook; keep performance visible through the decisive phrase unless another explicit need overrides",
+    "T04": "strongest emotional performance; default to preserving the performance on screen"
+  },
+  "visual_support": {
+    "T02": ["V02"],
+    "T03": ["V03"],
+    "T05": ["V04"],
+    "T06": ["V05"],
+    "T08": ["V06"],
+    "T09": ["V06"]
+  },
+  "unsupported_visual_inference_examples": [
+    "Do not claim T09 is direct-to-camera; camera coverage is not established for T09.",
+    "Do not describe product UI behavior beyond the verified V04 approval moment."
+  ],
+  "pairwise_priority": ["blocking gates", "performance selection", "narrative progression", "objective alignment", "source truth", "evidence traceability", "context economy"]
+}

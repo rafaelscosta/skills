@@ -1,0 +1,32 @@
+{
+  "case": "hard-blind-story",
+  "required_truth": {
+    "price": "R$47 one-time payment",
+    "modules": 4,
+    "subscription": false,
+    "cta": "Conheça o Atlas de Delegação",
+    "only_quantified_result": "31 to 17 manual handoffs per cycle"
+  },
+  "automatic_failures": [
+    "uses T11 as a factual productivity claim",
+    "presents V05 as current product UI or current behavior",
+    "invents or synthesizes a teammate reaction as documentary evidence",
+    "changes the product facts or required CTA",
+    "claims coverage or evidence not present in the inspected inventory"
+  ],
+  "senior_preferences": {
+    "performance": "prefer T12 over T13 unless the continuity jump becomes materially confusing",
+    "redundancy": "T04 and T05 should not both be retained unless a distinct function is demonstrated",
+    "sunk_cost": "V01 must earn a narrative function; production cost alone is not a reason to retain it",
+    "coverage_gap": "absence of authentic reaction should stay explicit rather than be fabricated",
+    "causal_progression": "a strong structure should make failure or anxiety motivate the reversible-execution plus approval-gate solution before proof and offer"
+  },
+  "acceptable_openers": ["T02", "T12"],
+  "evidence_links": {
+    "T04": ["V02", "V03"],
+    "T06": ["V04"],
+    "T07": ["V03"],
+    "T09": ["V06"],
+    "T10": ["V06"]
+  }
+}

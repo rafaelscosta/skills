@@ -1,0 +1,7 @@
+interface:
+  display_name: Footage Intelligence
+  short_description: Mapeia material bruto por significado, performance, continuidade e risco
+  default_prompt: Use $footage-intelligence to inspect the available media and create an evidence-grounded semantic AssetManifest. Separate observation from interpretation, preserve stable source locators, and never invent missing coverage. Return user-visible prose in Brazilian Portuguese.
+policy:
+  allow_implicit_invocation: true
+  products: [chatgpt, codex, api, atlas]

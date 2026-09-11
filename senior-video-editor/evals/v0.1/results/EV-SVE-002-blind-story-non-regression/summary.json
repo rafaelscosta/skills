@@ -1,0 +1,10 @@
+{
+  "wins": {
+    "treatment": 1,
+    "control": 0,
+    "tie": 2
+  },
+  "treatment_block_fail_judgments": 0,
+  "control_block_fail_judgments": 0,
+  "non_regression_pass": true
+}

@@ -1,0 +1,15 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"supervising-video-editor/editorial-qa@1",
+  "type":"object",
+  "required":["verdict","blocking_gates","findings","highest_value_defects","confidence"],
+  "properties":{
+    "verdict":{"enum":["PASS","PASS_WITH_NOTES","REVISE","BLOCK"]},
+    "blocking_gates":{"type":"array","items":{"type":"object","required":["name","status"],"properties":{"name":{"type":"string"},"status":{"enum":["PASS","FAIL","NOT_APPLICABLE","NOT_CERTIFIED"]},"evidence":{"type":"array","items":{"type":"string"}}}}},
+    "findings":{"type":"array","items":{"type":"object","properties":{"pass":{"type":"string"},"status":{"type":"string"},"observations":{"type":"array","items":{"type":"string"}}}}},
+    "highest_value_defects":{"type":"array","items":{"type":"object","properties":{"problem":{"type":"string"},"acceptance_condition":{"type":"string"},"severity":{"enum":["blocking","major","minor"]}}}},
+    "confidence":{"type":"number","minimum":0,"maximum":1},
+    "evidence_limits":{"type":"array","items":{"type":"string"}}
+  },
+  "additionalProperties":true
+}

@@ -1,0 +1,36 @@
+{
+  "case": "hard-blind-story",
+  "evaluation_type": "sealed_blind_pairwise_multi_judge",
+  "base_branch_commit": "1e3203ae224663c0877f722eb28a63b365d0999b",
+  "evaluated_skill_sha256": {
+    "senior-video-editor/SKILL.md": "a5797cc4caf0e7380d56dba239a5656f0be8df1967515ef9851cfca77f43bff1",
+    "story-edit/SKILL.md": "56438d4d0e1edf19aca0ff69b099b969b2d71e1253848e71a787856ea304e0f2"
+  },
+  "generator": "codex-cli-0.146.0/gpt-5.6-terra/high",
+  "judges": "codex-cli-0.146.0/gpt-5.6-sol/high x3",
+  "fixture_sha256": "7bf2e949825923915939e6ea2425dd56b1ef5a314094ee53d080ad5b879e9457",
+  "oracle_sha256": "0a81fc09284095bcdf2869e433e9dca390828c8acefffddb59cf2d8e9ae89bea",
+  "protocol_sha256": "760de5f6eeb8f45f67b690bf95da1b1b7f28e1aa59446fd8f6513300eee7b1a9",
+  "control_sha256": "8a7172d2b1c35cd7d490b30ae845fb90d7ea8e8fefe43818916c3ba44caecf89",
+  "treatment_sha256": "a70b359506a5484aef42ade7384d427a5716f81ab804a4163913ffd65de00fef",
+  "judge_receipt_sha256": {
+    "judge-1": "0b7b859f5db09bf8b8a76ee350cdcdcb236ef70891579a76ca72aa524f8046a4",
+    "judge-2": "048642a36e9cda6077e6217e43a8a8b499b70c4b3e4f312f549fb84c6b52533e",
+    "judge-3": "08da4e4c5aa4b3b12f1e416cb062ad7e6f1eb0e2a48d32a217e525d48e92a43a"
+  },
+  "summary": {
+    "wins": {
+      "treatment": 3,
+      "control": 0,
+      "tie": 0
+    },
+    "treatment_block_fail_judgments": 0,
+    "control_block_fail_judgments": 0,
+    "discriminative_promotion_pass": true
+  },
+  "promotion_gate": {
+    "required": "treatment has zero blocking failures and wins a majority of three blind judges",
+    "observed": "treatment 3, control 0, ties 0; treatment blockers 0",
+    "pass": true
+  }
+}
