@@ -1,0 +1,21 @@
+pack:
+  name: senior-video-editor
+  version: "0.1.0"
+  owner_squad: sinkra-squad
+contract:
+  schema: senior-video-editor/receipt@1
+  input_trust: mixed
+  repository_scope: read_only
+  mutation_scope: none
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+  lifecycle_states: [PLANNED, CONTRACTED, SOURCES_MAPPED, EDITORIAL_ROUTED, INTEGRATED, READY_FOR_SUPERVISION, FAILED, BLOCKED]
+  terminal_success: READY_FOR_SUPERVISION
+  independent_supervision_required: true
+  specialist_gap_disclosure_required: true
+integration:
+  contract_skill: video-edit-contract
+  footage_skill: footage-intelligence
+  story_skill: story-edit
+  supervisor_skill: supervising-video-editor

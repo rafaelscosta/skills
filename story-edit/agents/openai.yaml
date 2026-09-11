@@ -1,0 +1,7 @@
+interface:
+  display_name: Story Edit
+  short_description: Constrói ou repara narrativa, seleção e progressão editorial
+  default_prompt: Use $story-edit to build the strongest source-grounded narrative structure for this video. Prioritize truth, viewer outcome, performance, progression, and clarity before continuity or polish. Diagnose structural causes instead of adding stimulation by default. Return user-visible prose in Brazilian Portuguese.
+policy:
+  allow_implicit_invocation: true
+  products: [chatgpt, codex, api, atlas]

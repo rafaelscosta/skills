@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"footage-intelligence/asset-manifest@1",
+  "type":"object",
+  "required":["assets","segments","risks","missing_coverage"],
+  "properties":{
+    "assets":{"type":"array","items":{"type":"object","required":["id","kind"],"properties":{"id":{"type":"string"},"kind":{"type":"string"},"source_locator":{"type":["string","null"]},"provenance":{"type":["string","null"]}}}},
+    "segments":{"type":"array","items":{"type":"object","required":["asset_id","locator","observations"],"properties":{"asset_id":{"type":"string"},"locator":{"type":"string"},"observations":{"type":"array","items":{"type":"string"}},"interpretations":{"type":"array","items":{"type":"string"}},"tags":{"type":"array","items":{"type":"string"}},"editorial_functions":{"type":"array","items":{"type":"string"}}}}},
+    "risks":{"type":"array","items":{"type":"string"}},
+    "missing_coverage":{"type":"array","items":{"type":"string"}}
+  },
+  "additionalProperties":true
+}

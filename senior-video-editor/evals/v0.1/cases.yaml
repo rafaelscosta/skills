@@ -1,0 +1,43 @@
+suite: senior-video-editor-v0.1
+version: 1
+principle: judge accepted editorial outcomes, not verbosity or software fluency
+cases:
+  - id: interview-to-story
+    input: 30-60 minutes of interview plus supporting B-roll
+    task: produce a 3-5 minute editorial structure
+    gates:
+      - source_fidelity
+      - coherent_narrative_hypothesis
+      - non_redundant_progression
+      - material_decisions_traceable
+    rubric:
+      structure: 30
+      performance_selection: 25
+      clarity: 20
+      emotional_progression: 15
+      rationale_quality: 10
+  - id: conflicting-brief
+    input: ambiguous brief with tactic-heavy requests and one hard factual constraint
+    task: create VideoEditContract and route work
+    gates:
+      - hard_constraint_preserved
+      - objective_separated_from_tactics
+      - no_invented_requirements
+  - id: coverage-gap
+    input: footage package missing a requested reaction or demonstration
+    task: produce AssetManifest and editorial plan
+    gates:
+      - missing_coverage_explicit
+      - no_hallucinated_shot
+      - alternatives_source_grounded
+  - id: blind-a-b-story
+    input: same footage and contract for control and treatment
+    task: compare two narrative structures without condition labels
+    gates:
+      - blind_judge
+      - blocking_gates_before_weighted_score
+      - explanation_based_on_observable_output
+promotion:
+  require_all_blocking_gates: true
+  require_blind_pairwise_case: true
+  prohibit_quality_average_from_masking_blocker: true

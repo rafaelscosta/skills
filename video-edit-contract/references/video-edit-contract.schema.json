@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "video-edit-contract/receipt@1",
+  "type": "object",
+  "required": ["objective","audience","viewer_outcome","format_profile","must_preserve","must_avoid","acceptance_gates","assumptions","open_questions"],
+  "properties": {
+    "objective": {"type":"string"},
+    "audience": {"type":"string"},
+    "viewer_outcome": {"type":"string"},
+    "format_profile": {"type":"string"},
+    "aspect_ratio": {"type":["string","null"]},
+    "target_duration_seconds": {"type":["number","null"],"minimum":0},
+    "primary_experience": {"type":["string","null"]},
+    "primary_metric": {"type":["string","null"]},
+    "secondary_metrics": {"type":"array","items":{"type":"string"}},
+    "must_preserve": {"type":"array","items":{"type":"string"}},
+    "must_avoid": {"type":"array","items":{"type":"string"}},
+    "brand_constraints": {"type":"object"},
+    "source_truth": {"type":"array","items":{"type":"string"}},
+    "delivery_constraints": {"type":"object"},
+    "risk_level": {"enum":["low","standard","high"]},
+    "acceptance_gates": {"type":"array","items":{"type":"string"}},
+    "assumptions": {"type":"array","items":{"type":"string"}},
+    "open_questions": {"type":"array","items":{"type":"string"}}
+  },
+  "additionalProperties": true
+}
