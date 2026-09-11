@@ -1,6 +1,6 @@
 ---
 name: footage-intelligence
-description: Inspect, index, and reason over raw video, audio, transcripts, stills, and supporting assets to create an evidence-grounded map of usable editorial material. Use before story construction when the agent must understand what was actually captured. Do not use to invent missing coverage, select a final narrative structure, or perform finishing.
+description: Inspect, index, and reason over raw video, audio, transcripts, stills, and supporting assets to create an evidence-grounded map of usable editorial material. Use when story construction depends on understanding what was actually captured in the source material. Do not use to invent missing coverage, select a final narrative structure, or perform finishing.
 ---
 
 # Footage Intelligence
