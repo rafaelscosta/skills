@@ -1,6 +1,6 @@
 ---
 name: story-edit
-description: Build or repair the narrative structure of a video from a VideoEditContract and evidence-grounded source material. Use for assemblies, rough cuts, interviews, documentaries, ads, explainers, VSLs, brand films, or any cut whose structure, progression, clarity, performance, tension, or payoff is unresolved. Do not use for purely technical finishing or decorative pacing changes when structure is already locked.
+description: Build or repair the narrative structure of a video from a VideoEditContract and evidence-grounded source material. Use when assemblies, rough cuts, interviews, documentaries, ads, explainers, VSLs, brand films, or other cuts have unresolved structure, progression, clarity, performance, tension, or payoff. Do not use for purely technical finishing or decorative pacing changes when structure is already locked.
 ---
 
 # Story Edit
