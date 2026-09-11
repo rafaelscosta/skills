@@ -50,6 +50,13 @@ Two adjacent elements should not perform the same narrative job unless repetitio
 
 Prefer the moment with the strongest truthful intention when small technical imperfections can be repaired or safely tolerated.
 
+Treat performance as visual evidence, not only as an audio source:
+
+- when the source inventory marks a moment as the strongest hook, strongest emotional performance, or a direct-to-camera anchor, keep that performance on screen through the decisive phrase by default;
+- do not cover a source-marked performance anchor with B-roll merely for visual variety;
+- cut away only when another image is necessary for comprehension, evidence, privacy, continuity, or another explicit contract need;
+- when a cutaway is useful, prefer entering after the decisive phrase or during a lower-value tail.
+
 ### 5. Test causal and informational progression
 
 Ask continuously:
@@ -76,7 +83,7 @@ For consequential decisions, capture:
 - confidence;
 - reversibility.
 
-Do not log every cut.
+Do not log every cut. Do not duplicate a beat-map decision in rationale unless the rationale resolves a real ambiguity, tradeoff, or risk. Prefer 1–3 material decisions over exhaustive commentary.
 
 ## Senior diagnostic rules
 
@@ -97,17 +104,17 @@ When a scene needs graphics or music to become understandable, first test whethe
 
 ## Output
 
-Return:
+Default to the smallest executable editorial artifact: one concise narrative hypothesis plus the beat map or sequence itself.
 
-```markdown
-## Narrative hypothesis
-## Beat map
-## Selected source moments
-## Removed or deferred material
-## Structural risks
-## Material EditDecisions
-## Handoff notes
-```
+Add any of the following only when they change a downstream decision:
+
+- selected source moments that are not already obvious from the beat map;
+- removed/deferred material whose exclusion is consequential or surprising;
+- unresolved structural risks;
+- material `EditDecision` records for non-obvious tradeoffs;
+- handoff notes required by the next specialist.
+
+Do not restate the beat sequence in a separate selected-moments list, repeat the same rationale across sections, or emit process metadata that does not improve the edit.
 
 ## Acceptance gates
 

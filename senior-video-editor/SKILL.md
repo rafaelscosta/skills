@@ -36,8 +36,9 @@ The senior editor does not need to perform every specialist operation personally
 6. Do not treat software as the skill. Route by capability; use tool adapters only for execution.
 7. Separate generator and judge roles. `$supervising-video-editor` must independently evaluate material outcomes.
 8. Do not let high polish compensate for failed blocking gates.
-9. Record only material editorial decisions, not exhaustive chain-of-thought.
+9. Record a material editorial decision only when it preserves a non-obvious tradeoff, risk, or downstream coordination need. Do not emit decision records that merely restate the artifact.
 10. User-visible narration, labels, captions, and creative text default to Brazilian Portuguese unless the user requests otherwise.
+11. When one specialist fully resolves the current bottleneck, do not repackage the same artifact into duplicate owner-level explanation. Surface only owner-level deltas, unresolved gaps, and submission state.
 
 ## Canonical v0.1 route
 
@@ -106,22 +107,15 @@ Before handing to supervision, confirm:
 
 ## Output
 
-Return only what helps the project move:
+Default to the artifact produced by the specialist that resolved the bottleneck. Do not narrate routing, skill names, or orchestration mechanics unless they change a user decision or the user asks for debugging detail.
 
-```markdown
-## Current editorial objective
-## Dominant bottleneck
-## Route executed
-## Integrated editorial state
-## Material decisions
-## Remaining specialist gaps
-## Submission status
-```
+Use an owner wrapper only when at least one is true:
 
-Submission status is one of:
+- two or more specialist outputs must be reconciled;
+- an unresolved cross-specialist conflict or risk remains;
+- a specialist gap changes what can be claimed or delivered;
+- submission readiness itself is the material decision.
 
-- `NOT_READY`
-- `READY_FOR_SUPERVISION`
-- `BLOCKED`
+When an owner wrapper is needed, keep it to the smallest useful delta: objective/bottleneck if still unresolved, integration decision, remaining gap, and submission status. Never duplicate the specialist's beat map, rationale, or evidence table.
 
-Only `$supervising-video-editor` may return final editorial acceptance in this architecture.
+Submission status is one of `NOT_READY`, `READY_FOR_SUPERVISION`, or `BLOCKED`. Only `$supervising-video-editor` may return final editorial acceptance in this architecture.
