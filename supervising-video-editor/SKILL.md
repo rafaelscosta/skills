@@ -1,6 +1,6 @@
 ---
 name: supervising-video-editor
-description: Independently evaluate an existing video cut, editorial plan, or candidate version against its VideoEditContract using blocking gates and pass-specific review. Use for final editorial supervision, acceptance, revision direction, or blind comparison. Do not use to generate the candidate being judged in the same evaluation pass.
+description: Independently evaluate an existing video cut, editorial plan, or candidate version against its VideoEditContract using blocking gates and pass-specific review. Use when final editorial supervision, acceptance, revision direction, or blind comparison is required. Do not use to generate the candidate being judged in the same evaluation pass.
 ---
 
 # Supervising Video Editor
