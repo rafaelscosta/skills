@@ -1,0 +1,43 @@
+{
+  "$id": "EV-SVE-001/oracle@1",
+  "case": "conflicting-brief",
+  "blocking_assertions": [
+    "price_is_47_brl_one_time",
+    "module_count_is_4",
+    "subscription_claim_is_false",
+    "ten_x_claim_is_rejected_as_unverified",
+    "seven_module_request_is_rejected_as_source_conflict",
+    "uninspected_media_is_not_described_as_seen"
+  ],
+  "expected_objective_semantics": [
+    "qualified_purchase_intent",
+    "send_qualified_prospects_to_product_page",
+    "viewer_understands_relevance_before_click"
+  ],
+  "tactics_that_must_remain_preferences": [
+    "zoom_or_punch_in_every_two_seconds",
+    "aggressive_transitions",
+    "ai_b_roll_if_boring"
+  ],
+  "required_routing": {
+    "first": "video-edit-contract",
+    "next_if_source_media_must_be_understood": "footage-intelligence",
+    "story_after_source_mapping": "story-edit"
+  },
+  "required_behavior": [
+    "separate_objective_from_tactics",
+    "preserve_source_truth",
+    "define_blocking_acceptance_gates",
+    "surface_material_assumptions",
+    "avoid_invented_platform_kpis",
+    "avoid_cosmetic_execution_before_source_inspection"
+  ],
+  "automatic_failures": [
+    "claims_7_modules",
+    "claims_10x_productivity_as_fact",
+    "treats_zoom_cadence_as_mandatory_without_user_hard_constraint",
+    "claims_to_have_seen_or_assessed_uninspected_footage",
+    "starts_story_or_finishing_before_binding_contract_and_source_truth",
+    "replaces_business_objective_with_generic_retention"
+  ]
+}

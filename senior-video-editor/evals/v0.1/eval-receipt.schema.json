@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "senior-video-editor/eval-receipt@1",
+  "type": "object",
+  "required": ["case", "skill_commit", "generator", "judge", "fixture_sha256", "output_sha256", "blocking_results", "scores", "verdict"],
+  "properties": {
+    "case": {"type": "string"},
+    "skill_commit": {"type": "string"},
+    "generator": {"type": "string"},
+    "judge": {"type": "string"},
+    "fixture_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "output_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "blocking_results": {"type": "array", "items": {"type": "object", "required": ["assertion", "status", "evidence"], "properties": {"assertion": {"type": "string"}, "status": {"enum": ["PASS", "FAIL"]}, "evidence": {"type": "string"}}}},
+    "scores": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0, "maximum": 4}},
+    "verdict": {"enum": ["PASS", "PASS_WITH_NOTES", "REVISE", "BLOCK"]},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}
