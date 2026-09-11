@@ -1,13 +1,3 @@
-# EV-SVE-001 — sealed generator artifact
-
-Generator: `codex-cli-0.146.0/gpt-5.6-terra/high`
-
-Skill commit: `7bca518efab5380c84b0e1e062211afedb71e1ea`
-
-Output SHA-256: `a8502a0221d64e8f51a930bc2af6ba8d50a548fa7c984958815e4d44197faa52`
-
----
-
 ## Objetivo editorial atual
 
 Levar prospects qualificados à página entendendo se o Atlas de Delegação é relevante para eles, com CTA: **“Conheça o Atlas de Delegação”**.
