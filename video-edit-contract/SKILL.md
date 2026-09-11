@@ -1,6 +1,6 @@
 ---
 name: video-edit-contract
-description: Convert a video brief, raw request, script, campaign goal, or source package into a precise editorial contract that downstream editing agents can execute and verify. Use before substantial editing when objective, audience, format, success criteria, constraints, source truth, or delivery requirements are not yet explicit. Do not use as a substitute for story editing, finishing, or creative execution.
+description: Convert a video brief, raw request, script, campaign goal, or source package into a precise editorial contract that downstream editing agents can execute and verify. Use when substantial editing requires objective, audience, format, success criteria, constraints, source truth, or delivery requirements to be made explicit first. Do not use as a substitute for story editing, finishing, or creative execution.
 ---
 
 # Video Edit Contract
