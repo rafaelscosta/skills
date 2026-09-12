@@ -1,0 +1,12 @@
+{
+  "runs": 5,
+  "model": "gpt-5.6-terra",
+  "reasoning_effort": "high",
+  "current_owner": "story-edit",
+  "oracle_top_candidate": "opening",
+  "opening_selections": 5,
+  "source_truth_passes": 5,
+  "blocker_selections": 0,
+  "fallback_guarded": 5,
+  "accepted_outcomes": 5
+}

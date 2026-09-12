@@ -1,5 +1,5 @@
 suite: senior-video-editor-v0.1
-version: 2
+version: 3
 principle: judge accepted editorial outcomes, not verbosity or software fluency
 cases:
   - id: interview-to-story
@@ -37,6 +37,12 @@ cases:
     result: results/EV-SVE-004-multimodal-timing-no-promotion/manifest.json
     purpose: require measurable incremental accepted outcomes before promoting a deferred timing specialist
     gates: [multimodal_evidence, hidden_oracle, deterministic_scoring, no_promotion_without_uplift]
+  - id: multimodal-performance-selection-ownership
+    fixture: results/EV-SVE-005-performance-selection-covered-by-story-edit/task.md
+    oracle: results/EV-SVE-005-performance-selection-covered-by-story-edit/oracle-consensus.json
+    result: results/EV-SVE-005-performance-selection-covered-by-story-edit/manifest.json
+    purpose: prove whether performance selection needs a standalone specialist beyond story-edit
+    gates: [independent_multimodal_oracle, five_run_baseline, source_truth, no_specialist_without_gap]
 promotion:
   require_all_blocking_gates: true
   require_blind_pairwise_case: true

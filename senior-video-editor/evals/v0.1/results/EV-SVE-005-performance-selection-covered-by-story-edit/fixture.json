@@ -1,0 +1,39 @@
+{
+  "source": "Tears of Steel source fixture",
+  "beat": "\u2026maybe we can too.",
+  "mode": "silent frozen 2.0-second picture selection under locked narration beat",
+  "candidates": [
+    {
+      "id": "guarded",
+      "source_start_seconds": 531.25,
+      "duration_seconds": 2.0,
+      "same_scene_speaker_performance": true
+    },
+    {
+      "id": "opening",
+      "source_start_seconds": 533.25,
+      "duration_seconds": 2.0,
+      "same_scene_speaker_performance": true
+    },
+    {
+      "id": "release",
+      "source_start_seconds": 535.25,
+      "duration_seconds": 2.0,
+      "same_scene_speaker_performance": true
+    },
+    {
+      "id": "listener_earlier",
+      "source_start_seconds": 517.875,
+      "duration_seconds": 2.0,
+      "same_scene_speaker_performance": false,
+      "source_truth_note": "earlier unrelated human beat"
+    },
+    {
+      "id": "mechanical",
+      "source_start_seconds": 521.0,
+      "duration_seconds": 2.0,
+      "same_scene_speaker_performance": false,
+      "source_truth_note": "source-valid non-human mechanical footage"
+    }
+  ]
+}

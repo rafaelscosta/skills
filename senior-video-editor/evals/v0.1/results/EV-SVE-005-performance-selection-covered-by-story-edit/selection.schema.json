@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "required": ["selected_candidate", "fallback_candidate", "intent", "evidence_codes", "source_truth_status"],
+  "properties": {
+    "selected_candidate": {"type": "string", "enum": ["guarded", "opening", "release", "listener_earlier", "mechanical"]},
+    "fallback_candidate": {"type": "string", "enum": ["guarded", "opening", "release", "listener_earlier", "mechanical"]},
+    "intent": {"type": "string"},
+    "evidence_codes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 7,
+      "items": {"type": "string", "enum": ["SUBTEXT_MATCH", "SOURCE_TRUTH", "MICRO_EXPRESSION", "PERFORMANCE_CONTINUITY", "WRONG_BEAT", "ILLUSTRATIVE_DISTRACTION", "INTENSITY_MISMATCH"]}
+    },
+    "source_truth_status": {"type": "string", "enum": ["PASS", "FAIL"]}
+  },
+  "additionalProperties": false
+}

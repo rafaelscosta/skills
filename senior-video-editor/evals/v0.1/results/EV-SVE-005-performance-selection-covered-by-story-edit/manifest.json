@@ -1,0 +1,34 @@
+{
+  "eval_id": "EV-SVE-005",
+  "name": "multimodal-performance-selection-ownership-gate",
+  "verdict": "NO_SPECIALIST_NEEDED",
+  "tested_specialist_hypothesis": "performance-selection",
+  "existing_owner": "story-edit",
+  "oracle": {
+    "sol_high_votes_for_opening": "3/3",
+    "confidence_range": [
+      0.9,
+      0.94
+    ]
+  },
+  "baseline": {
+    "terra_high_opening": "5/5",
+    "source_truth_pass": "5/5",
+    "blocker_selections": 0
+  },
+  "candidate_skill_created": false,
+  "architecture_decision": "Keep performance selection inside story-edit. A standalone specialist would add persistent context without evidence of an uncovered decision policy or accepted-outcome gap.",
+  "promotion_rule": "Create a specialist only after current ownership exhibits a repeatable material gap on a discriminative eval.",
+  "media_committed": false,
+  "evidence_files": [
+    "README.md",
+    "task.md",
+    "selection.schema.json",
+    "fixture.json",
+    "oracle-consensus.json",
+    "baseline-summary.json",
+    "oracle/*.json",
+    "baseline/*.json",
+    "hashes.txt"
+  ]
+}
