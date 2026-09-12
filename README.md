@@ -24,3 +24,18 @@ cp -R skills/youtube-fetcher ~/.claude/skills/youtube-fetcher
 ```
 
 As skills seguem o mesmo molde de catálogo: `SKILL.md`, metadata do agente, contrato em `config.yaml` e, quando necessário, referências, evals, assets e scripts de validação/runtime.
+
+## Senior Video Editor skill system v0.1
+
+O catálogo inclui um sistema editorial de seis skills compostas:
+
+- `senior-video-editor` — owner/orchestrator;
+- `video-edit-contract` — contrato editorial operacional;
+- `footage-intelligence` — source truth e asset manifest;
+- `story-edit` — narrativa, progressão e performance selection;
+- `attention-choreography` — hierarquia perceptiva e saliência ao longo do tempo;
+- `supervising-video-editor` — aceite editorial independente.
+
+A arquitetura é evidence-gated: `performance-selection` permanece dentro de `story-edit`; `timing-rhythm` ainda não merece contexto persistente; `attention-choreography` foi promovida após EV-SVE-006 demonstrar uplift de alinhamento com oracle de 2/5 para 5/5.
+
+Valide o bundle com `python3 senior-video-editor/scripts/validate_bundle.py`.

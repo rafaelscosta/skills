@@ -1,0 +1,12 @@
+pack:
+  name: story-edit
+  version: "0.1.0"
+  owner_squad: personal
+
+contract:
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: none
+  network_default: deny
+  provider_default: deny
+  publication_default: deny

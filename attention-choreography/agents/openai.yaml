@@ -1,0 +1,11 @@
+interface:
+  display_name: Attention Choreography
+  short_description: Controla o que o espectador percebe primeiro, depois e em seguida
+  default_prompt: Use $attention-choreography to establish one primary attentional job per consequential moment, preserve human performance, subordinate supporting information, manage the shared salience budget, and sequence competing elements when co-present presentation weakens comprehension.
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

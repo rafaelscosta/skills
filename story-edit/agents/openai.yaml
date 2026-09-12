@@ -1,0 +1,11 @@
+interface:
+  display_name: Story Edit
+  short_description: Decide estrutura narrativa, progressão e melhor performance
+  default_prompt: Use $story-edit to choose the strongest truthful performance and narrative structure supported by the material, remove redundancy, protect decisive human moments, and produce an executable story decision without decorative over-editing.
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
