@@ -1,0 +1,21 @@
+{
+  "eval_id": "EV-SVE-004",
+  "name": "multimodal-timing-specialist-promotion-gate",
+  "verdict": "NO_PROMOTION",
+  "candidate": "timing-rhythm",
+  "control_passes": 2,
+  "control_total": 5,
+  "treatment_passes": 2,
+  "treatment_total": 5,
+  "incremental_accepted_outcomes": 0,
+  "confounded_run_excluded": true,
+  "promotion_rule": "standalone specialist requires distinct policy plus repeatable material lift over control",
+  "media_committed": false,
+  "evidence_files": [
+    "README.md",
+    "task.md",
+    "oracle.json",
+    "score.json",
+    "hashes.txt"
+  ]
+}

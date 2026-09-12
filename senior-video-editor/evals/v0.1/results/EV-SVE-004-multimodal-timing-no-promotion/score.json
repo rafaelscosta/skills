@@ -1,0 +1,74 @@
+{
+  "results": [
+    {
+      "condition": "control",
+      "run": "run-1",
+      "pass": true,
+      "reason": "mechanical_detail 3.000-3.500 dur=0.500"
+    },
+    {
+      "condition": "control",
+      "run": "run-2",
+      "pass": false,
+      "reason": "mechanical_detail 2.875-3.375 dur=0.500"
+    },
+    {
+      "condition": "control",
+      "run": "run-3",
+      "pass": false,
+      "reason": "mechanical_detail 3.000-3.375 dur=0.375"
+    },
+    {
+      "condition": "control",
+      "run": "run-4",
+      "pass": true,
+      "reason": "mechanical_detail 3.000-3.500 dur=0.500"
+    },
+    {
+      "condition": "control",
+      "run": "run-5",
+      "pass": false,
+      "reason": "mechanical_detail 3.000-3.375 dur=0.375"
+    },
+    {
+      "condition": "treatment",
+      "run": "run-1",
+      "pass": false,
+      "reason": "mechanical_detail 3.000-3.375 dur=0.375"
+    },
+    {
+      "condition": "treatment",
+      "run": "run-2",
+      "pass": false,
+      "reason": "mechanical_detail 3.000-3.375 dur=0.375"
+    },
+    {
+      "condition": "treatment",
+      "run": "run-3",
+      "pass": true,
+      "reason": "mechanical_detail 3.000-3.500 dur=0.500"
+    },
+    {
+      "condition": "treatment",
+      "run": "run-4",
+      "pass": true,
+      "reason": "mechanical_detail 3.000-3.500 dur=0.500"
+    },
+    {
+      "condition": "treatment",
+      "run": "run-5",
+      "pass": false,
+      "reason": "mechanical_detail 3.000-3.375 dur=0.375"
+    }
+  ],
+  "summary": {
+    "control": {
+      "pass": 2,
+      "total": 5
+    },
+    "treatment": {
+      "pass": 2,
+      "total": 5
+    }
+  }
+}

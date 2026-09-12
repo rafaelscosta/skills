@@ -1,0 +1,7 @@
+{
+  "hidden_defect": {"start": 3.0, "end": 3.5},
+  "accepted_source": "mechanical_detail",
+  "maximum_cutaway_duration": 0.75,
+  "start_tolerance_min": 2.875,
+  "end_tolerance_max": 3.625
+}

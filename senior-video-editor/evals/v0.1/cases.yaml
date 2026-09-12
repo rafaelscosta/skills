@@ -31,6 +31,12 @@ cases:
     result: results/EV-SVE-003-hard-blind-story/manifest.json
     purpose: prove discriminative uplift on senior editorial tradeoffs
     gates: [blind_judge, zero_treatment_blockers, treatment_majority_win, observable_evidence_only]
+  - id: multimodal-timing-specialist-promotion
+    fixture: results/EV-SVE-004-multimodal-timing-no-promotion/task.md
+    oracle: results/EV-SVE-004-multimodal-timing-no-promotion/oracle.json
+    result: results/EV-SVE-004-multimodal-timing-no-promotion/manifest.json
+    purpose: require measurable incremental accepted outcomes before promoting a deferred timing specialist
+    gates: [multimodal_evidence, hidden_oracle, deterministic_scoring, no_promotion_without_uplift]
 promotion:
   require_all_blocking_gates: true
   require_blind_pairwise_case: true
