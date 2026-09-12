@@ -1,0 +1,19 @@
+pack:
+  name: senior-video-editor
+  version: "0.1.0"
+  owner_squad: personal
+
+contract:
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: none
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+
+routing:
+  contract: video-edit-contract
+  source_truth: footage-intelligence
+  story: story-edit
+  attention: attention-choreography
+  acceptance: supervising-video-editor

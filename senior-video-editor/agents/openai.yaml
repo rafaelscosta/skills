@@ -1,0 +1,11 @@
+interface:
+  display_name: Senior Video Editor
+  short_description: Orquestra edição sênior com diagnóstico, roteamento mínimo e aceite independente
+  default_prompt: Use $senior-video-editor to diagnose the dominant video-editing bottleneck, route only the specialist capabilities that can materially improve the outcome, preserve source truth and performance, and require independent acceptance before claiming completion.
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

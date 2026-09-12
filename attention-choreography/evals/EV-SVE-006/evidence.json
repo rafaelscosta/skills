@@ -1,0 +1,23 @@
+{
+  "id": "EV-SVE-006",
+  "candidate_skill_sha256": "686b0e70b9884fd48eeebe421bb85ac85d941080f5fb1616a33bddadf5942f76",
+  "expected_oracle_top": "A",
+  "expected_oracle_runner_up": "B",
+  "expected_consensus_blockers": ["C", "D", "E"],
+  "oracle_judges": 3,
+  "baseline_runs": 5,
+  "treatment_runs": 5,
+  "promotion_policy": {
+    "require_unanimous_oracle_top": true,
+    "require_treatment_alignment": 5,
+    "require_strict_uplift_over_baseline": true,
+    "forbid_consensus_blocker_selection": true
+  },
+  "external_fixture_sha256": {
+    "A": "9016d046964a0db3a49663537bca2c1b41a76cf61e358451fb9906f42baeb673",
+    "B": "40c5fd33d571772fe2907ca7fcf2e1228879d9d69a3fe99f41eb19f136e71866",
+    "C": "7710fdc0e4fbc738248b06af1c383ba59b884c35efcbc887163b079710c56441",
+    "D": "8ca19304fb886ab8796802891532ee6b179e01b65d347bb0412446f9d9dac34a",
+    "E": "3418da71e131756fa56467b79f222f6755cded36dc682559a5fb48e953d1a0d2"
+  }
+}
