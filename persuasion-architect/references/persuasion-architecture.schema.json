@@ -4,11 +4,11 @@
   "title": "Persuasion Architecture",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "decision_contract", "beliefs", "blocks", "qa"],
+  "required": ["schema_version", "decision_contract", "mechanism_model", "beliefs", "blocks", "qa"],
   "properties": {
     "schema_version": {
       "type": "string",
-      "const": "persuasion-architecture/1.0"
+      "const": "persuasion-architecture/1.1"
     },
     "decision_contract": {
       "type": "object",
@@ -37,6 +37,24 @@
         "new_way": {"type": "string"},
         "enemy_or_constraint": {"type": "string"},
         "identity_shift": {"type": "string"}
+      }
+    },
+    "mechanism_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "starting_condition", "intervention", "immediate_change", "intermediate_state", "expected_outcome", "scope_conditions", "prerequisites", "alternative_causes", "falsifier", "evidence_state"],
+      "properties": {
+        "status": {"type": "string", "enum": ["not_applicable", "unknown", "partial", "modeled"]},
+        "starting_condition": {"type": "string"},
+        "intervention": {"type": "string"},
+        "immediate_change": {"type": "string"},
+        "intermediate_state": {"type": "string"},
+        "expected_outcome": {"type": "string"},
+        "scope_conditions": {"type": "array", "items": {"type": "string"}},
+        "prerequisites": {"type": "array", "items": {"type": "string"}},
+        "alternative_causes": {"type": "array", "items": {"type": "string"}},
+        "falsifier": {"type": "string"},
+        "evidence_state": {"type": "string", "enum": ["not_applicable", "unknown", "inferred", "partially_supported", "supported"]}
       }
     },
     "beliefs": {

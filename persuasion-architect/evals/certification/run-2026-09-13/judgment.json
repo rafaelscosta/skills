@@ -1,0 +1,245 @@
+{
+  "cases": [
+    {
+      "case_id": "case-001-contrarian-mechanism-book",
+      "candidate_a": {
+        "scores": {
+          "belief_continuity": 3,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 3,
+          "audience_recognition": 3,
+          "objection_coverage": 2,
+          "identity_alignment": 2,
+          "risk_asymmetry": 2,
+          "transition_integrity": 2,
+          "action_readiness": 2
+        },
+        "total": 26,
+        "critical_floor_pass": false,
+        "hard_fail_codes": [],
+        "certified": false,
+        "summary": "Preserves alternative causes and distinguishes lifecycle applications from closing evidence. However, low-price suspicion is unaddressed, transition fallbacks are incomplete, and the first purchase CTA precedes full transaction details."
+      },
+      "candidate_b": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 2,
+          "claim_evidence_fit": 4,
+          "specificity": 3,
+          "audience_recognition": 3,
+          "objection_coverage": 2,
+          "identity_alignment": 3,
+          "risk_asymmetry": 2,
+          "transition_integrity": 3,
+          "action_readiness": 2
+        },
+        "total": 28,
+        "critical_floor_pass": false,
+        "hard_fail_codes": [],
+        "certified": false,
+        "summary": "Explicit dependencies and fallbacks constrain unsupported progression. The mechanism still requires an actual intervention-to-effect explanation; low-price suspicion and commercial uncertainty remain unresolved."
+      },
+      "winner": "B",
+      "winner_reason": "B more reliably prevents purchase before fit, costs, and terms are established. A explains alternative causes better, but its weaker transition controls leave material progression gaps. Neither satisfies every oracle requirement.",
+      "highest_leverage_repairs": [
+        "Demonstrate one real template's intervention, expected operational effect, assumptions, and conditions under which scripts or coaching remain the better response.",
+        "Address low-price suspicion using confirmed product scope, sample quality, and implementation demands without inventing a pricing rationale.",
+        "Confirm price, access, and terms; require fit, effort, and transaction checks before every purchase CTA, with a preview or clarification fallback."
+      ]
+    },
+    {
+      "case_id": "case-002-generic-saas-feature-dump",
+      "candidate_a": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 3,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 3,
+          "transition_integrity": 4,
+          "action_readiness": 3
+        },
+        "total": 33,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "certified": true,
+        "summary": "Detects the generic benefit field, feature dump, missing outcome logic, and premature annual commitment, including F05/F06/F18. Reconstruction follows the oracle's dependency order and explicitly blocks annual selling when compatibility or costs remain unresolved."
+      },
+      "candidate_b": {
+        "scores": {
+          "belief_continuity": 3,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 3,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 2,
+          "transition_integrity": 2,
+          "action_readiness": 2
+        },
+        "total": 28,
+        "critical_floor_pass": false,
+        "hard_fail_codes": [],
+        "certified": false,
+        "summary": "Substantively detects the oracle's required failures and distinguishes capabilities from outcomes. However, the annual CTA remains the primary recommendation, and acknowledging missing suitability evidence does not clearly suspend progression."
+      },
+      "winner": "A",
+      "winner_reason": "Both diagnose the page accurately. A converts the diagnosis into testable transitions with explicit stop conditions and a proportionate interim action.",
+      "highest_leverage_repairs": [
+        "Validate a priority workflow and its current alternative before specifying the hero or selecting features.",
+        "Demonstrate the documented workflow and test compatibility, adoption effort, and exceptions; attach evidence only to the claims it supports.",
+        "Make annual purchase conditional on accepted total costs, migration responsibilities, and terms; provide an actually available evaluation fallback."
+      ]
+    },
+    {
+      "case_id": "case-003-fake-urgency-pressure",
+      "candidate_a": {
+        "scores": {
+          "belief_continuity": 3,
+          "causal_clarity": 2,
+          "claim_evidence_fit": 4,
+          "specificity": 2,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 2,
+          "transition_integrity": 2,
+          "action_readiness": 2
+        },
+        "total": 26,
+        "critical_floor_pass": false,
+        "hard_fail_codes": [],
+        "certified": false,
+        "summary": "Correctly identifies the original page's invented-scarcity hard failure and removes both false constraints. Covers premature pressure, weak proof context, and insufficient explanation, but the learning mechanism and transition checks remain incomplete."
+      },
+      "candidate_b": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 2,
+          "claim_evidence_fit": 4,
+          "specificity": 2,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 2,
+          "transition_integrity": 4,
+          "action_readiness": 3
+        },
+        "total": 30,
+        "critical_floor_pass": false,
+        "hard_fail_codes": [],
+        "certified": false,
+        "summary": "Removes the source page's invented scarcity without replacement and addresses the oracle's required failure categories. Explicitly blocks commercial publication pending curriculum specifics and terms. The actual instructional mechanism is still missing, so the causal floor fails."
+      },
+      "winner": "B",
+      "winner_reason": "B supplies enforceable proof, comprehension, fit, and readiness gates, including safe curriculum navigation before purchase readiness. Its total cannot override the missing causal mechanism.",
+      "highest_leverage_repairs": [
+        "Remove the resetting countdown and false seat limit from the source page, and withdraw screenshot claims pending contextual verification.",
+        "Map the actual curriculum to a specific learner goal, prerequisites, instructional sequence, and supported practice or demonstration.",
+        "Confirm workload, access, support, price, and policies; block payment requests until these and learner fit are established."
+      ]
+    },
+    {
+      "case_id": "case-004-high-ticket-consulting",
+      "candidate_a": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 3,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 3,
+          "transition_integrity": 4,
+          "action_readiness": 3
+        },
+        "total": 33,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "certified": true,
+        "summary": "Meets the oracle's requirements: bounded diagnostic commitment, stakeholder and change objections, non-price risks, scoped case evidence, and credibility distinct from efficacy. Missing call terms explicitly prevent activation; implementation approval has a separate gate."
+      },
+      "candidate_b": {
+        "scores": {
+          "belief_continuity": 3,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 3,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 3,
+          "transition_integrity": 2,
+          "action_readiness": 3
+        },
+        "total": 30,
+        "critical_floor_pass": false,
+        "hard_fail_codes": [],
+        "certified": false,
+        "summary": "Meets the oracle's substantive offer requirements and models financial, organizational, technical, and decision risk. Qualification and no-engagement outcomes are useful, but intermediate comprehension, evidence, and commercial gates lack explicit pass conditions and fallbacks."
+      },
+      "winner": "A",
+      "winner_reason": "Both appropriately support a diagnostic conversation. A better constrains progression when evidence, process understanding, or call terms are insufficient, without assuming a separately purchasable diagnostic already exists.",
+      "highest_leverage_repairs": [
+        "Define call qualification, agenda, duration, attendees, charges, and its actual commercial relationship to diagnosis and implementation.",
+        "Connect the documented delivery process to responsibilities and contextualized case evidence, with explicit comprehension and comparability checks.",
+        "Confirm stakeholder ownership, internal capacity, data-access boundaries, and advance-or-stop criteria before requesting implementation approval."
+      ]
+    },
+    {
+      "case_id": "case-005-evidence-gap",
+      "candidate_a": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 1,
+          "claim_evidence_fit": 4,
+          "specificity": 2,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 2,
+          "transition_integrity": 4,
+          "action_readiness": 3
+        },
+        "total": 29,
+        "critical_floor_pass": false,
+        "hard_fail_codes": [],
+        "certified": false,
+        "summary": "Rejects all three unsupported promises, bounds founder experience, and offers truthful educational positioning. Explicitly identifies the missing mechanism and blocks paid enrollment. Strong uncertainty handling cannot supply the absent causal explanation or confirmed offer value."
+      },
+      "candidate_b": {
+        "scores": {
+          "belief_continuity": 3,
+          "causal_clarity": 1,
+          "claim_evidence_fit": 4,
+          "specificity": 2,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 2,
+          "transition_integrity": 2,
+          "action_readiness": 2
+        },
+        "total": 25,
+        "critical_floor_pass": false,
+        "hard_fail_codes": [],
+        "certified": false,
+        "summary": "Rejects the oracle's unsupported claims and avoids inventing client results or delivery benefits. However, the mechanism remains unspecified, and 'Review cohort fit and join' is insufficiently constrained by unresolved delivery value and applicability."
+      },
+      "winner": "A",
+      "winner_reason": "A identifies the earliest broken dependency and prevents enrollment from proceeding through it. B recognizes uncertainty but leaves a less explicit barrier between preliminary interest and premium purchase.",
+      "highest_leverage_repairs": [
+        "Obtain the actual method steps, inputs, assumptions, and founder-use documentation; establish a bounded mechanism without promising transferable results.",
+        "Confirm curriculum, deliverables, support, workload, participant prerequisites, price, and terms so educational value and total downside can be evaluated.",
+        "Permit paid enrollment only after mechanism, fit, value, and risk gates pass; otherwise provide confirmed informational material and preserve the option not to buy."
+      ]
+    }
+  ],
+  "overall_notes": "Scores assess the submitted architectures in their requested modes, independently of language, length, and self-scores. Certification requires total >=30, every critical dimension >=3, and no hard failures. Architectural certification does not certify publication readiness where activation is explicitly conditional. For case 003, the original page necessarily hard-fails for invented_scarcity; both candidates identify and remove it, so that source violation is not attributed to their reconstructions. Oracle requirements were assessed substantively; undefined F-code labels were not treated as additional certification hard-fail codes."
+}

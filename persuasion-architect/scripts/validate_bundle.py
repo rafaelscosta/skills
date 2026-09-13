@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the persuasion-architect skill bundle structure and JSON integrity."""
+"""Validate the persuasion-architect skill bundle structure and structured-file integrity."""
 
 from __future__ import annotations
 
@@ -7,6 +7,11 @@ import argparse
 import json
 import re
 import sys
+
+try:
+    import yaml
+except ImportError:  # optional validation enhancement
+    yaml = None
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Sequence
@@ -20,6 +25,7 @@ REQUIRED = [
     "agents/openai.yaml",
     "references/belief-and-evidence.md",
     "references/failure-catalog.md",
+    "references/mechanism-contract.md",
     "references/persuasion-architecture.schema.json",
     "evals/rubric.yaml",
     "evals/fixtures.yaml",
@@ -131,6 +137,11 @@ def validate(root: Path) -> list[Finding]:
                 json.loads(source)
             except json.JSONDecodeError as exc:
                 findings.append(Finding("error", "P014", str(path), f"Invalid JSON: {exc}"))
+        elif path.suffix in {".yaml", ".yml"} and yaml is not None:
+            try:
+                yaml.safe_load(source)
+            except yaml.YAMLError as exc:
+                findings.append(Finding("error", "P019", str(path), f"Invalid YAML: {exc}"))
         elif path.suffix == ".py":
             try:
                 compile(source, str(path), "exec")
@@ -149,7 +160,7 @@ def validate(root: Path) -> list[Finding]:
     config_path = root / "config.yaml"
     if config_path.is_file():
         config = config_path.read_text(encoding="utf-8")
-        for invariant in ("invented_evidence_policy: fail_closed", "invented_scarcity_policy: fail_closed", "critical_gate_floor: 3"):
+        for invariant in ("invented_evidence_policy: fail_closed", "invented_scarcity_policy: fail_closed", "critical_gate_floor: 3", "mechanism_contract_required_for_material_outcome_claims: true"):
             if invariant not in config:
                 findings.append(Finding("error", "P018", str(config_path), f"Missing safety/quality invariant: {invariant}"))
 

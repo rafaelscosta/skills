@@ -119,6 +119,28 @@ At minimum inspect:
 
 Do not assume every task needs all ten. Use only the beliefs necessary for the decision.
 
+### R2 — Resolve mechanism adequacy before proof
+
+Whenever a material claim depends on an intervention producing an outcome, read `references/mechanism-contract.md`.
+
+A named framework, category, feature, or asset is not a mechanism by itself. Model the smallest truthful causal chain:
+
+```text
+starting condition
+→ intervention
+→ immediate change
+→ intermediate behavior/state
+→ expected outcome
+```
+
+For each material chain, also record prerequisites, scope conditions, material alternative causes/confounders, a falsifier, and the evidence state for the links.
+
+If any causal arrow is unknown, mark it unknown. Do not bridge it with rhetoric, testimonials, authority, or a memorable label.
+
+A mechanism-dependent downstream belief may not advance unless the prospect can understand what changes, through which intermediate state, why that state matters to the outcome, and where the chain may fail.
+
+If the mechanism gate cannot pass, reduce the claim, gather the missing mechanism information, downgrade the CTA, or explicitly preserve efficacy as unresolved.
+
 ### S — Sequence the dependency graph
 
 Build a directed acyclic graph where each belief declares its dependencies.
@@ -165,6 +187,8 @@ Choose the minimum sufficient operation for each transition:
 - `ACTION`
 
 Do not add a persuasion operation merely because it is common in landing pages.
+
+When selecting `MECHANISM`, use the mechanism contract; naming a system without an intervention→intermediate-state→outcome chain is a causal-clarity failure.
 
 ### A — Assign evidence and objections
 
@@ -377,6 +401,7 @@ Load only what the current task needs:
 | Need | Read |
 |---|---|
 | Build or audit belief dependencies and proof | `references/belief-and-evidence.md` |
+| Build or audit causal mechanisms | `references/mechanism-contract.md` |
 | Detect canonical persuasion failures | `references/failure-catalog.md` |
 | Emit machine-readable architecture | `references/persuasion-architecture.schema.json` |
 | Judge an architecture or run evals | `evals/rubric.yaml` |
@@ -388,7 +413,7 @@ Before delivery verify:
 
 - Can every material block name the belief it changes?
 - Are belief dependencies respected?
-- Are mechanism and causality explicit where needed?
+- Are mechanism and causality explicit where needed, including intervention → intermediate state → bounded outcome?
 - Is every material claim supported by proportional evidence or marked unresolved?
 - Are objections handled at the point they become cognitively relevant?
 - Is urgency downstream of belief rather than substituting for it?

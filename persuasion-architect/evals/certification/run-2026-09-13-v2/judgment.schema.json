@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cases",
+    "overall_notes"
+  ],
+  "properties": {
+    "cases": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "candidate_a",
+          "candidate_b",
+          "winner",
+          "winner_reason",
+          "highest_leverage_repairs"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string"
+          },
+          "candidate_a": {
+            "$ref": "#/definitions/candidate"
+          },
+          "candidate_b": {
+            "$ref": "#/definitions/candidate"
+          },
+          "winner": {
+            "enum": [
+              "A",
+              "B",
+              "tie"
+            ]
+          },
+          "winner_reason": {
+            "type": "string"
+          },
+          "highest_leverage_repairs": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "overall_notes": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scores",
+        "total",
+        "critical_floor_pass",
+        "hard_fail_codes",
+        "architecture_certified",
+        "behavioral_pass",
+        "terminal_state",
+        "terminal_state_correct",
+        "summary"
+      ],
+      "properties": {
+        "scores": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "belief_continuity",
+            "causal_clarity",
+            "claim_evidence_fit",
+            "specificity",
+            "audience_recognition",
+            "objection_coverage",
+            "identity_alignment",
+            "risk_asymmetry",
+            "transition_integrity",
+            "action_readiness"
+          ],
+          "properties": {
+            "belief_continuity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "causal_clarity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "claim_evidence_fit": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "specificity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "audience_recognition": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "objection_coverage": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "identity_alignment": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "risk_asymmetry": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "transition_integrity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "action_readiness": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4
+            }
+          }
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 40
+        },
+        "critical_floor_pass": {
+          "type": "boolean"
+        },
+        "hard_fail_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "summary": {
+          "type": "string"
+        },
+        "architecture_certified": {
+          "type": "boolean"
+        },
+        "behavioral_pass": {
+          "type": "boolean"
+        },
+        "terminal_state": {
+          "type": "string"
+        },
+        "terminal_state_correct": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 pack:
   name: persuasion-architect
-  version: "0.1.0"
+  version: "0.2.0"
   owner_squad: sinkra-squad
 
 contract:
@@ -18,6 +18,7 @@ contract:
     - INPUTS_BOUND
     - CURRENT_STATE_MODELED
     - BELIEF_GRAPH_BUILT
+    - MECHANISM_MODELED
     - EVIDENCE_MAPPED
     - ARCHITECTED
     - ADVERSARIAL_REVIEWED
@@ -27,6 +28,7 @@ contract:
     - BLOCKED
   terminal_success: HANDOFF
   evidence_ledger_required_for_material_claims: true
+  mechanism_contract_required_for_material_outcome_claims: true
   critical_gate_floor: 3
   invented_evidence_policy: fail_closed
   invented_scarcity_policy: fail_closed
@@ -65,3 +67,6 @@ certification:
   fixtures: evals/fixtures.yaml
   blind_judge_required: true
   self_score_is_not_certification: true
+  behavioral_status: passed
+  certified_version: "0.2.0"
+  evidence: evals/certification/README.md

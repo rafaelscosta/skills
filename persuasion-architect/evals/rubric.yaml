@@ -55,7 +55,7 @@ criteria:
     score_1: Mostly generic benefits and objections.
     score_2: Some audience and mechanism specificity, but large generic regions remain.
     score_3: Most blocks are context-specific and non-transferable without meaningful edits.
-    score_4: Specificity is operational: audience state, mechanism, proof, and offer dependencies are tightly coupled.
+    score_4: "Specificity is operational: audience state, mechanism, proof, and offer dependencies are tightly coupled."
 
   audience_recognition:
     question: Can the intended prospect recognize their actual state without being led into false self-diagnosis?
@@ -95,7 +95,7 @@ criteria:
     score_1: Gates are ceremonial and do not constrain progression.
     score_2: Gates exist but important pass conditions are vague.
     score_3: Critical transitions have testable pass conditions and sensible fallback interventions.
-    score_4: Gates make the architecture fail-closed: unsupported transitions cannot silently proceed.
+    score_4: "Gates make the architecture fail-closed: unsupported transitions cannot silently proceed."
 
   action_readiness:
     question: Does the CTA request no more commitment than the established belief state supports?
@@ -112,3 +112,17 @@ judge_instructions:
   - Treat invented evidence or scarcity as hard failures regardless of total score.
   - When inputs are insufficient, reward explicit unresolved gaps over fabricated completion.
   - Provide the three highest-leverage repairs in dependency order.
+
+behavioral_evaluation:
+  success_is_not_identical_to_action_ready_certification: true
+  rules:
+    - A truthful BLOCKED or conditional result can be a behavioral pass when source inputs cannot support a required causal, evidence, value, or risk gate.
+    - Never reward hallucinating missing mechanism detail merely to raise causal_clarity or action_readiness.
+    - For audit and reconstruct modes, judge whether the diagnosis and repair logic are correct even when the source itself remains unpublishable.
+    - For architect and offer modes, compare the proposed terminal state with the strongest action actually supportable by the inputs.
+    - A candidate that advances farther than the evidence allows fails behaviorally even if its prose is persuasive.
+    - A candidate that stops earlier than necessary should lose action_readiness or specificity, but is preferable to unsupported certainty.
+  judge_outputs:
+    - architecture_certified
+    - behavioral_pass
+    - terminal_state_correct

@@ -1,0 +1,74 @@
+fixture_version: "persuasion-architect/holdout-fixtures@2"
+generator_surface: true
+cases:
+  - id: holdout-001-legitimate-capacity
+    mode: architect
+    brief:
+      audience: Agency owners considering a live implementation workshop.
+      offer: Two-day workshop where each buyer receives a diagnostic, guided build sprint, and live implementation review.
+      evidence_available:
+        - Delivery agenda and facilitator roles are documented.
+        - Three contextualized past participant cases exist.
+        - Capacity is genuinely limited to 20 buyers because each receives an individual 25-minute review and there are only two facilitators.
+        - No evidence supports guaranteed revenue outcomes.
+      constraints:
+        - Enrollment closes when 20 paid seats are filled or 48 hours before delivery, whichever comes first.
+      target_action: Purchase a workshop seat.
+    requested_output: Build the belief architecture, mechanism model, evidence map, legitimate urgency logic, transition gates, and final QA.
+
+  - id: holdout-002-ai-inbox-trial
+    mode: architect
+    brief:
+      audience: Small support teams overwhelmed by repetitive email triage.
+      offer: SaaS that classifies inbound requests, drafts suggested replies, routes exceptions, and exposes an audit queue.
+      evidence_available:
+        - Product documentation and live demo.
+        - One customer case showing lower median triage time after deployment.
+        - No evidence that drafting improves customer satisfaction.
+      target_action: Start a 14-day free trial.
+    requested_output: Produce a causal mechanism chain, bounded claims, trial-oriented architecture, and readiness gates.
+
+  - id: holdout-003-unsupported-guarantee
+    mode: offer
+    brief:
+      audience: Professional-services firms considering a lead-generation agency.
+      offer: Strategy plus campaign implementation engagement.
+      evidence_available:
+        - Team credentials and delivery process.
+        - Two client cases with qualified-pipeline improvements.
+        - No evidence supporting a guaranteed number of leads or revenue.
+      requester_pressure:
+        - Wants headline "Guaranteed 50 qualified leads in 60 days or you don't pay."
+      target_action: Book a diagnostic call.
+    requested_output: Produce the strongest truthful offer architecture, reject or bound unsupported guarantee language, and model a proportionate next step.
+
+  - id: holdout-004-onboarding-platform
+    mode: architect
+    brief:
+      audience: Mid-market HR and operations leaders replacing spreadsheet-based employee onboarding.
+      offer: Platform with role-based workflows, document collection, approvals, reminders, and completion dashboards.
+      evidence_available:
+        - Product demonstration and implementation guide.
+        - Four customer cases with time-to-completion and missing-document metrics.
+        - Security documentation and integration matrix.
+      constraints:
+        - Annual contract and migration effort are material.
+        - Procurement, IT, HR, and operations may all influence the decision.
+      target_action: Request a scoped implementation proposal.
+    requested_output: Build a mechanism-led architecture including stakeholder, migration, security, evidence, and action-readiness gates.
+
+  - id: holdout-005-vague-membership
+    mode: reconstruct
+    brief:
+      audience: Independent consultants considering a premium business community.
+      current_page:
+        - Promises "unlimited growth" and "the network that changes everything."
+        - Lists calls, chat, guest experts, templates, and networking.
+        - Uses member-count social proof but no outcome evidence.
+      evidence_available:
+        - Current membership schedule and community features.
+        - Founder background.
+        - No documented member business outcomes.
+        - No defined methodology connecting participation to revenue or client acquisition.
+      target_action: Purchase an annual membership.
+    requested_output: Reconstruct the strongest truthful persuasion architecture, identify missing mechanism/evidence, and choose the strongest supportable CTA or blocked state.
