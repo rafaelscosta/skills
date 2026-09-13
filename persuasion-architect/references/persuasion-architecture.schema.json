@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "persuasion-architect/architecture@1",
+  "title": "Persuasion Architecture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "decision_contract", "beliefs", "blocks", "qa"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "persuasion-architecture/1.0"
+    },
+    "decision_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["audience", "target_action", "offer", "awareness_level", "decision_risk"],
+      "properties": {
+        "audience": {"type": "string", "minLength": 1},
+        "traffic_context": {"type": "string"},
+        "target_action": {"type": "string", "minLength": 1},
+        "offer": {"type": "string", "minLength": 1},
+        "price": {"type": ["string", "number", "null"]},
+        "awareness_level": {"type": "string", "minLength": 1},
+        "market_sophistication": {"type": "string"},
+        "decision_risk": {"type": "string", "enum": ["low", "medium", "high", "extreme"]}
+      }
+    },
+    "core_thesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "desired_outcome": {"type": "string"},
+        "old_causal_belief": {"type": "string"},
+        "new_causal_belief": {"type": "string"},
+        "unique_mechanism": {"type": "string"},
+        "old_way": {"type": "string"},
+        "new_way": {"type": "string"},
+        "enemy_or_constraint": {"type": "string"},
+        "identity_shift": {"type": "string"}
+      }
+    },
+    "beliefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["belief_id", "belief", "dependencies", "importance", "proof_threshold"],
+        "properties": {
+          "belief_id": {"type": "string", "pattern": "^B[0-9]{2,}$"},
+          "belief": {"type": "string", "minLength": 1},
+          "dependencies": {
+            "type": "array",
+            "items": {"type": "string", "pattern": "^B[0-9]{2,}$"},
+            "uniqueItems": true
+          },
+          "importance": {"type": "string", "enum": ["critical", "supporting"]},
+          "proof_threshold": {"type": "string", "enum": ["low", "medium", "high", "extreme"]},
+          "status": {
+            "type": "string",
+            "enum": ["unaddressed", "partially_supported", "supported", "blocked"]
+          }
+        }
+      }
+    },
+    "blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "block_id",
+          "operation",
+          "current_belief",
+          "desired_belief",
+          "belief_delta",
+          "primary_objection",
+          "claim",
+          "evidence",
+          "transition_gate",
+          "failure_modes",
+          "next_belief"
+        ],
+        "properties": {
+          "block_id": {"type": "string", "pattern": "^P[0-9]{2,}$"},
+          "operation": {
+            "type": "string",
+            "enum": [
+              "ATTENTION",
+              "IDENTIFICATION",
+              "AGITATION",
+              "REFRAME",
+              "CATEGORY",
+              "MECHANISM",
+              "DIFFERENTIATION",
+              "TANGIBILIZATION",
+              "PROOF",
+              "VALUE_EXPANSION",
+              "OBJECTION",
+              "RISK_REVERSAL",
+              "IDENTITY",
+              "URGENCY",
+              "FRICTION_REMOVAL",
+              "ACTION"
+            ]
+          },
+          "current_belief": {"type": "string"},
+          "desired_belief": {"type": "string", "minLength": 1},
+          "belief_delta": {"type": "string", "minLength": 1},
+          "emotional_state_in": {"type": "string"},
+          "emotional_state_out": {"type": "string"},
+          "primary_objection": {"type": "string"},
+          "claim": {"type": "string", "minLength": 1},
+          "mechanism": {"type": "string"},
+          "evidence": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["required_types", "available", "fit"],
+            "properties": {
+              "required_types": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "logical_proof",
+                    "mechanism_proof",
+                    "demonstration",
+                    "case_study",
+                    "testimonial",
+                    "quantitative",
+                    "authority",
+                    "comparison",
+                    "artifact",
+                    "transparency",
+                    "guarantee",
+                    "self_evidence"
+                  ]
+                },
+                "uniqueItems": true
+              },
+              "available": {
+                "type": "array",
+                "items": {"type": "string"}
+              },
+              "fit": {
+                "type": "string",
+                "enum": ["supported", "partially_supported", "unsupported", "unverifiable_from_available_inputs"]
+              },
+              "gap": {"type": "string"}
+            }
+          },
+          "identity_effect": {"type": "string"},
+          "risk_effect": {"type": "string"},
+          "tension_effect": {"type": "string"},
+          "micro_commitment": {"type": "string"},
+          "transition_gate": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "pass_condition", "fallback"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["comprehension_gate", "plausibility_gate", "evidence_gate", "relevance_gate", "readiness_gate"]
+              },
+              "pass_condition": {"type": "string", "minLength": 1},
+              "failure_signal": {"type": "string"},
+              "fallback": {"type": "string", "minLength": 1}
+            }
+          },
+          "failure_modes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "uniqueItems": true
+          },
+          "next_belief": {"type": ["string", "null"]},
+          "next_block": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "qa": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scores", "critical_floor_passed", "unresolved_risks"],
+      "properties": {
+        "scores": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "belief_continuity",
+            "causal_clarity",
+            "claim_evidence_fit",
+            "specificity",
+            "audience_recognition",
+            "objection_coverage",
+            "identity_alignment",
+            "risk_asymmetry",
+            "transition_integrity",
+            "action_readiness"
+          ],
+          "properties": {
+            "belief_continuity": {"type": "integer", "minimum": 0, "maximum": 4},
+            "causal_clarity": {"type": "integer", "minimum": 0, "maximum": 4},
+            "claim_evidence_fit": {"type": "integer", "minimum": 0, "maximum": 4},
+            "specificity": {"type": "integer", "minimum": 0, "maximum": 4},
+            "audience_recognition": {"type": "integer", "minimum": 0, "maximum": 4},
+            "objection_coverage": {"type": "integer", "minimum": 0, "maximum": 4},
+            "identity_alignment": {"type": "integer", "minimum": 0, "maximum": 4},
+            "risk_asymmetry": {"type": "integer", "minimum": 0, "maximum": 4},
+            "transition_integrity": {"type": "integer", "minimum": 0, "maximum": 4},
+            "action_readiness": {"type": "integer", "minimum": 0, "maximum": 4}
+          }
+        },
+        "critical_floor_passed": {"type": "boolean"},
+        "unresolved_risks": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    }
+  }
+}
