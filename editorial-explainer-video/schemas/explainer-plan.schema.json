@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "editorial-explainer-plan/v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "subject",
+    "language",
+    "evidence_ledger_sha256",
+    "thesis",
+    "script_blocks",
+    "beats"
+  ],
+  "properties": {
+    "schema": {
+      "const": "editorial-explainer-plan/v1"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "language": {
+      "const": "pt-BR"
+    },
+    "evidence_ledger_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "thesis": {
+      "$ref": "thesis.schema.json"
+    },
+    "script_blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "block_id",
+          "order",
+          "text_pt_br",
+          "fact_bearing",
+          "claim_refs",
+          "qualifier_acknowledgements"
+        ],
+        "properties": {
+          "block_id": {
+            "type": "string"
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "text_pt_br": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fact_bearing": {
+            "type": "boolean"
+          },
+          "claim_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "qualifier_acknowledgements": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "beats": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "beat.schema.json"
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "editorial-explainer-beat/v1",
+  "type": "object",
+  "required": [
+    "beat_id",
+    "order",
+    "narrative_role",
+    "explanation_function",
+    "viewer_state_before_pt_br",
+    "question_pt_br",
+    "narration_pt_br",
+    "fact_bearing",
+    "claim_refs",
+    "qualifier_acknowledgements",
+    "visual",
+    "viewer_state_after_pt_br",
+    "closure_test_pt_br",
+    "target_duration_seconds"
+  ],
+  "properties": {
+    "beat_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "narrative_role": {
+      "enum": [
+        "HOOK",
+        "CONTEXT",
+        "QUESTION",
+        "CLAIM",
+        "EVIDENCE",
+        "MECHANISM",
+        "CONTRAST",
+        "COUNTERARGUMENT",
+        "SYNTHESIS",
+        "PAYOFF",
+        "CTA"
+      ]
+    },
+    "explanation_function": {
+      "enum": [
+        "EVIDENCE",
+        "DEFINITION",
+        "CHRONOLOGY",
+        "COMPARISON",
+        "CAUSALITY",
+        "MECHANISM",
+        "LOCATION",
+        "SCALE",
+        "RELATIONSHIP",
+        "CONTRAST",
+        "EMPHASIS",
+        "ATMOSPHERE",
+        "TRANSITION"
+      ]
+    },
+    "viewer_state_before_pt_br": {
+      "type": "string",
+      "minLength": 1
+    },
+    "question_pt_br": {
+      "type": "string",
+      "minLength": 1
+    },
+    "narration_pt_br": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fact_bearing": {
+      "type": "boolean"
+    },
+    "claim_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "qualifier_acknowledgements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "visual": {
+      "type": "object",
+      "required": [
+        "cognitive_function",
+        "representation_intent",
+        "evidence_required"
+      ],
+      "properties": {
+        "cognitive_function": {
+          "type": "string"
+        },
+        "representation_intent": {
+          "type": "string"
+        },
+        "evidence_required": {
+          "type": "boolean"
+        },
+        "preferred_owner": {
+          "type": "string"
+        },
+        "fallback_owner": {
+          "type": "string"
+        }
+      }
+    },
+    "viewer_state_after_pt_br": {
+      "type": "string",
+      "minLength": 1
+    },
+    "closure_test_pt_br": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_duration_seconds": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    }
+  },
+  "additionalProperties": true
+}

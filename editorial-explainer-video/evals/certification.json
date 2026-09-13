@@ -1,0 +1,10 @@
+{
+  "schema": "editorial-explainer-certification/v1",
+  "status": "CANARY",
+  "structure_validation": "passed",
+  "deterministic_validator_tests": "passed",
+  "cross_binding_fixture": "passed",
+  "behavioral_forward_test": "pending",
+  "note": "Deterministic validation does not certify narrative quality, explanatory insight, or audience comprehension.",
+  "promotion_status": "canary"
+}

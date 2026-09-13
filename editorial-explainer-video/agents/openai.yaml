@@ -1,0 +1,11 @@
+interface:
+  display_name: Editorial Explainer Video
+  short_description: Compila evidência verificada em tese, roteiro e beats explicativos auditáveis
+  default_prompt: Use $editorial-explainer-video after $editorial-evidence has produced a validated claim ledger. Bind the exact ledger bytes, compile one bounded thesis and explanatory mechanism, write factual script blocks only from allowed claim refs, preserve every required qualifier, and produce ordered ExplainerBeats with explicit viewer-state transitions and visual cognitive functions. Keep narration and audience-facing text in Brazilian Portuguese unless the user requests another language. Stop before rendering; route downstream capabilities only after the semantic explainer plan validates.
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

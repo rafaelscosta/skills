@@ -1,0 +1,85 @@
+{
+  "schema": "editorial-evidence-ledger/v1",
+  "subject": "Mudança de custos logísticos",
+  "mode": "heightened",
+  "sources": [
+    {
+      "source_id": "S001",
+      "title": "Série oficial de custos",
+      "locator": "https://example.test/data#table-4",
+      "source_type": "OFFICIAL",
+      "authority": "HIGH",
+      "freshness": "CURRENT",
+      "accessed_at": "2026-09-13"
+    },
+    {
+      "source_id": "S002",
+      "title": "Análise independente",
+      "locator": "https://example.test/analysis#section-2",
+      "source_type": "SECONDARY",
+      "authority": "MEDIUM",
+      "freshness": "CURRENT",
+      "accessed_at": "2026-09-13"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C001",
+      "statement": "O custo real de transporte caiu 37% no período analisado.",
+      "language": "pt-BR",
+      "claim_type": "QUANTITATIVE",
+      "materiality": "HIGH",
+      "epistemic_status": "VERIFIED",
+      "editorial_use": "ALLOW",
+      "source_bindings": [
+        {
+          "source_id": "S001",
+          "relation": "SUPPORTS",
+          "locator": "Tabela 4, linha 2025, coluna índice real"
+        }
+      ],
+      "required_qualifiers": [],
+      "time_sensitive": false,
+      "numeric_context": {
+        "metric": "índice real de custo",
+        "value_text": "-37%",
+        "unit": "percentual",
+        "period": "período analisado",
+        "comparison_basis": "início vs fim"
+      }
+    },
+    {
+      "claim_id": "C002",
+      "statement": "A queda do custo logístico é uma das explicações plausíveis para a redução observada.",
+      "language": "pt-BR",
+      "claim_type": "CAUSAL",
+      "materiality": "HIGH",
+      "epistemic_status": "QUALIFIED",
+      "editorial_use": "ALLOW_WITH_QUALIFICATION",
+      "source_bindings": [
+        {
+          "source_id": "S001",
+          "relation": "SUPPORTS",
+          "locator": "Tabela 4"
+        },
+        {
+          "source_id": "S002",
+          "relation": "CONTEXTUALIZES",
+          "locator": "Seção 2, parágrafos 3-5"
+        }
+      ],
+      "required_qualifiers": [
+        "Tratar como uma explicação plausível, não como causa única."
+      ],
+      "time_sensitive": false,
+      "causal_review": {
+        "basis": "Mudança temporal compatível com mecanismo logístico e análise independente.",
+        "contradiction_search": true,
+        "alternative_explanations": [
+          "mudança de demanda",
+          "subsídios temporários"
+        ]
+      }
+    }
+  ]
+}

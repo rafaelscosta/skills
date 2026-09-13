@@ -1,0 +1,43 @@
+pack:
+  name: editorial-explainer-video
+  version: "0.1.0"
+  owner_squad: sinkra-squad
+
+contract:
+  schema: editorial-explainer-video/receipt@1
+  explainer_plan_schema: editorial-explainer-plan/v1
+  evidence_input_schema: editorial-evidence-ledger/v1
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: output_only
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+  output_root: outputs/editorial-explainer-video/{run_id}
+  original_input_overwrite: deny
+  lifecycle_states: [PLANNED, EVIDENCE_BOUND, QUESTION_LOCKED, THESIS_LOCKED, MECHANISM_BOUND, SCRIPT_COMPILED, BEATS_COMPILED, VALIDATED, HANDOFF, FAILED, BLOCKED]
+  terminal_success: HANDOFF
+  evidence_hash_binding_required: true
+  blocked_claim_use: deny
+  qualifier_propagation_required: true
+  renderer_coupling: none
+  user_facing_language_default: pt-BR
+
+integration:
+  upstream_skill: editorial-evidence
+  upstream_schema: editorial-evidence-ledger/v1
+  downstream_capabilities:
+    - data-viz-selector
+    - visual-semantic-compiler
+    - media-use
+    - motion-graphics
+    - motion-studio
+    - general-video
+
+certification:
+  status: canary
+  structure_validation: passed
+  deterministic_validator_tests: passed
+  cross_binding_fixture: passed
+  behavioral_forward_test: pending
+  promotion_status: canary

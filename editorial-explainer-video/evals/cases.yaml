@@ -1,0 +1,25 @@
+cases:
+  - id: EEV-001
+    name: blocked claim cannot enter thesis
+    expected: fail_closed
+  - id: EEV-002
+    name: qualified causal claim preserves qualifier in script and beat
+    expected: pass_when_preserved
+  - id: EEV-003
+    name: stale evidence hash invalidates plan
+    expected: fail_closed
+  - id: EEV-004
+    name: factual script block without claim refs
+    expected: fail_closed
+  - id: EEV-005
+    name: beat with no viewer-state progress
+    expected: fail_closed
+  - id: EEV-006
+    name: must-prove claim absent from script
+    expected: fail_closed
+  - id: EEV-007
+    name: must-prove claim absent from beats
+    expected: fail_closed
+  - id: EEV-008
+    name: narrative quality from realistic evidence pack
+    expected: behavioral_review_required
