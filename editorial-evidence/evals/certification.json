@@ -1,0 +1,54 @@
+{
+  "schema": "editorial-evidence-certification/v1",
+  "date": "2026-09-13",
+  "status": "CANARY",
+  "structure_validation": "PASSED",
+  "unit_tests": {
+    "status": "PASSED",
+    "count": 2
+  },
+  "valid_fixture": {
+    "schema": "editorial-evidence-validation/v1",
+    "status": "PASSED",
+    "input_sha256": "fc745003c2c2661413bebd2d5006d94be57f327851e48628a4c90e57e6c980e4",
+    "counts": {
+      "sources": 2,
+      "claims": 2
+    },
+    "errors": [],
+    "warnings": []
+  },
+  "invalid_fixture": {
+    "expected_exit": 1,
+    "actual_exit": 1,
+    "receipt": {
+      "schema": "editorial-evidence-validation/v1",
+      "status": "FAILED",
+      "input_sha256": "c66f156be265bb8a22f7a7df89288fbc621e4e0e8c619752e82ba0c8a618cbe6",
+      "counts": {
+        "sources": 1,
+        "claims": 1
+      },
+      "errors": [
+        {
+          "code": "verified_without_support",
+          "path": "claims[0].source_bindings",
+          "message": "verified material claim needs supporting evidence"
+        },
+        {
+          "code": "freshness_check_missing",
+          "path": "claims[0].freshness_checked_at",
+          "message": "time-sensitive usable claims require freshness_checked_at"
+        },
+        {
+          "code": "causal_review_missing",
+          "path": "claims[0].causal_review",
+          "message": "verified causal claim requires basis and contradiction_search=true"
+        }
+      ],
+      "warnings": []
+    }
+  },
+  "behavioral_forward_test": "PENDING",
+  "note": "Deterministic contract integrity is proven. Research quality and source truth require real-case behavioral evaluation."
+}

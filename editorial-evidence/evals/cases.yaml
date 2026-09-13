@@ -1,0 +1,25 @@
+cases:
+  - id: verified-quantitative-primary
+    expected: pass
+    invariant: quantitative claim preserves numeric context and precise locator
+  - id: verified-without-support
+    expected: fail
+    invariant: verified material claim requires supporting evidence
+  - id: high-materiality-homepage-only
+    expected: fail
+    invariant: high-materiality bindings require claim-level locators
+  - id: translated-quote-without-original
+    expected: fail
+    invariant: quote evidence preserves exact original text
+  - id: stale-time-sensitive-verified
+    expected: fail
+    invariant: time-sensitive verified claims require freshness evidence
+  - id: causal-without-contradiction-search
+    expected: fail
+    invariant: verified causal claims require causal review and contradiction search
+  - id: qualified-without-qualifier
+    expected: fail
+    invariant: qualified claims carry explicit downstream wording constraints
+  - id: contested-allowed-as-fact
+    expected: fail
+    invariant: contested claims cannot be emitted as unqualified fact

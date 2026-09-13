@@ -1,0 +1,29 @@
+{
+  "schema": "editorial-evidence-ledger/v1",
+  "subject": "Caso inválido",
+  "mode": "standard",
+  "sources": [
+    {
+      "source_id": "S001",
+      "title": "Fonte genérica",
+      "locator": "https://example.test",
+      "source_type": "SECONDARY",
+      "authority": "LOW",
+      "freshness": "STALE"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C001",
+      "statement": "Esta causa explica definitivamente o resultado atual.",
+      "language": "pt-BR",
+      "claim_type": "CAUSAL",
+      "materiality": "HIGH",
+      "epistemic_status": "VERIFIED",
+      "editorial_use": "ALLOW",
+      "source_bindings": [],
+      "required_qualifiers": [],
+      "time_sensitive": true
+    }
+  ]
+}

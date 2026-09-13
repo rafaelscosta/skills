@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "editorial-source/v1",
+  "type": "object",
+  "required": [
+    "source_id",
+    "title",
+    "locator",
+    "source_type",
+    "authority",
+    "freshness"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "enum": [
+        "PRIMARY",
+        "OFFICIAL",
+        "DATASET",
+        "PAPER",
+        "FILING",
+        "TRANSCRIPT",
+        "SOURCE_CODE",
+        "SECONDARY",
+        "EXPERT",
+        "USER_PROVIDED"
+      ]
+    },
+    "authority": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "UNKNOWN"
+      ]
+    },
+    "freshness": {
+      "enum": [
+        "CURRENT",
+        "AGING",
+        "STALE",
+        "UNKNOWN"
+      ]
+    },
+    "publisher": {
+      "type": "string"
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "accessed_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "snapshot_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

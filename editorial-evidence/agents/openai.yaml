@@ -1,0 +1,11 @@
+interface:
+  display_name: Editorial Evidence
+  short_description: Converte fontes em claims verificáveis e seguros para uso editorial
+  default_prompt: Use $editorial-evidence to turn the supplied brief, draft, or research material into an auditable claim ledger. Atomize only material claims, bind each to precise source locations, check contradiction, freshness, numbers, quotes, and causality when the risk warrants it, and assign VERIFIED/QUALIFIED/CONTESTED/UNSUPPORTED/STALE/RETRACTED plus ALLOW/ALLOW_WITH_QUALIFICATION/BLOCK. Keep reader-facing wording and qualifiers in Brazilian Portuguese unless requested otherwise. Validate the exact ledger bytes before handoff, and escalate to adversarial research only for genuinely high-risk or contested claims.
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

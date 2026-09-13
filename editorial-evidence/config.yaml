@@ -1,0 +1,40 @@
+pack:
+  name: editorial-evidence
+  version: "0.1.0"
+  owner_squad: sinkra-squad
+
+contract:
+  schema: editorial-evidence/receipt@1
+  ledger_schema: editorial-evidence-ledger/v1
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: output_only
+  network_default: read_only_when_research_required
+  provider_default: deny
+  publication_default: deny
+  output_root: outputs/businesses/{business}/editorial-evidence/{run_id}
+  original_input_overwrite: deny
+  lifecycle_states: [PLANNED, CLAIMS_ATOMIZED, SOURCES_BOUND, RISK_ROUTED, VERIFIED, LEDGER_VALIDATED, HANDOFF, FAILED, BLOCKED]
+  terminal_success: HANDOFF
+  deterministic_validation_required: true
+  claim_level_provenance_required: true
+  exact_locator_required_for_high_materiality: true
+  contradiction_search_required_for_verified_causal: true
+  freshness_check_required_for_time_sensitive_verified: true
+  quote_original_required: true
+
+integration:
+  optional_research_skills: [tech-search, research-software]
+  optional_adversarial_escalation: brennerbot-with-ntm
+  downstream_consumers: [editorial-explainer-video, clarify]
+
+language:
+  reader_facing_default: pt-BR
+  internal_metadata: en
+
+certification:
+  structure_validation: passed
+  deterministic_validator_tests: passed
+  fail_closed_fixture: passed
+  behavioral_forward_test: pending
+  promotion_status: canary

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "editorial-evidence-ledger/v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "subject",
+    "mode",
+    "sources",
+    "claims"
+  ],
+  "properties": {
+    "schema": {
+      "const": "editorial-evidence-ledger/v1"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "enum": [
+        "standard",
+        "heightened",
+        "adversarial"
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "source.schema.json"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": true
+}
