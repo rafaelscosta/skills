@@ -157,6 +157,26 @@ Never certify when any of these are true:
 - a capability packet loses claim refs, required qualifiers, viewer-state semantics, or hash binding;
 - a dependency graph is cyclic or final assembly does not depend on every beat terminal.
 
+## W5 — Evaluation harness
+
+After plan and capability compilation, evaluate integrity and quality in separate layers.
+
+Run the machine eval:
+
+```bash
+python3 scripts/evaluate_semantic.py <explainer-plan.json> <ledger.json> <capability-manifest.json> --json
+```
+
+This checks integrated traceability, must-prove coverage, qualifier survival, evidence-bound visuals, viewer-state progress, route coverage, and handoff fidelity. Pacing/load outputs are diagnostics only.
+
+For editorial or audiovisual quality claims, read `references/eval-rubric.md`, create an `editorial-explainer-review/v1` receipt for the exact artifact stage inspected, then validate it:
+
+```bash
+python3 scripts/validate_review.py <review.json> <plan.json> <ledger.json> <manifest.json> --json
+```
+
+Combine the machine and reviewer receipts with `scripts/finalize_eval.py`. Hard fails override scores. A `PASS` at `plan`, `owner_output`, or `rough_cut` is stage-local and must never be described as final-video certification. Only a `final` review can support that claim.
+
 ## Definition of done
 
 The explainer compiler is done when the exact evidence ledger is hash-bound to one coherent thesis, all material script/beat assertions are claim-traceable, every required qualifier survives into use, every beat advances viewer understanding, the plan validator passes, and the W4 capability manifest preserves those semantics through an acyclic owner chain that also validates deterministically.

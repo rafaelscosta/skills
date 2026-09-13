@@ -1,6 +1,6 @@
 {
   "schema": "editorial-explainer-certification/v1",
-  "skill_version": "0.2.0",
+  "skill_version": "0.3.0",
   "promotion_status": "canary",
   "structure_validation": "passed",
   "plan_validator_tests": "passed",
@@ -11,5 +11,9 @@
   "behavioral_forward_test": "pending",
   "owner_execution_review": "pending",
   "rendered_explainer_golden": "pending",
-  "note": "W4 proves deterministic routing and semantic preservation. It does not certify downstream owner execution or final audiovisual quality."
+  "note": "W5 deterministic machine eval + stage-bound reviewer eval harness passed. Behavioral forward testing, real downstream owner execution, and rendered golden certification remain pending.",
+  "eval_harness_tests": "passed",
+  "semantic_integrated_eval": "passed",
+  "reviewer_binding_validation": "passed",
+  "hard_fail_override_test": "passed"
 }

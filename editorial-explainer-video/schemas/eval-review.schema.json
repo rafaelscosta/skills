@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "editorial-explainer-review/v1",
+  "type": "object",
+  "required": ["schema", "artifact_stage", "reviewer", "bindings", "dimensions", "hard_fails", "verdict"],
+  "properties": {
+    "schema": {"const": "editorial-explainer-review/v1"},
+    "artifact_stage": {"enum": ["plan", "owner_output", "rough_cut", "final"]},
+    "reviewer": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "type": {"enum": ["human", "vision-model", "language-model"]}
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "required": ["plan_sha256", "evidence_ledger_sha256", "capability_manifest_sha256"],
+      "properties": {
+        "plan_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "evidence_ledger_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "capability_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "artifact_sha256": {"type": ["string", "null"]}
+      }
+    },
+    "dimensions": {"type": "object"},
+    "hard_fails": {"type": "array"},
+    "verdict": {"enum": ["PASS", "REVISE", "FAIL", "INSUFFICIENT_EVIDENCE"]}
+  },
+  "additionalProperties": true
+}

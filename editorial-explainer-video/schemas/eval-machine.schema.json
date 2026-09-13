@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "editorial-explainer-machine-eval/v1",
+  "type": "object",
+  "required": ["schema", "status", "plan_sha256", "evidence_ledger_sha256", "capability_manifest_sha256", "metrics", "diagnostics", "hard_fails", "warnings"],
+  "properties": {
+    "schema": {"const": "editorial-explainer-machine-eval/v1"},
+    "status": {"enum": ["PASSED", "FAILED"]},
+    "plan_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "evidence_ledger_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "capability_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "metrics": {"type": "object"},
+    "diagnostics": {"type": "object"},
+    "hard_fails": {"type": "array"},
+    "warnings": {"type": "array"}
+  },
+  "additionalProperties": true
+}

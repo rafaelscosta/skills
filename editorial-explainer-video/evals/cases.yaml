@@ -36,3 +36,18 @@ cases:
   - id: W4-004
     name: reject qualifier drift in downstream packet
     expected: packet_qualifier_drift hard fail
+  - id: W5-001
+    name: integrated semantic machine eval reaches full traceability
+    expected: all critical machine ratios equal 1.0
+  - id: W5-002
+    name: tampered capability packet fails integrated machine eval
+    expected: CAPABILITY_VALIDATION_FAILED
+  - id: W5-003
+    name: stage-bound reviewer receipt validates exact hashes and rubric
+    expected: plan-stage PASS is explicitly stage-local
+  - id: W5-004
+    name: perfect numeric score cannot override a hard fail
+    expected: FAIL
+  - id: W5-005
+    name: stale reviewer binding is rejected
+    expected: review_binding_mismatch

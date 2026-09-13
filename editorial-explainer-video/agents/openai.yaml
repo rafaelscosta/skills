@@ -1,7 +1,7 @@
 interface:
   display_name: Editorial Explainer Video
   short_description: Compila evidência verificada em tese, roteiro e beats explicativos auditáveis
-  default_prompt: Use $editorial-explainer-video after $editorial-evidence to compile a hash-bound thesis, source-bound script, viewer-state ExplainerBeats, and deterministic capability handoff packets. Preserve every claim ref and required qualifier, never strengthen causality, route by cognitive function to canonical downstream owners, and block rather than substitute when an owner is unavailable. Keep narration and audience-facing text in Brazilian Portuguese; keep schemas and routing metadata in English.
+  default_prompt: Use $editorial-explainer-video after $editorial-evidence to compile a hash-bound thesis, source-bound script, viewer-state ExplainerBeats, and deterministic capability handoff packets. Preserve every claim ref and required qualifier, never strengthen causality, route by cognitive function to canonical downstream owners, and block rather than substitute when an owner is unavailable. Keep narration and audience-facing text in Brazilian Portuguese; keep schemas and routing metadata in English. Separate machine integrity from stage-bound reviewer quality evals, and never call a plan, owner output, or rough cut a certified final video.
 policy:
   allow_implicit_invocation: true
   products:

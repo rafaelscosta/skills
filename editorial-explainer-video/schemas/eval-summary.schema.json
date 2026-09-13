@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "editorial-explainer-eval-summary/v1",
+  "type": "object",
+  "required": ["schema", "status", "machine_eval_sha256", "review_sha256", "artifact_stage", "weighted_score", "hard_fails", "notes"],
+  "properties": {
+    "schema": {"const": "editorial-explainer-eval-summary/v1"},
+    "status": {"enum": ["PASS", "REVISE", "FAIL", "INSUFFICIENT_EVIDENCE"]},
+    "machine_eval_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "review_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact_stage": {"enum": ["plan", "owner_output", "rough_cut", "final"]},
+    "weighted_score": {"type": ["number", "null"]},
+    "hard_fails": {"type": "array"},
+    "notes": {"type": "array"}
+  },
+  "additionalProperties": true
+}
