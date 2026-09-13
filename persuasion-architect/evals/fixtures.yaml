@@ -1,0 +1,84 @@
+fixture_version: "persuasion-architect/fixtures@1"
+generator_surface: true
+cases:
+  - id: case-001-contrarian-mechanism-book
+    mode: architect
+    brief:
+      audience: Owners of appointment-based high-ticket service businesses with qualified calls but inconsistent close rates.
+      current_belief: They mainly need better scripts or stronger closers.
+      offer: A low-priced implementation book with templates for pre-call, follow-up, onboarding, retention, and referral systems.
+      evidence_available:
+        - Product table of contents and implementation templates exist.
+        - Two contextualized client case studies with before/after operational metrics are available.
+        - No controlled trial or broad population-level efficacy study exists.
+      constraints:
+        - Do not claim universal improvement or guaranteed close-rate lift.
+        - No fabricated countdown or scarcity.
+      target_action: Purchase the entry product.
+    requested_output: Full belief graph, evidence map, architecture matrix, and QA self-check.
+
+  - id: case-002-generic-saas-feature-dump
+    mode: audit
+    brief:
+      audience: Small operations teams evaluating workflow software.
+      page_summary:
+        - Hero says "Work smarter, move faster."
+        - Sections list automation, dashboards, integrations, AI, analytics, and collaboration.
+        - Six testimonials say the product is "great" and "easy."
+        - Pricing appears after feature cards.
+        - CTA says "Transform your business today."
+      evidence_available:
+        - Product documentation confirms features.
+        - No quantified customer outcome evidence supplied.
+      target_action: Start a paid annual plan.
+    requested_output: Diagnose missing belief transitions, claim/evidence issues, and reconstruction order.
+
+  - id: case-003-fake-urgency-pressure
+    mode: reconstruct
+    brief:
+      audience: Creators considering an evergreen online course.
+      current_page:
+        - Countdown resets every visit.
+        - Copy says "only 7 seats left" although enrollment is unlimited.
+        - Main proof consists of screenshots without context.
+        - CTA appears above any curriculum, mechanism, or fit explanation.
+      offer: Self-paced evergreen course.
+      evidence_available:
+        - Course curriculum.
+        - Instructor track record.
+        - Three verifiable learner testimonials.
+      target_action: Purchase the course.
+    requested_output: Rebuild persuasion without deceptive urgency and identify hard-fail issues.
+
+  - id: case-004-high-ticket-consulting
+    mode: offer
+    brief:
+      audience: Mid-market companies considering a strategic AI implementation engagement.
+      offer: Diagnostic plus 12-week implementation engagement priced at a significant five-figure fee.
+      evidence_available:
+        - Team credentials and relevant operating history.
+        - Detailed delivery process.
+        - One completed client case with measured operational savings.
+        - Several qualitative client references.
+        - No evidence supporting claims of guaranteed ROI.
+      constraints:
+        - Decision involves multiple stakeholders.
+        - Implementation time and organizational change are material risks.
+      target_action: Book a qualified diagnostic call.
+    requested_output: Build an architecture appropriate to the lower-commitment next step, including total-risk modeling.
+
+  - id: case-005-evidence-gap
+    mode: architect
+    brief:
+      audience: Business owners interested in a new lead-generation methodology.
+      offer: Premium cohort teaching a proprietary method.
+      desired_claims_from_requester:
+        - "Triple qualified leads in 30 days."
+        - "Works in every industry."
+        - "The only system you will ever need."
+      evidence_available:
+        - Founder has used the method in their own business.
+        - No documented client cases yet.
+        - No cross-industry data.
+      target_action: Join the premium cohort.
+    requested_output: Produce the strongest truthful architecture possible and mark claims that cannot be supported.
