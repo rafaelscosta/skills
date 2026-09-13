@@ -1,0 +1,67 @@
+pack:
+  name: persuasion-architect
+  version: "0.1.0"
+  owner_squad: sinkra-squad
+
+contract:
+  schema: persuasion-architect/receipt@1
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: none
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+  output_root: outputs/businesses/{business}/persuasion-architect/{run_id}
+  original_input_overwrite: deny
+  lifecycle_states:
+    - PLANNED
+    - INPUTS_BOUND
+    - CURRENT_STATE_MODELED
+    - BELIEF_GRAPH_BUILT
+    - EVIDENCE_MAPPED
+    - ARCHITECTED
+    - ADVERSARIAL_REVIEWED
+    - VERIFIED
+    - HANDOFF
+    - FAILED
+    - BLOCKED
+  terminal_success: HANDOFF
+  evidence_ledger_required_for_material_claims: true
+  critical_gate_floor: 3
+  invented_evidence_policy: fail_closed
+  invented_scarcity_policy: fail_closed
+  product_before_problem_context_policy: warn
+  urgency_before_belief_policy: fail
+
+architecture:
+  schema: references/persuasion-architecture.schema.json
+  belief_model: directed_acyclic_graph
+  required_gate_types:
+    - comprehension_gate
+    - plausibility_gate
+    - evidence_gate
+    - relevance_gate
+    - readiness_gate
+  persuasion_operations:
+    - ATTENTION
+    - IDENTIFICATION
+    - AGITATION
+    - REFRAME
+    - CATEGORY
+    - MECHANISM
+    - DIFFERENTIATION
+    - TANGIBILIZATION
+    - PROOF
+    - VALUE_EXPANSION
+    - OBJECTION
+    - RISK_REVERSAL
+    - IDENTITY
+    - URGENCY
+    - FRICTION_REMOVAL
+    - ACTION
+
+certification:
+  rubric: evals/rubric.yaml
+  fixtures: evals/fixtures.yaml
+  blind_judge_required: true
+  self_score_is_not_certification: true
