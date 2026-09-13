@@ -1,6 +1,6 @@
 pack:
   name: editorial-explainer-video
-  version: "0.1.0"
+  version: "0.2.0"
   owner_squad: sinkra-squad
 
 contract:
@@ -15,12 +15,15 @@ contract:
   publication_default: deny
   output_root: outputs/editorial-explainer-video/{run_id}
   original_input_overwrite: deny
-  lifecycle_states: [PLANNED, EVIDENCE_BOUND, QUESTION_LOCKED, THESIS_LOCKED, MECHANISM_BOUND, SCRIPT_COMPILED, BEATS_COMPILED, VALIDATED, HANDOFF, FAILED, BLOCKED]
+  lifecycle_states: [PLANNED, EVIDENCE_BOUND, QUESTION_LOCKED, THESIS_LOCKED, MECHANISM_BOUND, SCRIPT_COMPILED, BEATS_COMPILED, VALIDATED, CAPABILITIES_COMPILED, CAPABILITIES_VALIDATED, HANDOFF, FAILED, BLOCKED]
   terminal_success: HANDOFF
   evidence_hash_binding_required: true
   blocked_claim_use: deny
   qualifier_propagation_required: true
   renderer_coupling: none
+  capability_manifest_schema: editorial-explainer-capability-manifest/v1
+  capability_packet_schema: editorial-explainer-capability-packet/v1
+  downstream_owner_substitution: deny
   user_facing_language_default: pt-BR
 
 integration:
@@ -39,5 +42,7 @@ certification:
   structure_validation: passed
   deterministic_validator_tests: passed
   cross_binding_fixture: passed
+  capability_adapter_tests: passed
+  capability_fail_closed_fixture: passed
   behavioral_forward_test: pending
   promotion_status: canary

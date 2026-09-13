@@ -1,16 +1,18 @@
 # Capability Routing
 
-Route by cognitive job, not by aesthetic preference.
+Route by cognitive job, not aesthetic preference. Read `capability-packet-contract.md` when compiling W4 handoffs.
 
-| Cognitive need | Preferred owner |
-| --- | --- |
-| quantitative comparison / trend / distribution | `data-viz-selector` |
-| causal, structural, flow, hierarchy, sequence, timeline | `visual-semantic-compiler` |
-| real evidence, archival image, voice, captions, BGM/SFX | `media-use` |
-| short motion unit, stat, chart hit, map, article/tweet card | `motion-graphics` |
-| art direction and studio-grade audiovisual QA | `motion-studio` |
-| narrated multi-scene temporal assembly | `general-video` |
+| Cognitive need | Semantic / asset owner | Production continuation |
+| --- | --- | --- |
+| quantitative comparison, magnitude, trend | `data-viz-selector` | `motion-graphics` |
+| causal, structural, mechanism, relationship, chronology | `visual-semantic-compiler` | `motion-graphics` |
+| real evidence / archival source | `media-use` | `motion-graphics` |
+| geographic visual | `motion-graphics` | project assembly |
+| definition / contrast / emphasis / transition | `motion-graphics` | project assembly |
+| atmosphere | `media-use` | `motion-graphics` |
+| project art direction / audiovisual QA | `motion-studio` | `general-video` |
+| narrated multi-scene assembly | `general-video` | HyperFrames-owned execution |
 
-The plan may name a preferred owner and fallback owner, but the downstream skill remains authoritative for its own implementation.
+The adapter layer outputs packets, not renderer artifacts. Downstream skills retain authority for chart choice, diagram topology, sourcing, animation, audio, composition, preview, and render gates.
 
-Generative video is never implied by `ATMOSPHERE` or `TRANSITION`. Prefer authentic evidence or deterministic graphics when they communicate the point sufficiently.
+A missing downstream owner is `BLOCKED_OWNER_UNAVAILABLE`, not permission to improvise an adjacent capability. Generative video is never a fallback merely because deterministic or authentic routes are unavailable.

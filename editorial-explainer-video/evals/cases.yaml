@@ -23,3 +23,16 @@ cases:
   - id: EEV-008
     name: narrative quality from realistic evidence pack
     expected: behavioral_review_required
+
+  - id: W4-001
+    name: route quantitative beat through chart spec then motion
+    expected: data-viz-selector -> motion-graphics with exact claim and qualifier preservation
+  - id: W4-002
+    name: route qualified causal beat through semantic visual then motion
+    expected: visual-semantic-compiler -> motion-graphics without causal strengthening
+  - id: W4-003
+    name: reject incompatible preferred owner
+    expected: preferred_owner_incompatible hard fail
+  - id: W4-004
+    name: reject qualifier drift in downstream packet
+    expected: packet_qualifier_drift hard fail

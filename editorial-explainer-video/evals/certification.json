@@ -1,10 +1,15 @@
 {
   "schema": "editorial-explainer-certification/v1",
-  "status": "CANARY",
+  "skill_version": "0.2.0",
+  "promotion_status": "canary",
   "structure_validation": "passed",
-  "deterministic_validator_tests": "passed",
+  "plan_validator_tests": "passed",
   "cross_binding_fixture": "passed",
+  "capability_adapter_tests": "passed",
+  "capability_fail_closed_fixture": "passed",
+  "capability_manifest_fixture": "passed",
   "behavioral_forward_test": "pending",
-  "note": "Deterministic validation does not certify narrative quality, explanatory insight, or audience comprehension.",
-  "promotion_status": "canary"
+  "owner_execution_review": "pending",
+  "rendered_explainer_golden": "pending",
+  "note": "W4 proves deterministic routing and semantic preservation. It does not certify downstream owner execution or final audiovisual quality."
 }

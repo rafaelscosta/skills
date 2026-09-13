@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "editorial-explainer-capability-manifest/v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "subject",
+    "language",
+    "plan_sha256",
+    "evidence_ledger_sha256",
+    "project_direction_packet_id",
+    "sequence_assembly_packet_id",
+    "packets",
+    "beat_routes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "editorial-explainer-capability-manifest/v1"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "language": {
+      "const": "pt-BR"
+    },
+    "plan_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "evidence_ledger_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "project_direction_packet_id": {
+      "type": "string"
+    },
+    "sequence_assembly_packet_id": {
+      "type": "string"
+    },
+    "packets": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "packet_id",
+          "owner",
+          "stage",
+          "scope",
+          "path",
+          "depends_on"
+        ]
+      }
+    },
+    "beat_routes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "beat_id",
+          "packet_ids",
+          "terminal_packet_id"
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}

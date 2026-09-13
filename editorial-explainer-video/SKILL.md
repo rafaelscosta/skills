@@ -23,7 +23,7 @@ verified claim ledger
 → ExplainerBeat[]
 ```
 
-This skill stops before audiovisual production. Motion, assets, audio, charts, diagrams, and renderers remain downstream concerns.
+This skill stops before downstream capabilities execute audiovisual production. It may compile deterministic capability handoff packets, but motion, assets, audio, charts, diagrams, and rendering remain owned by their canonical downstream skills.
 
 ## Ownership boundary
 
@@ -113,6 +113,19 @@ The validator checks byte binding, claim existence and editorial permission, qua
 
 A deterministic pass proves contract integrity. It does not prove that the explanation is insightful, elegant, or compelling; those require behavioral/editorial review.
 
+### 8. Compile capability handoffs
+
+After the plan passes, read `references/capability-packet-contract.md` and compile bounded downstream packets:
+
+```bash
+python3 scripts/compile_capabilities.py <explainer-plan.json> <ledger.json> <handoff-dir> --json
+python3 scripts/validate_capabilities.py <handoff-dir>/capability-manifest.json <explainer-plan.json> <ledger.json> --json
+```
+
+The adapter compiler may route one beat through a capability chain, such as `data-viz-selector -> motion-graphics`. It must preserve the exact claim refs, required qualifiers, viewer-state transition, narration, and closure target.
+
+Do not execute or imitate a missing owner. Owner availability is an execution-time gate; report `BLOCKED_OWNER_UNAVAILABLE` rather than silently substituting a renderer or provider.
+
 ## Canonical output
 
 For non-trivial work, produce:
@@ -120,9 +133,12 @@ For non-trivial work, produce:
 ```text
 explainer-plan.json
 validation-receipt.json
+capability-handoff/capability-manifest.json
+capability-handoff/packets/*.json
+capability-validation-receipt.json
 ```
 
-The plan contains the thesis, mechanism, script blocks, and beats. Do not create renderer artifacts during this stage.
+The plan contains the thesis, mechanism, script blocks, and beats. The handoff directory contains only semantic/operational packets for canonical owners; it is not a rendered video or substitute for downstream quality gates.
 
 ## Hard fails
 
@@ -136,8 +152,11 @@ Never certify when any of these are true:
 - two beats share the same id or order;
 - `viewer_state_before` equals `viewer_state_after`;
 - narration contains a factual assertion intentionally introduced outside the ledger;
-- a causal mechanism is stated more strongly than the ledger permits.
+- a causal mechanism is stated more strongly than the ledger permits;
+- a preferred owner is unknown or incompatible with the beat's cognitive function;
+- a capability packet loses claim refs, required qualifiers, viewer-state semantics, or hash binding;
+- a dependency graph is cyclic or final assembly does not depend on every beat terminal.
 
 ## Definition of done
 
-The explainer compiler is done when the exact evidence ledger is hash-bound to one coherent thesis, all material script/beat assertions are claim-traceable, every required qualifier survives into use, every beat advances viewer understanding, and the deterministic validator passes.
+The explainer compiler is done when the exact evidence ledger is hash-bound to one coherent thesis, all material script/beat assertions are claim-traceable, every required qualifier survives into use, every beat advances viewer understanding, the plan validator passes, and the W4 capability manifest preserves those semantics through an acyclic owner chain that also validates deterministically.

@@ -1,0 +1,105 @@
+{
+  "schema": "editorial-explainer-plan/v1",
+  "subject": "Por que a queda dos custos logísticos importa?",
+  "language": "pt-BR",
+  "evidence_ledger_sha256": "fc745003c2c2661413bebd2d5006d94be57f327851e48628a4c90e57e6c980e4",
+  "thesis": {
+    "question_pt_br": "O que ajuda a explicar a redução observada nos custos?",
+    "answer_pt_br": "A queda do custo logístico ajuda a explicar parte da redução observada, mas não deve ser tratada como causa única.",
+    "central_mechanism_pt_br": "O custo de transporte caiu fortemente no período, tornando a logística uma explicação plausível entre outras alternativas.",
+    "mechanism_epistemic_level": "PLAUSIBLE_CAUSE",
+    "must_prove_claim_refs": [
+      "C001",
+      "C002"
+    ],
+    "counterclaim_refs": [],
+    "scope": {
+      "included": [
+        "custos de transporte",
+        "explicações alternativas"
+      ],
+      "excluded": [
+        "atribuição de causa única"
+      ]
+    },
+    "confidence": "MEDIUM"
+  },
+  "script_blocks": [
+    {
+      "block_id": "SB001",
+      "order": 1,
+      "text_pt_br": "O custo real de transporte caiu 37% no período analisado.",
+      "fact_bearing": true,
+      "claim_refs": [
+        "C001"
+      ],
+      "qualifier_acknowledgements": {}
+    },
+    {
+      "block_id": "SB002",
+      "order": 2,
+      "text_pt_br": "Essa queda é uma explicação plausível para parte da redução observada, mas não prova uma causa única.",
+      "fact_bearing": true,
+      "claim_refs": [
+        "C002"
+      ],
+      "qualifier_acknowledgements": {
+        "C002": [
+          "Tratar como uma explicação plausível, não como causa única."
+        ]
+      }
+    }
+  ],
+  "beats": [
+    {
+      "beat_id": "B001",
+      "order": 1,
+      "narrative_role": "EVIDENCE",
+      "explanation_function": "SCALE",
+      "viewer_state_before_pt_br": "O espectador sabe que houve uma mudança, mas não conhece sua magnitude.",
+      "question_pt_br": "O tamanho da mudança foi relevante?",
+      "narration_pt_br": "O custo real de transporte caiu 37% no período analisado.",
+      "fact_bearing": true,
+      "claim_refs": [
+        "C001"
+      ],
+      "qualifier_acknowledgements": {},
+      "visual": {
+        "cognitive_function": "SCALE",
+        "representation_intent": "magnitude-comparison",
+        "evidence_required": true,
+        "preferred_owner": "data-viz-selector"
+      },
+      "viewer_state_after_pt_br": "O espectador entende que a queda do custo de transporte foi material no período.",
+      "closure_test_pt_br": "O espectador consegue dizer qual métrica mudou e em que magnitude?",
+      "target_duration_seconds": 6.0
+    },
+    {
+      "beat_id": "B002",
+      "order": 2,
+      "narrative_role": "MECHANISM",
+      "explanation_function": "CAUSALITY",
+      "viewer_state_before_pt_br": "O espectador conhece a magnitude da queda, mas ainda não sabe como interpretá-la.",
+      "question_pt_br": "Isso explica sozinho a redução observada?",
+      "narration_pt_br": "A logística é uma explicação plausível, mas não deve ser tratada como causa única.",
+      "fact_bearing": true,
+      "claim_refs": [
+        "C002"
+      ],
+      "qualifier_acknowledgements": {
+        "C002": [
+          "Tratar como uma explicação plausível, não como causa única."
+        ]
+      },
+      "visual": {
+        "cognitive_function": "CAUSALITY",
+        "representation_intent": "qualified-causal-mechanism",
+        "evidence_required": true,
+        "preferred_owner": "media-use"
+      },
+      "viewer_state_after_pt_br": "O espectador entende que logística é uma hipótese explicativa apoiada, porém não exclusiva.",
+      "closure_test_pt_br": "O espectador consegue explicar a relação sem transformá-la em causalidade exclusiva?",
+      "target_duration_seconds": 8.0
+    }
+  ]
+}
