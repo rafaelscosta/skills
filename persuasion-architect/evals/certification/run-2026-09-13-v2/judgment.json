@@ -1,0 +1,275 @@
+{
+  "cases": [
+    {
+      "case_id": "holdout-001-legitimate-capacity",
+      "candidate_a": {
+        "scores": {
+          "belief_continuity": 3,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 4,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 2,
+          "transition_integrity": 2,
+          "action_readiness": 3
+        },
+        "total": 30,
+        "critical_floor_pass": false,
+        "hard_fail_codes": [],
+        "summary": "Truthful mechanism, contextual evidence, and accurate capacity arithmetic. Purchase is conditional in the surrounding gates, but missing-input fallbacks and commercial-risk handling remain underdeveloped.",
+        "architecture_certified": false,
+        "behavioral_pass": true,
+        "terminal_state": "ACTION_READY_IF_PRICE_AND_TERMS_ARE_CONFIRMED",
+        "terminal_state_correct": true
+      },
+      "candidate_b": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 4,
+          "claim_evidence_fit": 4,
+          "specificity": 4,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 2,
+          "transition_integrity": 4,
+          "action_readiness": 3
+        },
+        "total": 34,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "summary": "Explicit dependencies and fallbacks prevent purchase before fit, terms, and availability are established. Mechanism hypotheses remain bounded; actual downside protections are still unspecified.",
+        "architecture_certified": true,
+        "behavioral_pass": true,
+        "terminal_state": "ACTION_READY_IF_PRICE_AND_TERMS_ARE_CONFIRMED",
+        "terminal_state_correct": true
+      },
+      "winner": "B",
+      "winner_reason": "Both satisfy the behavioral requirements. B more clearly blocks unsupported progression and separates documented delivery from conditional implementation effects.",
+      "highest_leverage_repairs": [
+        "Define supported implementation scope and preparation requirements from the documented delivery materials.",
+        "Resolve price, cancellation terms, attendance costs, and participant responsibilities without inventing protections.",
+        "In A, explicitly label purchase as conditional and give a fallback for every unresolved readiness requirement."
+      ]
+    },
+    {
+      "case_id": "holdout-002-ai-inbox-trial",
+      "candidate_a": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 4,
+          "claim_evidence_fit": 4,
+          "specificity": 4,
+          "audience_recognition": 3,
+          "objection_coverage": 4,
+          "identity_alignment": 3,
+          "risk_asymmetry": 3,
+          "transition_integrity": 4,
+          "action_readiness": 3
+        },
+        "total": 36,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "summary": "A bounded trial tests local usefulness, routing errors, and review overhead. Explicit fallbacks address unsafe data use and insufficient samples; satisfaction remains unsupported.",
+        "architecture_certified": true,
+        "behavioral_pass": true,
+        "terminal_state": "FREE_TRIAL_READY",
+        "terminal_state_correct": true
+      },
+      "candidate_b": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 4,
+          "claim_evidence_fit": 4,
+          "specificity": 4,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 3,
+          "transition_integrity": 3,
+          "action_readiness": 4
+        },
+        "total": 35,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "summary": "Strong capability-to-task mapping, evidence boundaries, and post-trial decision design. Readiness requirements are concrete, though failure interventions are less explicit.",
+        "architecture_certified": true,
+        "behavioral_pass": true,
+        "terminal_state": "FREE_TRIAL_READY",
+        "terminal_state_correct": true
+      },
+      "winner": "A",
+      "winner_reason": "Both correctly support a trial without claiming satisfaction improvements. A narrowly wins through explicit routing-quality evaluation and actionable gate fallbacks.",
+      "highest_leverage_repairs": [
+        "Verify integration, data permissions, reply approval behavior, and trial conversion terms before activation.",
+        "In B, explicitly measure exception-routing errors alongside classification quality and total review effort.",
+        "In B, specify the fallback for failed compatibility or data gates and the decision path for inconclusive trial results."
+      ]
+    },
+    {
+      "case_id": "holdout-003-unsupported-guarantee",
+      "candidate_a": {
+        "scores": {
+          "belief_continuity": 3,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 3,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 3,
+          "transition_integrity": 3,
+          "action_readiness": 3
+        },
+        "total": 31,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "summary": "Rejects the unsupported guarantee, bounds both cases, and makes diagnosis proportionate. The delivery mechanism is appropriately modest, while call-specific readiness could be clearer.",
+        "architecture_certified": true,
+        "behavioral_pass": true,
+        "terminal_state": "DIAGNOSTIC_CALL_READY",
+        "terminal_state_correct": true
+      },
+      "candidate_b": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 4,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 3,
+          "transition_integrity": 4,
+          "action_readiness": 3
+        },
+        "total": 34,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "summary": "Separates credibility for an exploratory conversation from unestablished campaign efficacy. Hypothetical causal links are labeled, and missing call conditions prevent premature confirmation.",
+        "architecture_certified": true,
+        "behavioral_pass": true,
+        "terminal_state": "DIAGNOSTIC_CALL_READY",
+        "terminal_state_correct": true
+      },
+      "winner": "B",
+      "winner_reason": "Both reject the guarantee and reach the correct commitment. B uses fewer necessary beliefs for booking and more clearly distinguishes exploratory readiness from efficacy proof.",
+      "highest_leverage_repairs": [
+        "Use the documented delivery process to clarify causal links; preserve unknown channels and methods as unknown.",
+        "Establish qualification definitions and case context before interpreting pipeline improvements.",
+        "Confirm diagnostic scope, participants, and any cost; in A, make missing call conditions an explicit booking gate."
+      ]
+    },
+    {
+      "case_id": "holdout-004-onboarding-platform",
+      "candidate_a": {
+        "scores": {
+          "belief_continuity": 3,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 4,
+          "audience_recognition": 3,
+          "objection_coverage": 4,
+          "identity_alignment": 3,
+          "risk_asymmetry": 4,
+          "transition_integrity": 3,
+          "action_readiness": 4
+        },
+        "total": 35,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "summary": "Strong stakeholder responsibilities, migration-risk treatment, and proposal scope. Security evidence stays separate from outcomes, and final procurement approval is correctly deferred.",
+        "architecture_certified": true,
+        "behavioral_pass": true,
+        "terminal_state": "SCOPED_PROPOSAL_READY",
+        "terminal_state_correct": true
+      },
+      "candidate_b": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 4,
+          "claim_evidence_fit": 4,
+          "specificity": 4,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 3,
+          "transition_integrity": 4,
+          "action_readiness": 3
+        },
+        "total": 35,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "summary": "Explicit parallel dependencies, bounded operational effects, and discovery fallbacks. Stakeholder responsibilities and the minimum threshold for requesting a proposal are less fully differentiated.",
+        "architecture_certified": true,
+        "behavioral_pass": true,
+        "terminal_state": "SCOPED_PROPOSAL_READY",
+        "terminal_state_correct": true
+      },
+      "winner": "tie",
+      "winner_reason": "Both meet all behavioral requirements. B has stronger causal and dependency modeling; A better specifies stakeholder concerns, migration downside, and the proportionate proposal threshold.",
+      "highest_leverage_repairs": [
+        "Confirm buyer-specific bottlenecks and compare case metrics using matching definitions and context.",
+        "Combine A's stakeholder responsibilities with B's explicit technical, migration, and commercial fallback branches.",
+        "Specify the minimum proposal inputs and distinguish discovery assumptions from requirements that block a firm implementation commitment."
+      ]
+    },
+    {
+      "case_id": "holdout-005-vague-membership",
+      "candidate_a": {
+        "scores": {
+          "belief_continuity": 4,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 4,
+          "audience_recognition": 3,
+          "objection_coverage": 4,
+          "identity_alignment": 3,
+          "risk_asymmetry": 3,
+          "transition_integrity": 4,
+          "action_readiness": 4
+        },
+        "total": 36,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "summary": "Correctly interrupts the unsupported business-outcome chain and reconstructs an informational next step. Certification applies to that bounded reconstruction, not annual purchase or revenue efficacy.",
+        "architecture_certified": true,
+        "behavioral_pass": true,
+        "terminal_state": "ANNUAL_PURCHASE_BLOCKED",
+        "terminal_state_correct": true
+      },
+      "candidate_b": {
+        "scores": {
+          "belief_continuity": 3,
+          "causal_clarity": 3,
+          "claim_evidence_fit": 4,
+          "specificity": 4,
+          "audience_recognition": 3,
+          "objection_coverage": 3,
+          "identity_alignment": 3,
+          "risk_asymmetry": 3,
+          "transition_integrity": 3,
+          "action_readiness": 4
+        },
+        "total": 33,
+        "critical_floor_pass": true,
+        "hard_fail_codes": [],
+        "summary": "Removes unsupported promises and blocks current annual purchase while offering verified information. Future experience-based purchase is conditional, though its reopening requirements could be more explicit.",
+        "architecture_certified": true,
+        "behavioral_pass": true,
+        "terminal_state": "ANNUAL_PURCHASE_BLOCKED",
+        "terminal_state_correct": true
+      },
+      "winner": "A",
+      "winner_reason": "Both correctly block annual purchase on the supplied inputs. A more clearly separates the informational path from the broken outcome path and explicitly stops prospects whose decision requires client-acquisition efficacy.",
+      "highest_leverage_repairs": [
+        "Keep the participation-to-business-outcome mechanism unresolved until an actual method and appropriate evidence exist.",
+        "Verify participation expectations, resource relevance, access conditions, and annual commercial terms before reopening purchase evaluation.",
+        "In B, explicitly require demonstrated experience fit as well as verified terms, with a blocked fallback when the buyer requires unsupported business outcomes."
+      ]
+    }
+  ],
+  "overall_notes": "Judged each pair independently without inferring condition identity. Totals sum all ten dimensions; certification requires every critical dimension at least 3, total at least 30, and no hard fail. No supplied candidate triggers a hard fail. Candidate self-scores and unexplained F-codes were not adopted. Terminal states reflect operative gates across the complete response. Certification concerns the proposed bounded architecture; informational reconstruction does not certify annual purchase, and conditional readiness does not establish that missing terms are confirmed."
+}
