@@ -1,0 +1,114 @@
+rubric_version: "persuasion-architect/rubric@1"
+judge_surface: true
+scale:
+  0: absent_or_broken
+  1: weak
+  2: partial
+  3: strong
+  4: exceptional
+
+critical_dimensions:
+  - belief_continuity
+  - causal_clarity
+  - claim_evidence_fit
+  - transition_integrity
+  - action_readiness
+
+certification_rule:
+  minimum_each_critical: 3
+  minimum_total: 30
+  hard_fail_codes:
+    - invented_evidence
+    - invented_scarcity
+    - material_claim_presented_as_proven_when_unsupported
+    - coercive_or_deceptive_identity_pressure
+  average_cannot_override_critical_floor: true
+
+criteria:
+  belief_continuity:
+    question: Does each critical belief have its required prerequisites established before it is used?
+    score_0: Multiple downstream claims depend on beliefs that were never established.
+    score_1: The sequence has major logical jumps.
+    score_2: Most dependencies exist, but at least one material transition is premature.
+    score_3: Critical dependencies are respected with only minor inefficiency.
+    score_4: The sequence is minimal, explicit, and every transition has a clear dependency role.
+
+  causal_clarity:
+    question: Are causal claims explained through mechanisms rather than asserted through labels or rhetoric?
+    score_0: Core causal model is absent or contradictory.
+    score_1: Mechanism is mostly naming or assertion.
+    score_2: Mechanism is understandable but contains important gaps.
+    score_3: Cause, mechanism, and expected effect are coherent and scoped.
+    score_4: The mechanism is coherent, scoped, contrastive, and anticipates plausible confounders.
+
+  claim_evidence_fit:
+    question: Is evidence proportional and appropriate to each material claim class?
+    score_0: Material claims are fabricated or directly contradicted by available evidence.
+    score_1: Major claims rely on evidence that cannot support them.
+    score_2: Evidence is mixed; some claims are overextended.
+    score_3: Claims are supported or explicitly bounded where evidence is incomplete.
+    score_4: Every material claim has correctly typed, proportional evidence and visible uncertainty boundaries.
+
+  specificity:
+    question: Is the argument specific to this audience, offer, mechanism, and context?
+    score_0: Entire architecture is interchangeable with unrelated offers.
+    score_1: Mostly generic benefits and objections.
+    score_2: Some audience and mechanism specificity, but large generic regions remain.
+    score_3: Most blocks are context-specific and non-transferable without meaningful edits.
+    score_4: Specificity is operational: audience state, mechanism, proof, and offer dependencies are tightly coupled.
+
+  audience_recognition:
+    question: Can the intended prospect recognize their actual state without being led into false self-diagnosis?
+    score_0: Audience state is wrong or absent.
+    score_1: Recognition depends on broad stereotypes.
+    score_2: Several relevant symptoms exist but fit is imprecise.
+    score_3: Operational conditions, prior attempts, and meaningful symptoms establish fit.
+    score_4: Recognition is precise, bounded, and includes disqualification conditions.
+
+  objection_coverage:
+    question: Are decision-blocking objections handled where they become cognitively relevant?
+    score_0: Major objections are ignored.
+    score_1: Objections are handled late or generically.
+    score_2: Most are present but sequencing or evidence is weak.
+    score_3: Critical objections are handled at the correct dependency point.
+    score_4: Objection handling is anticipatory without becoming repetitive, and each answer unlocks a specific next belief.
+
+  identity_alignment:
+    question: Does identity framing support genuine fit and implementation behavior without shame or coercion?
+    score_0: Identity is deceptive, coercive, or morally loaded.
+    score_1: Identity framing pressures rather than clarifies.
+    score_2: Identity is relevant but somewhat generic or performative.
+    score_3: Identity framing reflects authentic desired behavior and self-selection.
+    score_4: Identity meaningfully improves fit, commitment, and post-purchase behavior without coercion.
+
+  risk_asymmetry:
+    question: Is total downside understood and appropriately reduced or allocated?
+    score_0: Material risks are concealed or misrepresented.
+    score_1: Risk handling focuses on price while ignoring major non-price downside.
+    score_2: Some downside is addressed, but meaningful uncertainty remains unmanaged.
+    score_3: Major risks are visible and bounded with credible mitigation.
+    score_4: Risk architecture is transparent, appropriately asymmetric, and distinguishes efficacy evidence from downside protection.
+
+  transition_integrity:
+    question: Does each critical block have a plausible gate, pass condition, and fallback when needed?
+    score_0: No meaningful gates or major contradictions.
+    score_1: Gates are ceremonial and do not constrain progression.
+    score_2: Gates exist but important pass conditions are vague.
+    score_3: Critical transitions have testable pass conditions and sensible fallback interventions.
+    score_4: Gates make the architecture fail-closed: unsupported transitions cannot silently proceed.
+
+  action_readiness:
+    question: Does the CTA request no more commitment than the established belief state supports?
+    score_0: CTA is incoherent or materially premature.
+    score_1: CTA depends primarily on pressure.
+    score_2: Value exists but unresolved upstream objections or friction remain.
+    score_3: The action is a rational, clear next step after the final belief state.
+    score_4: Commitment level, timing, transaction design, and post-action expectations are exceptionally well matched.
+
+judge_instructions:
+  - Judge the architecture, not writing style or visual polish unless either changes persuasion logic.
+  - Do not award points for the mere presence of familiar copywriting components.
+  - Penalize unsupported certainty more heavily than cautious incompleteness.
+  - Treat invented evidence or scarcity as hard failures regardless of total score.
+  - When inputs are insufficient, reward explicit unresolved gaps over fabricated completion.
+  - Provide the three highest-leverage repairs in dependency order.
