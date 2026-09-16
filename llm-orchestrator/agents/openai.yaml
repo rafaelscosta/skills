@@ -1,0 +1,13 @@
+interface:
+  display_name: LLM Orchestrator
+  short_description: Roteia tasks entre Codex, Claude e Grok com fallback e circuit breaker
+  default_prompt: Use $llm-orchestrator to classify this task, detect which local providers are actually dispatch-ready, choose the appropriate reasoning tier and execution strategy, and route the work across Codex, Claude Code, or Grok Build. Ignore missing or unauthenticated providers, respect circuit-breaker health, preserve bounded fallbacks, and report whether any review was truly independent.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
