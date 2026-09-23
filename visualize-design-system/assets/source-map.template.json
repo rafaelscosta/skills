@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "repository": {
+    "root": ".",
+    "commit": null,
+    "design_system_version": null
+  },
+  "technology": {
+    "frameworks": [],
+    "design_system_tools": [],
+    "render_harnesses": []
+  },
+  "sources": [],
+  "claims": [],
+  "conflicts": [],
+  "gaps": [],
+  "assumptions": []
+}

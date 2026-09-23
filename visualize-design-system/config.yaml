@@ -1,0 +1,31 @@
+pack:
+  name: visualize-design-system
+  version: "1.0.0"
+  owner_squad: sinkra-squad
+
+contract:
+  schema: visualize-design-system/receipt@1
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: output_only
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+  output_root: docs/design-system-guides/{guide_slug}
+  original_input_overwrite: deny
+  lifecycle_states: [PLANNED, DISCOVERED, NORMALIZED, SPECIFIED, VALIDATED, RENDERED, EXPORTED, QA_VERIFIED, HANDOFF, FAILED, BLOCKED]
+  terminal_success: HANDOFF
+  provenance_required: true
+  deterministic_artifact_required: true
+  qa_report_required: true
+  existing_system_claims_require_evidence: true
+  proposed_rules_must_be_labeled: true
+  production_component_mutation_default: deny
+
+integration:
+  upstream_skills:
+    - concept-bridge
+    - clarify
+  downstream_skills:
+    - visual-semantic-compiler
+  renderer_coupling: none

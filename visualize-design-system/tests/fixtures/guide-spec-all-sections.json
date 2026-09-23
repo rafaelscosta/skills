@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "meta": {
+    "id": "all-section-types",
+    "eyebrow": "DESIGN SYSTEM / TEST FIXTURE",
+    "title": "CONTRATO VISUAL",
+    "subtitle": "Fixture de regressão para todas as arquiteturas do renderer.",
+    "language": "pt-BR",
+    "system_name": "Fixture UI",
+    "system_version": "1.0.0",
+    "status": "proposed",
+    "canvas": {
+      "width": 1400,
+      "height": 1800
+    }
+  },
+  "theme": {
+    "background": "#F4F1E8",
+    "surface": "#FFFDF8",
+    "surface_alt": "#ECE9DF",
+    "text": "#171914",
+    "muted": "#61655B",
+    "accent": "#5E6B35",
+    "accent_text": "#FFFFFF",
+    "border": "#C8C7BC",
+    "positive": "#2F6A4F",
+    "negative": "#A24338",
+    "warning": "#B47A24",
+    "radius": 16,
+    "font_sans": "Arial, sans-serif",
+    "font_display": "Arial, sans-serif",
+    "texture": "subtle-grid"
+  },
+  "sections": [
+    {
+      "id": "tokens",
+      "type": "tokens",
+      "title": "TOKENS",
+      "subtitle": "Cor, espaço e tipografia.",
+      "span": "full",
+      "provenance": "implemented",
+      "groups": [
+        {
+          "title": "Fundamentos",
+          "tokens": [
+            {
+              "name": "color.action.primary",
+              "value": "#5E6B35",
+              "role": "Ação principal",
+              "preview": {
+                "kind": "swatch",
+                "label": "Primary",
+                "value": "#5E6B35",
+                "token": "color.action.primary"
+              },
+              "provenance": "implemented"
+            },
+            {
+              "name": "space.4",
+              "value": "16px",
+              "role": "Padding de controles",
+              "preview": {
+                "kind": "spacing",
+                "label": "16px",
+                "value": 16,
+                "token": "space.4"
+              },
+              "provenance": "implemented"
+            },
+            {
+              "name": "type.label.md",
+              "value": "14/20 · 600",
+              "role": "Rótulos de controle",
+              "preview": {
+                "kind": "typography",
+                "label": "Aa",
+                "value": "14 / 20 · 600",
+                "token": "type.label.md",
+                "size": "md"
+              },
+              "provenance": "documented"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision",
+      "type": "decision",
+      "title": "ESCOLHA DO CONTROLE",
+      "subtitle": "Use a quantidade e a visibilidade das opções como critério.",
+      "span": "full",
+      "provenance": "proposed",
+      "columns": ["Situação", "Componente", "Evite"],
+      "rows": [
+        {"cells": ["2–4 opções sempre visíveis", "Radio group", "Select"]},
+        {"cells": ["Muitas opções", "Select / Combobox", "Segmented control"]},
+        {"cells": ["Troca frequente de modo", "Segmented control", "Checkbox"]}
+      ]
+    },
+    {
+      "id": "responsive",
+      "type": "responsive",
+      "title": "COMPORTAMENTO RESPONSIVO",
+      "subtitle": "O mesmo padrão em três faixas.",
+      "span": "full",
+      "provenance": "documented",
+      "frames": [
+        {
+          "label": "Desktop",
+          "condition": "≥ 1200px",
+          "behavior": "Campo e ação na mesma linha.",
+          "sample": {
+            "kind": "input",
+            "label": "Buscar",
+            "value": "Design tokens",
+            "state": "default"
+          },
+          "provenance": "documented"
+        },
+        {
+          "label": "Tablet",
+          "condition": "768–1199px",
+          "behavior": "Campo ocupa a largura disponível.",
+          "sample": {
+            "kind": "badge",
+            "label": "Compacto",
+            "variant": "neutral"
+          },
+          "provenance": "documented"
+        },
+        {
+          "label": "Mobile",
+          "condition": "< 768px",
+          "behavior": "Ação migra para bloco inferior.",
+          "sample": {
+            "kind": "code",
+            "value": "grid-template-columns: 1fr"
+          },
+          "provenance": "proposed"
+        }
+      ]
+    },
+    {
+      "id": "samples",
+      "type": "cards",
+      "title": "AMOSTRAS AUXILIARES",
+      "subtitle": "Cobertura dos demais tipos de specimen.",
+      "span": "half",
+      "columns": 1,
+      "provenance": "proposed",
+      "items": [
+        {
+          "title": "Ativo local",
+          "body": "SVG incorporado como data URI.",
+          "sample": {
+            "kind": "image",
+            "src": "../../assets/icon.svg",
+            "alt": "Ícone da skill"
+          },
+          "provenance": "implemented"
+        },
+        {
+          "title": "Ausência explícita",
+          "body": "Estado sem specimen disponível.",
+          "sample": {
+            "kind": "empty",
+            "label": "N/D"
+          },
+          "provenance": "missing"
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "type": "notes",
+      "title": "REGRAS DE LEITURA",
+      "subtitle": "Notas curtas e acionáveis.",
+      "span": "half",
+      "provenance": "proposed",
+      "items": [
+        {
+          "icon": "1",
+          "title": "Uma variável",
+          "body": "Mantenha conteúdo e contexto estáveis durante a comparação."
+        },
+        {
+          "icon": "2",
+          "title": "Proveniência",
+          "body": "Não apresente inferência como regra implementada."
+        },
+        {
+          "icon": "3",
+          "title": "Decisão",
+          "body": "Documente quando usar, evitar ou substituir."
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "kicker": "REGRESSÃO",
+    "text": "Todas as arquiteturas não cobertas pelo exemplo principal devem renderizar sem overflow.",
+    "source_note": "Fixture técnica da skill."
+  },
+  "provenance_legend": true
+}

@@ -1,0 +1,69 @@
+{
+  "skill": "visualize-design-system",
+  "cases": [
+    {
+      "id": "repo-button-matrix",
+      "prompt": "Inspect the repository and create a production-ready Button state matrix in Portuguese, with HTML, PNG, PDF, source map, and QA report. Do not edit production code.",
+      "fixtures": ["tests/fixtures/minimal-design-system"],
+      "must": [
+        "read repository instructions if present",
+        "inventory component, story, tokens, and docs",
+        "separate variant, size, and state",
+        "use implemented names",
+        "render deterministic text",
+        "export requested formats",
+        "record provenance",
+        "avoid production-code changes"
+      ],
+      "must_not": [
+        "invent an error state",
+        "stop after a plan",
+        "use image generation for the button specimens",
+        "claim runtime verification without running a harness"
+      ]
+    },
+    {
+      "id": "conflicting-token-sources",
+      "prompt": "Create a semantic color guide where the token source and documentation disagree about the primary action color.",
+      "must": [
+        "record the conflict",
+        "state which target state is shown",
+        "preserve both source values in the QA package",
+        "avoid silently resolving the mismatch"
+      ]
+    },
+    {
+      "id": "greenfield",
+      "prompt": "Propose a new typography system and create a visual hierarchy guide; there is no repository.",
+      "must": [
+        "mark the system proposed",
+        "define audience and medium defaults",
+        "create editable deterministic output",
+        "avoid presenting values as implemented"
+      ]
+    },
+    {
+      "id": "atlas-large-monorepo",
+      "prompt": "Audit a large monorepo and create a visual design-system atlas.",
+      "must": [
+        "use bounded discovery",
+        "delegate independent read-only inventories when available",
+        "prioritize guides",
+        "fully validate one representative guide before scaling"
+      ],
+      "must_not": [
+        "dump the whole repository into the main context",
+        "generate every guide before testing the visual contract"
+      ]
+    },
+    {
+      "id": "reference-image",
+      "prompt": "Use these educational poster references as inspiration for a component guide.",
+      "must": [
+        "extract visual grammar",
+        "create an original system-aligned layout",
+        "avoid copying watermark, exact copy, or distinctive proprietary composition"
+      ]
+    }
+  ]
+}

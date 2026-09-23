@@ -1,0 +1,51 @@
+{
+  "skill": "visualize-design-system",
+  "positive": [
+    {
+      "prompt": "Create a visual guide for our Button component showing variants, states and do/don't rules.",
+      "reason": "Explicit design-system component guide"
+    },
+    {
+      "prompt": "Audit the tokens in this repo and make a primitive-to-semantic token sheet.",
+      "reason": "Repository-grounded token documentation"
+    },
+    {
+      "prompt": "Turn our Storybook into a visual design system encyclopedia.",
+      "reason": "Visual atlas from component-library sources"
+    },
+    {
+      "prompt": "Document radio vs select vs segmented control as a decision guide using our existing components.",
+      "reason": "Component-selection guide"
+    },
+    {
+      "prompt": "Build a responsive behavior poster for our sidebar at every implemented breakpoint.",
+      "reason": "Responsive design-system guide"
+    },
+    {
+      "prompt": "Create a pass/fail accessibility sheet for our form fields using actual focus and error states.",
+      "reason": "Accessibility documentation for system components"
+    }
+  ],
+  "negative": [
+    {
+      "prompt": "Build the dashboard page from this screenshot.",
+      "reason": "Ordinary UI implementation without documentation request"
+    },
+    {
+      "prompt": "Create a new logo for my SaaS.",
+      "reason": "Brand identity, not design-system visualization"
+    },
+    {
+      "prompt": "Explain what a design system is.",
+      "reason": "General explanation without a visual-guide or documentation task"
+    },
+    {
+      "prompt": "Fix the hover bug in Button.tsx.",
+      "reason": "Component implementation/debugging, not documentation"
+    },
+    {
+      "prompt": "Create an infographic about 20 marketing hooks.",
+      "reason": "Generic infographic outside design-system scope"
+    }
+  ]
+}
