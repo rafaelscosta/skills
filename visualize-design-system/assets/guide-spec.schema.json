@@ -1,0 +1,455 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/visualize-design-system/guide-spec.schema.json",
+  "title": "Design-system visual guide specification",
+  "type": "object",
+  "required": ["schema_version", "meta", "theme", "sections"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "meta": {
+      "type": "object",
+      "required": ["id", "eyebrow", "title", "subtitle", "language", "canvas"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "eyebrow": {"type": "string", "minLength": 1, "maxLength": 80},
+        "title": {"type": "string", "minLength": 1, "maxLength": 120},
+        "subtitle": {"type": "string", "minLength": 1, "maxLength": 220},
+        "language": {"type": "string", "default": "pt-BR"},
+        "system_name": {"type": ["string", "null"]},
+        "system_version": {"type": ["string", "null"]},
+        "status": {
+          "type": "string",
+          "enum": ["implemented", "documented", "inferred", "proposed", "missing", "deprecated"]
+        },
+        "canvas": {
+          "type": "object",
+          "required": ["width", "height"],
+          "properties": {
+            "width": {"type": "integer", "minimum": 480, "maximum": 7680},
+            "height": {"type": "integer", "minimum": 480, "maximum": 7680}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "theme": {
+      "type": "object",
+      "required": ["background", "surface", "text", "muted", "accent", "border", "positive", "negative", "radius", "font_sans", "font_display"],
+      "properties": {
+        "background": {"$ref": "#/$defs/color"},
+        "surface": {"$ref": "#/$defs/color"},
+        "surface_alt": {"$ref": "#/$defs/color"},
+        "text": {"$ref": "#/$defs/color"},
+        "muted": {"$ref": "#/$defs/color"},
+        "accent": {"$ref": "#/$defs/color"},
+        "accent_text": {"$ref": "#/$defs/color"},
+        "border": {"$ref": "#/$defs/color"},
+        "positive": {"$ref": "#/$defs/color"},
+        "negative": {"$ref": "#/$defs/color"},
+        "warning": {"$ref": "#/$defs/color"},
+        "radius": {"type": "integer", "minimum": 0, "maximum": 64},
+        "font_sans": {"type": "string", "minLength": 1},
+        "font_display": {"type": "string", "minLength": 1},
+        "texture": {"type": "string", "enum": ["none", "subtle-grid", "paper", "noise"]}
+      },
+      "additionalProperties": true
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {"$ref": "#/$defs/section"}
+    },
+    "footer": {
+      "type": "object",
+      "properties": {
+        "kicker": {"type": "string", "maxLength": 80},
+        "text": {"type": "string", "maxLength": 260},
+        "source_note": {"type": "string", "maxLength": 260}
+      },
+      "additionalProperties": true
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["label", "path", "status"],
+        "properties": {
+          "label": {"type": "string"},
+          "path": {"type": "string"},
+          "locator": {"type": ["string", "null"]},
+          "status": {"$ref": "#/$defs/provenance"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "provenance_legend": {"type": "boolean", "default": false}
+  },
+  "$defs": {
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+    },
+    "provenance": {
+      "type": "string",
+      "enum": ["implemented", "documented", "inferred", "proposed", "missing", "deprecated"]
+    },
+    "sample": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["button", "input", "badge", "swatch", "typography", "spacing", "code", "image", "html", "empty"]
+        },
+        "label": {"type": "string"},
+        "description": {"type": "string"},
+        "variant": {"type": "string"},
+        "state": {"type": "string"},
+        "size": {"type": "string"},
+        "value": {"type": ["string", "number"]},
+        "token": {"type": "string"},
+        "src": {"type": "string"},
+        "alt": {"type": "string"},
+        "html": {"type": "string"},
+        "trusted_html": {"type": "boolean"},
+        "icon": {"type": "string"},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      },
+      "additionalProperties": true
+    },
+    "section_base": {
+      "type": "object",
+      "required": ["id", "type", "title"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "type": {"type": "string"},
+        "title": {"type": "string", "minLength": 1, "maxLength": 100},
+        "subtitle": {"type": "string", "maxLength": 180},
+        "span": {"type": "string", "enum": ["full", "half", "third", "two-thirds"], "default": "full"},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "matrix_section": {
+      "allOf": [
+        {"$ref": "#/$defs/section_base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "matrix"},
+            "columns": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 8,
+              "items": {
+                "type": "object",
+                "required": ["id", "label"],
+                "properties": {
+                  "id": {"type": "string"},
+                  "label": {"type": "string"},
+                  "description": {"type": "string"}
+                },
+                "additionalProperties": true
+              }
+            },
+            "rows": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 8,
+              "items": {
+                "type": "object",
+                "required": ["id", "label", "cells"],
+                "properties": {
+                  "id": {"type": "string"},
+                  "label": {"type": "string"},
+                  "description": {"type": "string"},
+                  "cells": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 8,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "sample": {"$ref": "#/$defs/sample"},
+                        "caption": {"type": "string"},
+                        "unavailable": {"type": "boolean"}
+                      },
+                      "additionalProperties": true
+                    }
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": ["columns", "rows"]
+        }
+      ]
+    },
+    "cards_section": {
+      "allOf": [
+        {"$ref": "#/$defs/section_base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "cards"},
+            "columns": {"type": "integer", "minimum": 1, "maximum": 4, "default": 2},
+            "items": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 24,
+              "items": {
+                "type": "object",
+                "required": ["title"],
+                "properties": {
+                  "number": {"type": ["string", "number"]},
+                  "title": {"type": "string"},
+                  "body": {"type": "string"},
+                  "use_when": {"type": "string"},
+                  "avoid_when": {"type": "string"},
+                  "technical": {"type": "string"},
+                  "sample": {"$ref": "#/$defs/sample"},
+                  "provenance": {"$ref": "#/$defs/provenance"}
+                },
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": ["items"]
+        }
+      ]
+    },
+    "pairs_section": {
+      "allOf": [
+        {"$ref": "#/$defs/section_base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "pairs"},
+            "items": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 8,
+              "items": {
+                "type": "object",
+                "required": ["topic", "do", "dont"],
+                "properties": {
+                  "topic": {"type": "string"},
+                  "do": {"$ref": "#/$defs/pair_side"},
+                  "dont": {"$ref": "#/$defs/pair_side"}
+                },
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": ["items"]
+        }
+      ]
+    },
+    "pair_side": {
+      "type": "object",
+      "required": ["title", "body"],
+      "properties": {
+        "title": {"type": "string"},
+        "body": {"type": "string"},
+        "sample": {"$ref": "#/$defs/sample"},
+        "technical": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "anatomy_section": {
+      "allOf": [
+        {"$ref": "#/$defs/section_base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "anatomy"},
+            "sample": {"$ref": "#/$defs/sample"},
+            "callouts": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 12,
+              "items": {
+                "type": "object",
+                "required": ["label", "detail"],
+                "properties": {
+                  "label": {"type": "string"},
+                  "detail": {"type": "string"},
+                  "token": {"type": "string"}
+                },
+                "additionalProperties": true
+              }
+            },
+            "specs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["label", "value"],
+                "properties": {
+                  "label": {"type": "string"},
+                  "value": {"type": ["string", "number"]},
+                  "token": {"type": "string"}
+                },
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": ["sample", "callouts"]
+        }
+      ]
+    },
+    "tokens_section": {
+      "allOf": [
+        {"$ref": "#/$defs/section_base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "tokens"},
+            "groups": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 12,
+              "items": {
+                "type": "object",
+                "required": ["title", "tokens"],
+                "properties": {
+                  "title": {"type": "string"},
+                  "tokens": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 24,
+                    "items": {
+                      "type": "object",
+                      "required": ["name", "value"],
+                      "properties": {
+                        "name": {"type": "string"},
+                        "value": {"type": ["string", "number"]},
+                        "role": {"type": "string"},
+                        "alias_of": {"type": "string"},
+                        "preview": {"$ref": "#/$defs/sample"},
+                        "provenance": {"$ref": "#/$defs/provenance"}
+                      },
+                      "additionalProperties": true
+                    }
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": ["groups"]
+        }
+      ]
+    },
+    "decision_section": {
+      "allOf": [
+        {"$ref": "#/$defs/section_base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "decision"},
+            "columns": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 6,
+              "items": {"type": "string"}
+            },
+            "rows": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 16,
+              "items": {
+                "type": "object",
+                "required": ["cells"],
+                "properties": {
+                  "cells": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 6,
+                    "items": {"type": ["string", "number"]}
+                  },
+                  "provenance": {"$ref": "#/$defs/provenance"}
+                },
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": ["columns", "rows"]
+        }
+      ]
+    },
+    "responsive_section": {
+      "allOf": [
+        {"$ref": "#/$defs/section_base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "responsive"},
+            "frames": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 6,
+              "items": {
+                "type": "object",
+                "required": ["label", "condition", "sample"],
+                "properties": {
+                  "label": {"type": "string"},
+                  "condition": {"type": "string"},
+                  "behavior": {"type": "string"},
+                  "sample": {"$ref": "#/$defs/sample"},
+                  "provenance": {"$ref": "#/$defs/provenance"}
+                },
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": ["frames"]
+        }
+      ]
+    },
+    "notes_section": {
+      "allOf": [
+        {"$ref": "#/$defs/section_base"},
+        {
+          "type": "object",
+          "properties": {
+            "type": {"const": "notes"},
+            "items": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 12,
+              "items": {
+                "type": "object",
+                "required": ["title", "body"],
+                "properties": {
+                  "title": {"type": "string"},
+                  "body": {"type": "string"},
+                  "icon": {"type": "string"}
+                },
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": ["items"]
+        }
+      ]
+    },
+    "section": {
+      "oneOf": [
+        {"$ref": "#/$defs/matrix_section"},
+        {"$ref": "#/$defs/cards_section"},
+        {"$ref": "#/$defs/pairs_section"},
+        {"$ref": "#/$defs/anatomy_section"},
+        {"$ref": "#/$defs/tokens_section"},
+        {"$ref": "#/$defs/decision_section"},
+        {"$ref": "#/$defs/responsive_section"},
+        {"$ref": "#/$defs/notes_section"}
+      ]
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "tsx": true,
+  "cssVariables": true,
+  "aliases": {
+    "components": "@/components",
+    "ui": "@/components/ui"
+  }
+}

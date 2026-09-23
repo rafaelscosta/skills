@@ -1,0 +1,420 @@
+{
+  "schema_version": "1.0",
+  "meta": {
+    "id": "button-system",
+    "eyebrow": "DESIGN SYSTEM / COMPONENTES",
+    "title": "SISTEMA DE BOTÕES",
+    "subtitle": "Variantes, estados e regras para criar uma hierarquia de ação inequívoca.",
+    "language": "pt-BR",
+    "system_name": "Atlas UI",
+    "system_version": "1.4.0",
+    "status": "inferred",
+    "canvas": {
+      "width": 1080,
+      "height": 1350
+    }
+  },
+  "theme": {
+    "background": "#F4F1E8",
+    "surface": "#FFFDF8",
+    "surface_alt": "#ECE9DF",
+    "text": "#171914",
+    "muted": "#61655B",
+    "accent": "#5E6B35",
+    "accent_text": "#FFFFFF",
+    "border": "#C8C7BC",
+    "positive": "#2F6A4F",
+    "negative": "#A24338",
+    "warning": "#B47A24",
+    "radius": 16,
+    "font_sans": "Inter, Arial, sans-serif",
+    "font_display": "Inter, Arial, sans-serif",
+    "texture": "subtle-grid"
+  },
+  "sections": [
+    {
+      "id": "variant-state-matrix",
+      "type": "matrix",
+      "title": "VARIANTES × ESTADOS",
+      "subtitle": "As variantes são implementadas; os tratamentos visuais de interação são demonstrativos.",
+      "span": "full",
+      "provenance": "inferred",
+      "columns": [
+        {
+          "id": "default",
+          "label": "Default"
+        },
+        {
+          "id": "hover",
+          "label": "Hover"
+        },
+        {
+          "id": "focus",
+          "label": "Focus"
+        },
+        {
+          "id": "disabled",
+          "label": "Disabled"
+        }
+      ],
+      "rows": [
+        {
+          "id": "primary",
+          "label": "Primary",
+          "description": "Ação principal",
+          "cells": [
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "primary",
+                "state": "default",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "primary",
+                "state": "hover",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "primary",
+                "state": "focus",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "primary",
+                "state": "disabled",
+                "size": "md"
+              }
+            }
+          ]
+        },
+        {
+          "id": "secondary",
+          "label": "Secondary",
+          "description": "Alternativa relevante",
+          "cells": [
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "secondary",
+                "state": "default",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "secondary",
+                "state": "hover",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "secondary",
+                "state": "focus",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "secondary",
+                "state": "disabled",
+                "size": "md"
+              }
+            }
+          ]
+        },
+        {
+          "id": "ghost",
+          "label": "Ghost",
+          "description": "Ação de baixa ênfase",
+          "cells": [
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "ghost",
+                "state": "default",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "ghost",
+                "state": "hover",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "ghost",
+                "state": "focus",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Continuar",
+                "variant": "ghost",
+                "state": "disabled",
+                "size": "md"
+              }
+            }
+          ]
+        },
+        {
+          "id": "destructive",
+          "label": "Destructive",
+          "description": "Ação irreversível",
+          "cells": [
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Excluir",
+                "variant": "destructive",
+                "state": "default",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Excluir",
+                "variant": "destructive",
+                "state": "hover",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Excluir",
+                "variant": "destructive",
+                "state": "focus",
+                "size": "md"
+              }
+            },
+            {
+              "sample": {
+                "kind": "button",
+                "label": "Excluir",
+                "variant": "destructive",
+                "state": "disabled",
+                "size": "md"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "anatomy",
+      "type": "anatomy",
+      "title": "ANATOMIA",
+      "subtitle": "Tokens existentes, sem confirmação de aplicação no runtime.",
+      "span": "half",
+      "provenance": "inferred",
+      "sample": {
+        "kind": "button",
+        "label": "Salvar alterações",
+        "variant": "primary",
+        "state": "default",
+        "size": "lg",
+        "icon": "arrow"
+      },
+      "callouts": [
+        {
+          "label": "Ícone inicial",
+          "detail": "16px · proposto",
+          "token": "icon.size.sm"
+        },
+        {
+          "label": "Rótulo",
+          "detail": "Verbo + objeto · proposto",
+          "token": "type.label.md"
+        },
+        {
+          "label": "Gap",
+          "detail": "8px",
+          "token": "space.2"
+        },
+        {
+          "label": "Padding X",
+          "detail": "16px",
+          "token": "space.4"
+        }
+      ],
+      "specs": [
+        {
+          "label": "Altura",
+          "value": "40px",
+          "token": "control.height.md"
+        },
+        {
+          "label": "Raio",
+          "value": "10px",
+          "token": "radius.control"
+        },
+        {
+          "label": "Peso",
+          "value": "600 · proposto",
+          "token": "type.weight.semibold"
+        }
+      ]
+    },
+    {
+      "id": "hierarchy",
+      "type": "cards",
+      "title": "HIERARQUIA DE AÇÃO",
+      "subtitle": "A aparência deve refletir a prioridade da decisão.",
+      "span": "half",
+      "columns": 1,
+      "provenance": "documented",
+      "items": [
+        {
+          "number": "1",
+          "title": "Primary",
+          "body": "Uma ação principal por área decisória.",
+          "technical": "variant=primary",
+          "provenance": "documented"
+        },
+        {
+          "number": "2",
+          "title": "Secondary",
+          "body": "Alternativa importante sem competir com a principal.",
+          "technical": "variant=secondary",
+          "provenance": "inferred"
+        },
+        {
+          "number": "3",
+          "title": "Ghost",
+          "body": "Ações auxiliares, reversíveis ou de navegação.",
+          "technical": "variant=ghost",
+          "provenance": "inferred"
+        },
+        {
+          "number": "4",
+          "title": "Destructive",
+          "body": "Somente para consequências negativas ou irreversíveis.",
+          "technical": "variant=destructive",
+          "provenance": "documented"
+        }
+      ]
+    },
+    {
+      "id": "do-dont",
+      "type": "pairs",
+      "title": "DO / DON'T",
+      "subtitle": "Combina uma regra documentada com recomendações editoriais propostas.",
+      "span": "full",
+      "provenance": "proposed",
+      "items": [
+        {
+          "topic": "Prioridade",
+          "do": {
+            "title": "Uma ação primária",
+            "body": "Deixe a próxima ação inequívoca.",
+            "sample": {
+              "kind": "button",
+              "label": "Publicar",
+              "variant": "primary",
+              "state": "default",
+              "size": "md"
+            }
+          },
+          "dont": {
+            "title": "Primárias concorrentes",
+            "body": "Duas ações dominantes dividem a atenção.",
+            "sample": {
+              "kind": "html",
+              "trusted_html": true,
+              "html": "<div class='inline-buttons'><button class='ds-button primary'>Publicar</button><button class='ds-button primary'>Salvar</button></div>"
+            }
+          }
+        },
+        {
+          "topic": "Rótulo",
+          "do": {
+            "title": "Ação específica",
+            "body": "Use verbo e objeto quando o contexto não for óbvio.",
+            "sample": {
+              "kind": "button",
+              "label": "Salvar alterações",
+              "variant": "primary",
+              "state": "default",
+              "size": "md"
+            }
+          },
+          "dont": {
+            "title": "Texto genérico",
+            "body": "“Clique aqui” exige contexto adicional.",
+            "sample": {
+              "kind": "button",
+              "label": "Clique aqui",
+              "variant": "primary",
+              "state": "default",
+              "size": "md"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "kicker": "REGRA RÁPIDA",
+    "text": "A variante comunica prioridade; o estado comunica condição. Não use uma para substituir a outra.",
+    "source_note": "Fixture local: APIs e tokens inspecionados; aparência de interação não verificada no runtime."
+  },
+  "sources": [
+    {
+      "label": "Button public API and variants",
+      "path": "src/components/Button.tsx",
+      "locator": "buttonVariants / ButtonProps",
+      "status": "implemented"
+    },
+    {
+      "label": "Button usage guidance",
+      "path": "docs/button.mdx",
+      "locator": "Button",
+      "status": "documented"
+    },
+    {
+      "label": "Button stories",
+      "path": "src/components/Button.stories.tsx",
+      "locator": "Primary / Disabled / Loading",
+      "status": "implemented"
+    },
+    {
+      "label": "Foundation tokens",
+      "path": "src/styles/tokens.css",
+      "locator": ":root",
+      "status": "implemented"
+    }
+  ],
+  "provenance_legend": true
+}

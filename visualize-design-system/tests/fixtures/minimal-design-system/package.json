@@ -1,0 +1,14 @@
+{
+  "name": "minimal-design-system-fixture",
+  "private": true,
+  "dependencies": {
+    "@radix-ui/react-slot": "1.2.0",
+    "class-variance-authority": "0.7.1",
+    "lucide-react": "0.468.0"
+  },
+  "devDependencies": {
+    "@storybook/react": "8.6.0",
+    "@playwright/test": "1.52.0",
+    "tailwindcss": "4.0.0"
+  }
+}
