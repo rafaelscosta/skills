@@ -1,0 +1,7 @@
+{
+  "A": "sequenced_clean",
+  "B": "simultaneous",
+  "C": "center_overlap",
+  "D": "split_panel",
+  "E": "salience_inversion"
+}

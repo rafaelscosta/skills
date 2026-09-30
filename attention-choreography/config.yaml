@@ -1,0 +1,20 @@
+pack:
+  name: attention-choreography
+  version: "0.1.0"
+  owner_squad: personal
+
+contract:
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: none
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+
+certification:
+  ev_sve_006:
+    status: passed
+    oracle_consensus: "3/3"
+    baseline_alignment: "2/5"
+    treatment_alignment: "5/5"
+    evidence: evals/EV-SVE-006/README.md

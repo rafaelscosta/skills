@@ -1,0 +1,149 @@
+{
+  "type": "object",
+  "required": [
+    "top_candidate",
+    "runner_up",
+    "ranking",
+    "blocking_rejections",
+    "scores",
+    "confidence",
+    "notes"
+  ],
+  "properties": {
+    "top_candidate": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ]
+    },
+    "runner_up": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ]
+    },
+    "ranking": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "string",
+        "enum": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ]
+      }
+    },
+    "blocking_rejections": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ]
+      }
+    },
+    "scores": {
+      "type": "object",
+      "required": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "properties": {
+        "A": {
+          "$ref": "#/$defs/candidateScore"
+        },
+        "B": {
+          "$ref": "#/$defs/candidateScore"
+        },
+        "C": {
+          "$ref": "#/$defs/candidateScore"
+        },
+        "D": {
+          "$ref": "#/$defs/candidateScore"
+        },
+        "E": {
+          "$ref": "#/$defs/candidateScore"
+        }
+      },
+      "additionalProperties": false
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "notes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "candidateScore": {
+      "type": "object",
+      "required": [
+        "eye_path",
+        "performance_preservation",
+        "primary_comprehension",
+        "competition_control",
+        "temporal_hierarchy"
+      ],
+      "properties": {
+        "eye_path": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "4 = best/strongest compliance; 1 = worst/weakest compliance."
+        },
+        "performance_preservation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "4 = best/strongest compliance; 1 = worst/weakest compliance."
+        },
+        "primary_comprehension": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "4 = best/strongest compliance; 1 = worst/weakest compliance."
+        },
+        "competition_control": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "4 = best/strongest compliance; 1 = worst/weakest compliance."
+        },
+        "temporal_hierarchy": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "4 = best/strongest compliance; 1 = worst/weakest compliance."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

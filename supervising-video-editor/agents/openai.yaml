@@ -1,0 +1,11 @@
+interface:
+  display_name: Supervising Video Editor
+  short_description: Julga o corte independentemente sem corrigir enquanto avalia
+  default_prompt: Use $supervising-video-editor to judge the supplied candidate against the governing editorial contract and observable source truth, keep hard gates non-compensatory, stay blind in A/B comparisons, and return PASS, PASS_WITH_NOTES, REVISE, or BLOCK without repairing the work while judging it.
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

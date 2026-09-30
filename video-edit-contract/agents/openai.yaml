@@ -1,0 +1,11 @@
+interface:
+  display_name: Video Edit Contract
+  short_description: Converte briefing vago em contrato editorial operacional
+  default_prompt: Use $video-edit-contract to convert the brief into an operational editing contract with objective, audience, viewer experience, source boundaries, constraints, success conditions, delivery requirements, and unresolved authority conflicts.
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
