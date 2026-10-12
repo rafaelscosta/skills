@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import json
 import re
 import subprocess
@@ -15,6 +16,9 @@ SKILLS = [
     "supervising-video-editor",
 ]
 errors = []
+parser = argparse.ArgumentParser(description="Validate the bundle and frozen promotion fixtures.")
+parser.add_argument("--fixture", action="append", default=[], metavar="CANDIDATE=PATH")
+args = parser.parse_args()
 
 for name in SKILLS:
     base = ROOT / name
@@ -38,7 +42,8 @@ promotion = ROOT / "attention-choreography" / "evals" / "EV-SVE-006" / "validate
 if not promotion.is_file():
     errors.append("EV-SVE-006 promotion validator missing")
 else:
-    run = subprocess.run([sys.executable, str(promotion)], capture_output=True, text=True)
+    fixture_args = [argument for value in args.fixture for argument in ("--fixture", value)]
+    run = subprocess.run([sys.executable, str(promotion), *fixture_args], capture_output=True, text=True)
     if run.returncode != 0:
         errors.append("EV-SVE-006 failed: " + run.stdout.strip())
 

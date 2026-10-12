@@ -12,4 +12,33 @@ Treatment: five Terra/High runs with the candidate `attention-choreography` skil
 
 Promotion result: `2/5 -> 5/5`, with unanimous oracle target and zero treatment selections of consensus blockers.
 
-Run `python3 validate_promotion.py` to recompute the promotion from receipts and the frozen candidate skill hash. The validator does not trust a pre-written `pass=true` field.
+Install the validator dependency with `python3 -m pip install -r requirements.txt`.
+
+To recompute promotion, supply all five original contact sheets:
+
+```bash
+python3 validate_promotion.py \
+  --fixture A=/path/to/A.png --fixture B=/path/to/B.png \
+  --fixture C=/path/to/C.png --fixture D=/path/to/D.png \
+  --fixture E=/path/to/E.png
+```
+
+The paths may use any extension; each file must match its recorded SHA-256 in
+`evidence.json`. Missing, duplicate, unreadable or changed fixtures fail validation.
+Each oracle and selection receipt must satisfy its JSON Schema before aggregation;
+incomplete receipts and duplicate candidate rankings fail validation.
+
+The recorded `2/5 -> 5/5` result remains historical evidence. Without the external
+fixture bytes, fresh promotion and the bundle validator are blocked; a receipts-only
+run cannot certify promotion. The validator does not trust a pre-written `pass=true`
+field.
+
+The bundle validator accepts the same repeated `--fixture` arguments. Run the
+integrity regression tests from the repository root with:
+
+```bash
+python3 -m unittest discover -s attention-choreography/evals/EV-SVE-006 -p 'test_*.py' -v
+```
+
+These tests use explicitly synthetic fixture bytes and temporary evidence bindings;
+they test the validator and do not recertify the historical visual experiment.

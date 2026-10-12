@@ -1,32 +1,82 @@
 #!/usr/bin/env python3
+import argparse
 import hashlib
 import json
 import sys
 from collections import Counter
 from pathlib import Path
 
+from jsonschema import Draft202012Validator
+
 HERE = Path(__file__).resolve().parent
 SKILL = HERE.parents[1] / "SKILL.md"
 EVIDENCE = json.loads((HERE / "evidence.json").read_text())
 
 
-def load_many(folder, pattern):
+def load_many(folder, pattern, schema_name, errors):
     files = sorted((HERE / folder).glob(pattern))
-    return files, [json.loads(p.read_text()) for p in files]
+    schema = json.loads((HERE / schema_name).read_text())
+    Draft202012Validator.check_schema(schema)
+    validator = Draft202012Validator(schema)
+    receipts = []
+    for path in files:
+        try:
+            receipt = json.loads(path.read_text())
+        except (OSError, ValueError) as error:
+            errors.append(f"{path.relative_to(HERE)}: invalid receipt: {error}")
+            continue
+        problems = list(validator.iter_errors(receipt))
+        if problems:
+            for error in problems:
+                location = "/".join(str(part) for part in error.absolute_path)
+                errors.append(f"{path.relative_to(HERE)}:{location}: {error.message}")
+            continue
+        receipts.append(receipt)
+    return files, receipts
+
+
+def validate_fixtures(bindings, expected, errors):
+    fixtures = {}
+    for binding in bindings:
+        candidate, separator, filename = binding.partition("=")
+        if not separator or candidate not in expected or not filename:
+            errors.append(f"invalid fixture binding: {binding}; expected A=/path (A–E)")
+            continue
+        if candidate in fixtures:
+            errors.append(f"duplicate fixture binding: {candidate}")
+            continue
+        fixtures[candidate] = Path(filename)
+    for candidate, digest in expected.items():
+        path = fixtures.get(candidate)
+        if path is None:
+            errors.append(f"fixture {candidate}: missing --fixture {candidate}=/path")
+            continue
+        try:
+            actual = hashlib.sha256(path.read_bytes()).hexdigest()
+        except OSError as error:
+            errors.append(f"fixture {candidate}: unavailable: {error}")
+            continue
+        if actual != digest:
+            errors.append(f"fixture {candidate}: SHA-256 mismatch: {actual}")
 
 
 def fail(errors, message):
     errors.append(message)
 
 
+parser = argparse.ArgumentParser(description="Verify receipts, skill and frozen A–E fixture bytes.")
+parser.add_argument("--fixture", action="append", default=[], metavar="CANDIDATE=PATH",
+                    help="Repeat once for each frozen contact sheet A–E.")
+args = parser.parse_args()
 errors = []
+validate_fixtures(args.fixture, EVIDENCE["external_fixture_sha256"], errors)
 actual_hash = hashlib.sha256(SKILL.read_bytes()).hexdigest()
 if actual_hash != EVIDENCE["candidate_skill_sha256"]:
     fail(errors, f"skill hash mismatch: {actual_hash}")
 
-oracle_files, oracle = load_many("receipts/oracle", "judge-*.json")
-baseline_files, baseline = load_many("receipts/baseline", "run-*.json")
-treatment_files, treatment = load_many("receipts/treatment", "run-*.json")
+oracle_files, oracle = load_many("receipts/oracle", "judge-*.json", "oracle.schema.json", errors)
+baseline_files, baseline = load_many("receipts/baseline", "run-*.json", "selection.schema.json", errors)
+treatment_files, treatment = load_many("receipts/treatment", "run-*.json", "selection.schema.json", errors)
 if len(oracle_files) != EVIDENCE["oracle_judges"]:
     fail(errors, f"oracle receipt count={len(oracle_files)}")
 if len(baseline_files) != EVIDENCE["baseline_runs"]:
