@@ -52,7 +52,7 @@ $video-edit-contract
 → $supervising-video-editor
 ```
 
-The v0.1 slice intentionally stops before deep specialist finishing. If the remaining issue is timing, attention, continuity, motion, sound, color, VFX, captions, media engineering, AI-assisted post, or delivery, report the missing specialist rather than pretending the current slice fully covers it.
+The v0.1 slice intentionally stops before deep specialist finishing. If the remaining issue is timing, continuity, motion, sound, color, VFX, captions, media engineering, AI-assisted post, or delivery, report the missing specialist rather than pretending the current slice fully covers it.
 
 ## Diagnose the bottleneck
 
@@ -62,6 +62,7 @@ Classify the dominant problem before acting:
 - unknown source material → `$footage-intelligence`
 - weak structure, selection, progression, or payoff → `$story-edit`
 - existing cut needs independent acceptance → `$supervising-video-editor`
+- face/text/graphic/product competition → `$attention-choreography` as a candidate; do not claim certified uplift without original visual fixtures and bound generation evidence
 - uncovered specialist domain → mark as `SPECIALIST_GAP` with the required capability.
 
 ## Editorial integration
@@ -121,3 +122,7 @@ Use an owner wrapper only when at least one is true:
 When an owner wrapper is needed, keep it to the smallest useful delta: objective/bottleneck if still unresolved, integration decision, remaining gap, and submission status. Never duplicate the specialist's beat map, rationale, or evidence table.
 
 Submission status is one of `NOT_READY`, `READY_FOR_SUPERVISION`, or `BLOCKED`. Only `$supervising-video-editor` may return final editorial acceptance in this architecture.
+
+## Specialist boundaries
+
+Performance selection stays within `$story-edit`; a separate `performance-selection` skill has not shown independently verified uplift. A persistent `timing-rhythm` specialist remains an unpromoted gap. Attention choreography is an explicit candidate route whose current promotion gate must be verified separately; source integration alone does not pass it.

@@ -18,6 +18,7 @@ Catálogo pessoal de skills de Rafael Costa.
 | [story-edit](./story-edit) | Constrói ou repara narrativa, seleção, progressão, setup/payoff e decisões estruturais. |
 | [senior-video-editor](./senior-video-editor) | Orquestra o pipeline editorial, integra especialistas e declara gaps antes de supervisão independente. |
 | [supervising-video-editor](./supervising-video-editor) | Avalia cortes de forma independente, com blockers antes de score e condições objetivas de revisão. |
+| [attention-choreography](./attention-choreography) | Analisa competição de atenção entre rosto, texto, gráficos e produto; candidato, promoção depende dos fixtures visuais e proveniência originais. |
 
 ## Uso
 
