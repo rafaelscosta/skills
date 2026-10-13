@@ -12,6 +12,7 @@ Catálogo pessoal de skills de Rafael Costa.
 | [visual-semantic-compiler](./visual-semantic-compiler) | Compila decisões visuais em IR semântico verificável, preserva regras/recovery, gera layout/HTML determinístico e separa browser evidence de revisão perceptiva hash-bound. |
 | [visualize-design-system](./visualize-design-system) | Audita design systems e bibliotecas de componentes e os transforma em guias visuais verificáveis, com proveniência, artefatos editáveis e QA. |
 | [youtube-fetcher](./youtube-fetcher) | Extrai evidência do YouTube com contexto mínimo: metadata, capítulos, transcript, ranges, chunks determinísticos, manifests e Markdown pronto para Obsidian/RAG. |
+| [persuasion-architect](./persuasion-architect) | Estrutura e audita decisões persuasivas com evidência e limites explícitos; candidato de código, certificação comportamental pendente de controle de idioma. |
 
 ## Uso
 
