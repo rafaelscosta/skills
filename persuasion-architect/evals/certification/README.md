@@ -80,11 +80,13 @@ Treatment also retained `4.0` claim/evidence fit. It did not dominate every non-
 
 See `run-2026-09-13-v2/` for complete evidence.
 
-## Certification verdict
+## Historical reported verdict
 
-`persuasion-architect` version `0.2.0` passes this behavioral certification protocol for promotion to release-candidate/review status.
+The historical run reported version `0.2.0` as passing. Current review does not accept this as controlled uplift certification: control was English and treatment PT-BR. Language changed together with the skill and can affect audience recognition, specificity and scoring. Raw outputs, mapping and judgments remain unchanged.
 
-This verdict means the skill materially improves the tested persuasion-architecture behavior while preserving truth boundaries. It does **not** establish that pages generated with the skill will increase real-world conversion rates.
+Current status: **NOT_CERTIFIED_LANGUAGE_CONFOUND**. A new independent holdout must hold output language, model, effort and prompt conditions constant, bind exact inputs/outputs/skill hashes, and keep generators separate from the blind judge. Source integration does not authorize promotion.
+
+The reported scores describe these candidates; they do not isolate the effect of the skill. It does **not** establish that pages generated with the skill will increase real-world conversion rates.
 
 ## Limits
 

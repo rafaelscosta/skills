@@ -10,11 +10,28 @@ import sys
 
 try:
     import yaml
-except ImportError:  # optional validation enhancement
-    yaml = None
+    from jsonschema import Draft202012Validator
+    from jsonschema.exceptions import SchemaError
+except ImportError as exc:
+    raise SystemExit("Install scripts/requirements.txt before validation: " + str(exc))
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Sequence
+
+class UniqueSafeLoader(yaml.SafeLoader):
+    pass
+
+def unique_mapping(loader, node, deep=False):
+    result={}
+    for key_node,value_node in node.value:
+        key=loader.construct_object(key_node,deep=deep)
+        if key in result:
+            raise yaml.constructor.ConstructorError(None,None,'duplicate mapping key: '+str(key),key_node.start_mark)
+        result[key]=loader.construct_object(value_node,deep=deep)
+    return result
+UniqueSafeLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,unique_mapping)
+def load_yaml(source):
+    return yaml.load(source,Loader=UniqueSafeLoader)
 
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 REFERENCE_RE = re.compile(r"`((?:references|scripts|evals)/[^`]+)`")
@@ -139,7 +156,7 @@ def validate(root: Path) -> list[Finding]:
                 findings.append(Finding("error", "P014", str(path), f"Invalid JSON: {exc}"))
         elif path.suffix in {".yaml", ".yml"} and yaml is not None:
             try:
-                yaml.safe_load(source)
+                load_yaml(source)
             except yaml.YAMLError as exc:
                 findings.append(Finding("error", "P019", str(path), f"Invalid YAML: {exc}"))
         elif path.suffix == ".py":
@@ -157,14 +174,68 @@ def validate(root: Path) -> list[Finding]:
         if name and f"${name}" not in metadata:
             findings.append(Finding("warning", "P017", str(metadata_path), f"Default prompt should mention explicit invocation '${name}'."))
 
-    config_path = root / "config.yaml"
-    if config_path.is_file():
-        config = config_path.read_text(encoding="utf-8")
-        for invariant in ("invented_evidence_policy: fail_closed", "invented_scarcity_policy: fail_closed", "critical_gate_floor: 3", "mechanism_contract_required_for_material_outcome_claims: true"):
-            if invariant not in config:
-                findings.append(Finding("error", "P018", str(config_path), f"Missing safety/quality invariant: {invariant}"))
+    try:
+        config = load_yaml((root / 'config.yaml').read_text())
+        metadata = load_yaml((root / 'agents/openai.yaml').read_text())
+        if not isinstance(config, dict) or not isinstance(metadata, dict):
+            raise ValueError('config and agent metadata must be mappings')
+        contract = config.get('contract')
+        if not isinstance(contract, dict):
+            raise ValueError('contract must be a mapping')
+        expected = {'repository_scope':'read_only','mutation_scope':'none','network_default':'deny','provider_default':'deny','publication_default':'deny','original_input_overwrite':'deny','invented_evidence_policy':'fail_closed','invented_scarcity_policy':'fail_closed','critical_gate_floor':3,'evidence_ledger_required_for_material_claims':True,'mechanism_contract_required_for_material_outcome_claims':True}
+        for key, value in expected.items():
+            if type(contract.get(key)) is not type(value) or contract.get(key) != value:
+                raise ValueError('invalid contract field: ' + key)
+        if config.get('output_language') != 'pt-BR':
+            raise ValueError('output_language must be pt-BR')
+        interface = metadata.get('interface')
+        if not isinstance(interface, dict) or any(not isinstance(interface.get(k), str) or not interface[k].strip() for k in ['display_name','short_description','default_prompt']):
+            raise ValueError('agent interface requires nonempty string fields')
+        rubric = load_yaml((root / 'evals/rubric.yaml').read_text())
+        if not isinstance(rubric, dict) or rubric.get('certification_rule',{}).get('average_cannot_override_critical_floor') is not True:
+            raise ValueError('rubric must preserve critical floor')
+        schema = json.loads((root / 'references/persuasion-architecture.schema.json').read_text())
+        Draft202012Validator.check_schema(schema)
+        for name in ['decision_contract','mechanism_model','beliefs','blocks','qa']:
+            if name not in schema.get('required',[]):
+                raise ValueError('schema missing required root: ' + name)
+        qa = schema['properties']['qa']
+        if not {'scores','critical_floor_passed','unresolved_risks'} <= set(qa.get('required',[])):
+            raise ValueError('schema must require complete QA')
+        score_names = set(rubric['criteria'])
+        if set(qa['properties']['scores'].get('required',[])) != score_names:
+            raise ValueError('schema must require every score dimension')
+    except (ValueError, TypeError, KeyError, OSError, yaml.YAMLError, SchemaError) as exc:
+        findings.append(Finding('error','P018',str(root),'Invalid structured contract: ' + str(exc)))
 
     return findings
+
+
+def validate_architecture(root: Path, value: dict) -> list[Finding]:
+    schema=json.loads((root/'references/persuasion-architecture.schema.json').read_text())
+    failures=[Finding('error','P020','architecture',e.message) for e in Draft202012Validator(schema).iter_errors(value)]
+    if failures: return failures
+    rubric=load_yaml((root/'evals/rubric.yaml').read_text())
+    scores=value['qa']['scores']
+    floor=all(scores[k]>=rubric['certification_rule']['minimum_each_critical'] for k in rubric['critical_dimensions'])
+    if value['qa']['critical_floor_passed'] is not floor:
+        failures.append(Finding('error','P021','architecture.qa','Declared critical floor differs from actual scores'))
+    beliefs={b['belief_id']:b for b in value['beliefs']}
+    if len(beliefs)!=len(value['beliefs']):
+        failures.append(Finding('error','P022','architecture.beliefs','Duplicate belief IDs'))
+    visiting=set();visited=set()
+    def visit(key):
+        if key not in beliefs: raise ValueError('unknown belief reference: '+key)
+        if key in visiting: raise ValueError('belief dependency cycle')
+        if key in visited: return
+        visiting.add(key)
+        for dep in beliefs[key]['dependencies']: visit(dep)
+        visiting.remove(key);visited.add(key)
+    try:
+        for key in beliefs: visit(key)
+    except ValueError as exc:
+        failures.append(Finding('error','P023','architecture.beliefs',str(exc)))
+    return failures
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -172,10 +243,21 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("root", nargs="?", default=".")
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--warnings-as-errors", action="store_true")
+    parser.add_argument("--architecture", type=Path)
+    parser.add_argument("--require-certification", action="store_true")
     args = parser.parse_args(argv)
 
     root = Path(args.root).resolve()
     findings = validate(root)
+    if args.architecture and not findings:
+        try:
+            findings.extend(validate_architecture(root,json.loads(args.architecture.read_text())))
+        except (ValueError,OSError) as exc:
+            findings.append(Finding('error','P024',str(args.architecture),str(exc)))
+    if args.require_certification:
+        config=load_yaml((root/'config.yaml').read_text())
+        if config.get('certification',{}).get('behavioral_status') != 'passed':
+            findings.append(Finding('error','P025',str(root/'config.yaml'),'Behavioral promotion is not certified'))
     errors = [f for f in findings if f.severity == "error"]
     warnings = [f for f in findings if f.severity == "warning"]
     passed = not errors and not (args.warnings_as_errors and warnings)

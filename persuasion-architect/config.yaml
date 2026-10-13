@@ -67,6 +67,8 @@ certification:
   fixtures: evals/fixtures.yaml
   blind_judge_required: true
   self_score_is_not_certification: true
-  behavioral_status: passed
-  certified_version: "0.2.0"
+  behavioral_status: NOT_CERTIFIED_LANGUAGE_CONFOUND
+  candidate_version: "0.2.0"
   evidence: evals/certification/README.md
+
+output_language: pt-BR
