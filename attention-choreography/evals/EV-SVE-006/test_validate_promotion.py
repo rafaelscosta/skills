@@ -32,6 +32,12 @@ class PromotionIntegrityTests(unittest.TestCase):
             self.arguments.extend(["--fixture", f"{candidate}={fixture}"])
             self.fixtures[candidate] = fixture
         evidence_path.write_text(json.dumps(evidence))
+        provenance=[]
+        for i,receipt in enumerate(sorted((self.eval/'receipts').glob('*/*.json'))):
+            trace=Path(self.temporary.name)/f'synthetic-trace-{i}.txt';trace.write_text(f'Synthetic independent context fixture {i}')
+            provenance.append({'receipt':str(receipt.relative_to(self.eval)),'run_id':f'synthetic-run-{i}','context_id':f'synthetic-context-{i}','receipt_sha256':hashlib.sha256(receipt.read_bytes()).hexdigest(),'trace_path':trace.name,'trace_sha256':hashlib.sha256(trace.read_bytes()).hexdigest()})
+        self.provenance=Path(self.temporary.name)/'synthetic-provenance.json';self.provenance.write_text(json.dumps(provenance));self.arguments+=['--provenance',str(self.provenance)]
+
 
     def run_validator(self, arguments=None):
         result = subprocess.run(
@@ -51,6 +57,18 @@ class PromotionIntegrityTests(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertEqual(result["result"], "FAIL")
         self.assertTrue(any(fragment in error for error in result["errors"]), result)
+
+    def test_missing_provenance_rejected(self):
+        self.assert_rejected('missing --provenance',self.arguments[:-2])
+
+    def test_duplicate_run_id_rejected(self):
+        rows=json.loads(self.provenance.read_text());rows[1]['run_id']=rows[0]['run_id'];self.provenance.write_text(json.dumps(rows));self.assert_rejected('duplicate run_id')
+
+    def test_shared_context_rejected(self):
+        rows=json.loads(self.provenance.read_text());rows[1]['context_id']=rows[0]['context_id'];self.provenance.write_text(json.dumps(rows));self.assert_rejected('duplicate context_id')
+
+    def test_trace_drift_rejected(self):
+        rows=json.loads(self.provenance.read_text());(self.provenance.parent/rows[0]['trace_path']).write_text('changed');self.assert_rejected('trace hash mismatch')
 
     def test_complete_receipts_and_matching_bytes_pass(self):
         code, result = self.run_validator()

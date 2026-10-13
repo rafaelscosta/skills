@@ -1,0 +1,11 @@
+:root {
+  --color-action-primary: #5e6b35;
+  --color-action-primary-hover: #4d592c;
+  --color-danger: #a24338;
+  --color-surface: #fffdf8;
+  --color-text: #171914;
+  --control-height-md: 40px;
+  --radius-control: 10px;
+  --space-2: 8px;
+  --space-4: 16px;
+}

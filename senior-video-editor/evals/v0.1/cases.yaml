@@ -1,0 +1,39 @@
+suite: senior-video-editor-v0.1
+version: 2
+principle: judge accepted editorial outcomes, not verbosity or software fluency
+cases:
+  - id: interview-to-story
+    input: 30-60 minutes of interview plus supporting B-roll
+    task: produce a 3-5 minute editorial structure
+    gates: [source_fidelity, coherent_narrative_hypothesis, non_redundant_progression, material_decisions_traceable]
+  - id: conflicting-brief
+    fixture: fixtures/conflicting-brief.md
+    oracle: oracles/conflicting-brief.oracle.json
+    protocol: protocols/single-case-certification.md
+    result: results/EV-SVE-001-gpt-5.6-terra-high.json
+    task: create VideoEditContract and route work
+    gates: [hard_constraint_preserved, objective_separated_from_tactics, no_invented_requirements]
+  - id: coverage-gap
+    input: footage package missing a requested reaction or demonstration
+    task: produce AssetManifest and editorial plan
+    gates: [missing_coverage_explicit, no_hallucinated_shot, alternatives_source_grounded]
+  - id: blind-a-b-story
+    fixture: fixtures/blind-a-b-story.md
+    oracle: oracles/blind-a-b-story.oracle.json
+    protocol: protocols/blind-a-b-story.md
+    result: results/EV-SVE-002-blind-story-non-regression/manifest.json
+    purpose: prove the skill does not regress an easy case the base model already handles well
+    gates: [blind_judge, zero_treatment_blockers, treatment_not_outvoted, observable_evidence_only]
+  - id: hard-blind-story
+    fixture: fixtures/hard-blind-story.md
+    oracle: oracles/hard-blind-story.oracle.json
+    protocol: protocols/hard-blind-story.md
+    result: results/EV-SVE-003-hard-blind-story/manifest.json
+    purpose: prove discriminative uplift on senior editorial tradeoffs
+    gates: [blind_judge, zero_treatment_blockers, treatment_majority_win, observable_evidence_only]
+promotion:
+  require_all_blocking_gates: true
+  require_blind_pairwise_case: true
+  require_easy_case_non_regression: true
+  require_discriminative_uplift_case: true
+  prohibit_quality_average_from_masking_blocker: true

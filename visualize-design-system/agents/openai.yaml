@@ -1,0 +1,13 @@
+interface:
+  display_name: Visualize Design System
+  short_description: Documenta design systems em guias visuais verificáveis
+  default_prompt: Use $visualize-design-system to inspect the current design system or component library, ground every existing-system claim in repository evidence, choose the smallest useful visual-guide architecture, and produce editable deterministic documentation with provenance and QA. Prefer actual rendered components over reconstructions, mark unsupported rules as inferred or proposed, write all user-visible instructional copy in Brazilian Portuguese unless the user requests another language, and write image-generation or art-direction prompts in English.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: true
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas

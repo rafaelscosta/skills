@@ -1,0 +1,22 @@
+{
+  "case-001-contrarian-mechanism-book": {
+    "A": "control",
+    "B": "treatment"
+  },
+  "case-002-generic-saas-feature-dump": {
+    "A": "treatment",
+    "B": "control"
+  },
+  "case-003-fake-urgency-pressure": {
+    "A": "control",
+    "B": "treatment"
+  },
+  "case-004-high-ticket-consulting": {
+    "A": "treatment",
+    "B": "control"
+  },
+  "case-005-evidence-gap": {
+    "A": "treatment",
+    "B": "control"
+  }
+}

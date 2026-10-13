@@ -1,27 +1,108 @@
 ---
 name: footage-intelligence
-description: Build an evidence-grounded inventory of raw video, audio, transcript, takes, technical state, coverage, and semantic moments before source-dependent editing. Use when the editor does not yet have a trustworthy map of the available material or when missing coverage, stale UI, weak audio, or source ambiguity could change editorial decisions. Do not use to decide the final story structure.
+description: Inspect, index, and reason over raw video, audio, transcripts, stills, and supporting assets to create an evidence-grounded map of usable editorial material. Use when story construction depends on understanding what was actually captured in the source material. Do not use to invent missing coverage, select a final narrative structure, or perform finishing.
 ---
 
 # Footage Intelligence
 
-Turn raw media into a source-truth map that downstream editors can query without pretending unseen coverage exists.
+Build a trustworthy semantic map of the source material before editing.
 
-## Output
+## Mission
 
-Produce an `AssetManifest` containing only supported observations: clips and time ranges, speakers/subjects, transcript or dialogue, semantic topics, performance markers, visual and audio quality, camera/shot information when observable, continuity relationships, evidence-sensitive UI/product states, useful B-roll, technical defects, and missing coverage.
+Convert a pile of media into an `AssetManifest` that lets downstream agents find moments by meaning, performance, continuity, technical condition, and editorial usefulness.
+
+## Rules
+
+1. Inspect source media rather than inferring unseen content from filenames or transcripts alone.
+2. Keep observation separate from interpretation.
+3. Preserve source timecodes or stable locators whenever available.
+4. Do not call a take `best` without naming the criterion.
+5. A technically imperfect take may be editorially strongest; record both dimensions.
+6. Never fabricate a shot, reaction, phrase, or coverage relationship that does not exist.
+7. Generated or transformed media must be labeled as such.
+
+## Analyze each usable segment
+
+Capture when observable:
+
+- stable source locator or time range;
+- speaker / subject / object;
+- literal content or action;
+- topic and semantic tags;
+- performance quality;
+- emotional state;
+- visual quality;
+- audio quality;
+- camera size / angle / movement;
+- continuity direction and eyeline clues;
+- notable gestures and reactions;
+- product or brand visibility;
+- technical defects;
+- rights/provenance notes;
+- possible editorial functions.
+
+Use `references/asset-manifest.schema.json` for structured output.
 
 ## Procedure
 
-1. Inventory the available files and trustworthy metadata.
-2. Segment long assets into semantically meaningful ranges.
-3. Bind transcript/dialogue to source ranges when available.
-4. Mark standout performances and hooks as evidence, not as automatic final selections.
-5. Distinguish useful B-roll from merely attractive footage.
-6. Flag obsolete UI, unsupported claims, privacy issues, continuity risks, and technical defects.
-7. Record missing coverage explicitly instead of fabricating a substitute.
-8. Keep inference separate from directly observable source truth.
+### 1. Inventory
 
-## Boundary
+Identify source files and their relationships: camera originals, synced audio, proxies, transcripts, stills, music, graphics, references, generated media, and previous cuts.
 
-This skill answers **what material exists and what it can support**. `$story-edit` owns narrative use and performance selection; `$attention-choreography` owns perceptual competition inside a candidate treatment.
+### 2. Segment semantically
+
+Segment by meaningful editorial event, not arbitrary fixed duration when better boundaries are observable.
+
+### 3. Score dimensions independently
+
+Keep separate ratings or notes for:
+
+- performance;
+- clarity;
+- visual quality;
+- audio quality;
+- continuity usefulness;
+- uniqueness;
+- emotional value.
+
+Do not collapse all quality into one scalar.
+
+### 4. Build retrieval hooks
+
+Make the manifest answer queries such as:
+
+```text
+strongest emotional reaction
+clearest explanation of mechanism X
+clean product demonstration
+left-to-right motion usable after shot Y
+reaction shot that can cover sentence Z
+B-roll that adds information instead of repeating narration
+```
+
+### 5. Detect gaps and risks
+
+Record missing coverage, contradictory statements, continuity traps, unusable audio, uncertain sync, duplicated content, and source-truth conflicts.
+
+## Output
+
+Every downstream handoff must include the JSON `AssetManifest` from `references/asset-manifest.schema.json`. A concise Markdown view may accompany it. Record `inspected: false` for assets that were not inspected; never attach observed segments to them. Unsupported or missing sources require a BLOCKED/NOT_READY handoff.
+
+Return:
+
+```markdown
+## Source inventory
+## Semantic map
+## Strong candidate moments
+## Performance opportunities
+## Continuity relationships
+## Technical risks
+## Missing coverage
+## Retrieval queries supported
+```
+
+Do not choose the final story. Hand the manifest to `$story-edit` or `$senior-video-editor`.
+
+## Acceptance gate
+
+Fail closed if the manifest cannot distinguish observed evidence from inference, or if key assets were not inspected but are presented as understood.

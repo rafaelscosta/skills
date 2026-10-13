@@ -10,7 +10,7 @@ Baseline: five Terra/High runs without the specialist. A matched the oracle in 2
 
 Treatment: five Terra/High runs with the candidate `attention-choreography` skill as the only new editorial capability. A matched the oracle in 5/5 runs; B remained fallback; C/D/E were blocked.
 
-Promotion result: `2/5 -> 5/5`, with unanimous oracle target and zero treatment selections of consensus blockers.
+Historical reported promotion result: `2/5 -> 5/5`, with unanimous oracle target and zero treatment selections of consensus blockers.
 
 Install the validator dependency with `python3 -m pip install -r requirements.txt`.
 
@@ -20,7 +20,8 @@ To recompute promotion, supply all five original contact sheets:
 python3 validate_promotion.py \
   --fixture A=/path/to/A.png --fixture B=/path/to/B.png \
   --fixture C=/path/to/C.png --fixture D=/path/to/D.png \
-  --fixture E=/path/to/E.png
+  --fixture E=/path/to/E.png \
+  --provenance /path/to/original-runs.json
 ```
 
 The paths may use any extension; each file must match its recorded SHA-256 in
@@ -42,3 +43,6 @@ python3 -m unittest discover -s attention-choreography/evals/EV-SVE-006 -p 'test
 
 These tests use explicitly synthetic fixture bytes and temporary evidence bindings;
 they test the validator and do not recertify the historical visual experiment.
+
+
+Current source integration status: NOT_CERTIFIED_MISSING_ORIGINAL_EVIDENCE. Original visual fixture bytes and original run traces/provenance are absent from this portable bundle. Run counts and similar/different outputs cannot establish independent contexts. The provenance manifest must bind each original receipt, unique run_id/context_id, and a distinct sealed trace file. Both fixture bytes and provenance are required; synthetic integrity-test inputs do not replace them. Historical receipts remain byte-identical.

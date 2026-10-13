@@ -67,6 +67,7 @@ def fail(errors, message):
 parser = argparse.ArgumentParser(description="Verify receipts, skill and frozen A–E fixture bytes.")
 parser.add_argument("--fixture", action="append", default=[], metavar="CANDIDATE=PATH",
                     help="Repeat once for each frozen contact sheet A–E.")
+parser.add_argument("--provenance",type=Path,help="Original run manifest with unique run/context IDs and sealed trace hashes")
 args = parser.parse_args()
 errors = []
 validate_fixtures(args.fixture, EVIDENCE["external_fixture_sha256"], errors)
@@ -83,6 +84,38 @@ if len(baseline_files) != EVIDENCE["baseline_runs"]:
     fail(errors, f"baseline receipt count={len(baseline_files)}")
 if len(treatment_files) != EVIDENCE["treatment_runs"]:
     fail(errors, f"treatment receipt count={len(treatment_files)}")
+
+# Receipt filenames/counts cannot prove independent generation contexts.
+def validate_provenance(path, errors):
+    if path is None:
+        errors.append('original run provenance missing --provenance')
+        return
+    try:
+        rows=json.loads(path.read_text())
+        if not isinstance(rows,list): raise ValueError('run provenance must be a list')
+        expected={str(p.relative_to(HERE)) for p in oracle_files+baseline_files+treatment_files}
+        seen=set();run_ids=set();contexts=set();traces=set()
+        for row in rows:
+            if not isinstance(row,dict):raise ValueError('provenance row must be an object')
+            receipt=row.get('receipt');run_id=row.get('run_id');context=row.get('context_id')
+            if receipt not in expected or receipt in seen:raise ValueError('unknown or duplicate provenance receipt')
+            seen.add(receipt)
+            if not isinstance(run_id,str) or not run_id.strip() or run_id in run_ids:raise ValueError('missing or duplicate run_id')
+            if not isinstance(context,str) or not context.strip() or context in contexts:raise ValueError('missing or duplicate context_id')
+            run_ids.add(run_id);contexts.add(context)
+            if hashlib.sha256((HERE/receipt).read_bytes()).hexdigest()!=row.get('receipt_sha256'):raise ValueError('provenance receipt hash mismatch')
+            relative=Path(row.get('trace_path',''))
+            if relative.is_absolute() or '..' in relative.parts:raise ValueError('trace path must stay within provenance directory')
+            trace=path.parent/relative
+            if trace.is_symlink() or not trace.resolve().is_relative_to(path.parent.resolve()) or not trace.is_file():raise ValueError('trace file unavailable or outside provenance directory')
+            if trace.resolve() in traces:raise ValueError('duplicate trace_path')
+            traces.add(trace.resolve())
+            if trace.stat().st_size==0 or trace.stat().st_size>10*1024*1024:raise ValueError('invalid trace size')
+            if hashlib.sha256(trace.read_bytes()).hexdigest()!=row.get('trace_sha256'):raise ValueError('trace hash mismatch')
+        if seen!=expected:raise ValueError('provenance must bind every original oracle/baseline/treatment run')
+    except (ValueError,TypeError,OSError) as exc:
+        errors.append('invalid original run provenance: '+str(exc))
+validate_provenance(args.provenance,errors)
 
 target = EVIDENCE["expected_oracle_top"]
 runner = EVIDENCE["expected_oracle_runner_up"]

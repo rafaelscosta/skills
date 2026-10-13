@@ -1,0 +1,22 @@
+pack:
+  name: llm-orchestrator
+  version: "1.2.0"
+  owner_squad: rafaelscosta
+
+contract:
+  schema: llm-orchestrator/runtime@1
+  input_trust: untrusted
+  provider_discovery: automatic
+  supported_providers: [codex, claude, grok]
+  missing_provider_policy: ignore
+  unauthenticated_provider_policy: ignore
+  routing_strategies: [single, reviewed, ensemble]
+  reasoning_tiers: [fast, balanced, strong]
+  fallback_bounded: true
+  circuit_breaker: true
+  circuit_states: [CLOSED, OPEN, HALF_OPEN]
+  runtime_health_optional: true
+  prompt_persistence: deny
+  source_persistence: deny
+  secret_persistence: deny
+  publication_default: deny

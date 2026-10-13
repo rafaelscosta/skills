@@ -1,0 +1,22 @@
+{
+  "holdout-001-legitimate-capacity": {
+    "A": "control",
+    "B": "treatment"
+  },
+  "holdout-002-ai-inbox-trial": {
+    "A": "treatment",
+    "B": "control"
+  },
+  "holdout-003-unsupported-guarantee": {
+    "A": "control",
+    "B": "treatment"
+  },
+  "holdout-004-onboarding-platform": {
+    "A": "control",
+    "B": "treatment"
+  },
+  "holdout-005-vague-membership": {
+    "A": "treatment",
+    "B": "control"
+  }
+}

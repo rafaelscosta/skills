@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Visualize Design Systems logo">
+  <rect width="512" height="512" rx="112" fill="#11130F"/>
+  <rect x="92" y="92" width="136" height="136" rx="30" fill="#F3F0E7"/>
+  <rect x="284" y="92" width="136" height="136" rx="30" fill="#93A45A"/>
+  <rect x="92" y="284" width="136" height="136" rx="30" fill="#93A45A"/>
+  <rect x="284" y="284" width="136" height="136" rx="30" fill="#F3F0E7"/>
+  <path d="M160 228v56M352 228v56M228 160h56M228 352h56" stroke="#11130F" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="256" cy="256" r="30" fill="#D8B46A"/>
+</svg>

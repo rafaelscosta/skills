@@ -1,28 +1,131 @@
 ---
 name: story-edit
-description: Build or repair narrative structure from an editorial contract and evidence-grounded source material. Use when a cut has unresolved story, argument, progression, redundancy, performance choice, emotional truth, setup/payoff, or clarity. Do not use for purely technical finishing or decorative pacing changes when structure is already locked.
+description: Build or repair the narrative structure of a video from a VideoEditContract and evidence-grounded source material. Use when assemblies, rough cuts, interviews, documentaries, ads, explainers, VSLs, brand films, or other cuts have unresolved structure, progression, clarity, performance, tension, or payoff. Do not use for purely technical finishing or decorative pacing changes when structure is already locked.
 ---
 
 # Story Edit
 
 Choose what the viewer experiences, in what order, and why.
 
+## Mission
+
+Produce the strongest narrative structure supported by the available material and the governing `VideoEditContract`.
+
 ## Decision hierarchy
 
-Unless the contract overrides it, prioritize: truth and ethical integrity; intended viewer outcome; emotion and performance; story or argument progression; clarity; attention and rhythm; continuity; surface polish.
+Unless the contract overrides it, prioritize:
+
+1. truth and ethical integrity;
+2. intended viewer outcome;
+3. emotion and performance;
+4. story / argument progression;
+5. clarity of information;
+6. attention and rhythm;
+7. continuity;
+8. surface polish.
+
+A continuity-perfect cut may be rejected if it weakens performance or meaning. A beautiful shot may be removed if it performs no necessary function.
 
 ## Procedure
 
-1. State one concise narrative hypothesis.
-2. Map beats by viewer state entering, new information/emotion/proof, strongest available source moments, and viewer state leaving.
-3. Remove adjacent redundancy unless repetition earns its duration.
-4. Prefer the strongest truthful performance when small technical imperfections can be repaired or tolerated.
-5. Keep source-marked hooks, emotional peaks, and direct-to-camera anchors visible through their decisive phrase by default.
-6. Do not cover a performance anchor with B-roll merely for visual variety; cut away only for comprehension, evidence, privacy, continuity, or another explicit contract need.
-7. Test causal and informational progression continuously.
-8. Generate contrasting alternatives only when ambiguity is material.
-9. Record only consequential structural or performance decisions.
+### 1. State the narrative hypothesis
 
-## Ownership boundary
+Write one concise sentence describing what the viewer is meant to experience across the piece.
 
-Performance selection belongs here. A separate `performance-selection` skill should not be invoked unless future evidence demonstrates that specialization improves accepted outcomes. Hand perceptual competition to `$attention-choreography` after the story decision is stable enough to judge hierarchy.
+### 2. Map beats
+
+For each beat, define:
+
+- viewer state entering;
+- new information, emotion, question, or proof;
+- strongest available source moments;
+- viewer state leaving;
+- dependency on earlier beats.
+
+### 3. Remove redundancy
+
+Two adjacent elements should not perform the same narrative job unless repetition is intentional and earns its duration.
+
+### 4. Protect performance
+
+Prefer the moment with the strongest truthful intention when small technical imperfections can be repaired or safely tolerated.
+
+Treat performance as visual evidence, not only as an audio source:
+
+- when the source inventory marks a moment as the strongest hook, strongest emotional performance, or a direct-to-camera anchor, keep that performance on screen through the decisive phrase by default;
+- do not cover a source-marked performance anchor with B-roll merely for visual variety;
+- cut away only when another image is necessary for comprehension, evidence, privacy, continuity, or another explicit contract need;
+- when a cutaway is useful, prefer entering after the decisive phrase or during a lower-value tail.
+
+### 5. Test causal and informational progression
+
+Ask continuously:
+
+```text
+Why does this moment belong here?
+What becomes possible because the previous moment happened?
+What does the viewer now know, feel, or expect that they did not before?
+```
+
+### 6. Generate alternatives when ambiguity is material
+
+If two structures are genuinely plausible, create contrasting hypotheses rather than microvariants of the same edit.
+
+### 7. Record material decisions
+
+For consequential decisions, capture:
+
+- problem;
+- diagnosis;
+- decision;
+- expected viewer effect;
+- evidence used;
+- confidence;
+- reversibility.
+
+Do not log every cut. Do not duplicate a beat-map decision in rationale unless the rationale resolves a real ambiguity, tradeoff, or risk. Prefer 1–3 material decisions over exhaustive commentary.
+
+## Senior diagnostic rules
+
+When feedback says `slow`, do not default to more cuts. Diagnose whether the cause is:
+
+- late information;
+- redundant beat;
+- weak dramatic question;
+- performance losing intention;
+- visual state not evolving;
+- audio not progressing;
+- unnecessary explanation;
+- excessive cognitive load.
+
+When feedback says `dynamic`, do not default to zooms, speed ramps, or transition effects.
+
+When a scene needs graphics or music to become understandable, first test whether the underlying structure is weak.
+
+## Output
+
+Default to the smallest executable editorial artifact: one concise narrative hypothesis plus the beat map or sequence itself.
+
+Add any of the following only when they change a downstream decision:
+
+- selected source moments that are not already obvious from the beat map;
+- removed/deferred material whose exclusion is consequential or surprising;
+- unresolved structural risks;
+- material `EditDecision` records for non-obvious tradeoffs;
+- handoff notes required by the next specialist.
+
+Do not restate the beat sequence in a separate selected-moments list, repeat the same rationale across sections, or emit process metadata that does not improve the edit.
+
+## Acceptance gates
+
+Reject the structure when any are true:
+
+- the core argument requires external explanation;
+- a payoff lacks setup;
+- key sections repeat the same function without purpose;
+- sequence order violates prerequisite understanding;
+- material is retained mainly because it was expensive to produce;
+- unsupported footage or claims are introduced;
+- motion, music, or effects are masking an unresolved structural problem.
+
+After structural acceptance, hand off to timing, attention, continuity, or finishing specialists as available.

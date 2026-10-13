@@ -4,6 +4,7 @@ import json
 import re
 import subprocess
 import sys
+import yaml
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -17,6 +18,8 @@ SKILLS = [
 ]
 errors = []
 parser = argparse.ArgumentParser(description="Validate the bundle and frozen promotion fixtures.")
+parser.add_argument("--source-only",action="store_true",help="Source contracts only; no behavioral promotion")
+parser.add_argument("--provenance",type=Path)
 parser.add_argument("--fixture", action="append", default=[], metavar="CANDIDATE=PATH")
 args = parser.parse_args()
 
@@ -41,17 +44,18 @@ if "performance-selection" not in owner or "timing-rhythm" not in owner:
 promotion = ROOT / "attention-choreography" / "evals" / "EV-SVE-006" / "validate_promotion.py"
 if not promotion.is_file():
     errors.append("EV-SVE-006 promotion validator missing")
-else:
+elif not args.source_only:
     fixture_args = [argument for value in args.fixture for argument in ("--fixture", value)]
-    run = subprocess.run([sys.executable, str(promotion), *fixture_args], capture_output=True, text=True)
+    provenance_args=["--provenance",str(args.provenance)] if args.provenance else []
+    run = subprocess.run([sys.executable, str(promotion), *fixture_args,*provenance_args], capture_output=True, text=True)
     if run.returncode != 0:
         errors.append("EV-SVE-006 failed: " + run.stdout.strip())
 
 for path in ROOT.glob("*/config.yaml"):
-    text = path.read_text()
-    if "publication_default: deny" not in text:
+    config=yaml.safe_load(path.read_text())
+    if not isinstance(config,dict) or config.get("contract",{}).get("publication_default") != "deny":
         errors.append(f"unsafe publication default: {path.parent.name}")
 
-result = {"system": "senior-video-editor-v0.1", "skills": len(SKILLS), "result": "PASS" if not errors else "FAIL", "errors": errors}
+result = {"scope":"SOURCE_ONLY_NOT_CERTIFIED" if args.source_only else "SOURCE_AND_PROMOTION", "system": "senior-video-editor-v0.1", "skills": len(SKILLS), "result": "PASS" if not errors else "FAIL", "errors": errors}
 print(json.dumps(result, indent=2, sort_keys=True))
 sys.exit(1 if errors else 0)

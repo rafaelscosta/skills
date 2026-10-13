@@ -1,11 +1,7 @@
 interface:
   display_name: Footage Intelligence
-  short_description: Mapeia footage e source truth antes de decisões editoriais
-  default_prompt: Use $footage-intelligence to build an evidence-grounded manifest of the available video, audio, transcript, takes, coverage, technical risks, useful B-roll, and missing source material before source-dependent editing.
+  short_description: Mapeia material bruto por significado, performance, continuidade e risco
+  default_prompt: Use $footage-intelligence to inspect the available media and create an evidence-grounded semantic AssetManifest. Separate observation from interpretation, preserve stable source locators, and never invent missing coverage. Return user-visible prose in Brazilian Portuguese.
 policy:
   allow_implicit_invocation: true
-  products:
-  - chatgpt
-  - codex
-  - api
-  - atlas
+  products: [chatgpt, codex, api, atlas]
