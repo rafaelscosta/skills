@@ -1,0 +1,16 @@
+pack:
+  name: video-edit-contract
+  version: "0.1.0"
+  owner_squad: sinkra-squad
+contract:
+  schema: video-edit-contract/receipt@1
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: none
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+  lifecycle_states: [PLANNED, INTENT_BOUND, SOURCE_LOCKED, CONTRACTED, HANDOFF, FAILED, BLOCKED]
+  terminal_success: HANDOFF
+  source_truth_required: true
+  blocking_gates_required: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: Senior Video Editor
+  short_description: Orquestra decisões editoriais como owner sênior e separa execução de aceite
+  default_prompt: Use $senior-video-editor as the accountable editorial owner. Route to the smallest specialist skill, solve structural problems before cosmetic ones, preserve source truth, record only material decision rationale, disclose specialist gaps, and submit the result to $supervising-video-editor for independent acceptance. Return user-visible prose in Brazilian Portuguese.
+policy:
+  allow_implicit_invocation: true
+  products: [chatgpt, codex, api, atlas]

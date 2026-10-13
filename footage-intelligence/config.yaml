@@ -1,0 +1,16 @@
+pack:
+  name: footage-intelligence
+  version: "0.1.0"
+  owner_squad: sinkra-squad
+contract:
+  schema: footage-intelligence/asset-manifest@1
+  input_trust: untrusted
+  repository_scope: read_only
+  mutation_scope: none
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+  lifecycle_states: [PLANNED, INVENTORIED, SEGMENTED, INDEXED, RISK_MAPPED, HANDOFF, FAILED, BLOCKED]
+  terminal_success: HANDOFF
+  evidence_grounding_required: true
+  stable_locator_required_when_available: true

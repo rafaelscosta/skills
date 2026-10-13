@@ -1,0 +1,17 @@
+pack:
+  name: supervising-video-editor
+  version: "0.1.0"
+  owner_squad: sinkra-squad
+contract:
+  schema: supervising-video-editor/editorial-qa@1
+  input_trust: mixed
+  repository_scope: read_only
+  mutation_scope: none
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+  lifecycle_states: [PLANNED, CONTRACT_BOUND, EVIDENCE_BOUND, GATES_RUN, PASSES_RUN, VERDICT_SEALED, HANDOFF, FAILED, BLOCKED]
+  terminal_success: HANDOFF
+  generator_judge_separation_required: true
+  blockers_before_weighted_score: true
+  unsupported_specialist_pass_policy: not_certified

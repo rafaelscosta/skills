@@ -1,0 +1,16 @@
+pack:
+  name: story-edit
+  version: "0.1.0"
+  owner_squad: sinkra-squad
+contract:
+  schema: story-edit/receipt@1
+  input_trust: mixed
+  repository_scope: read_only
+  mutation_scope: none
+  network_default: deny
+  provider_default: deny
+  publication_default: deny
+  lifecycle_states: [PLANNED, HYPOTHESIS_BOUND, BEATS_MAPPED, ASSEMBLED, STRUCTURE_TESTED, ACCEPTED, HANDOFF, FAILED, BLOCKED]
+  terminal_success: HANDOFF
+  video_edit_contract_required: true
+  evidence_grounding_required: true

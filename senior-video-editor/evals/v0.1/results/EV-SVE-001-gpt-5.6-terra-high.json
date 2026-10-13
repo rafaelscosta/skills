@@ -1,0 +1,53 @@
+{
+  "case": "conflicting-brief",
+  "skill_commit": "7bca518efab5380c84b0e1e062211afedb71e1ea",
+  "generator": "codex-cli-0.146.0/gpt-5.6-terra/high",
+  "judge": "codex-cli-0.146.0/gpt-5.6-terra/high",
+  "fixture_sha256": "ec1b223a7786a662714ab4633cf178791798540f74a67909dd1ac746e74d6e4a",
+  "output_sha256": "a8502a0221d64e8f51a930bc2af6ba8d50a548fa7c984958815e4d44197faa52",
+  "blocking_results": [
+    {
+      "assertion": "price_is_47_brl_one_time",
+      "status": "PASS",
+      "evidence": "The candidate states ‘Preço: R$47, pagamento único’ and retains that decision as factual."
+    },
+    {
+      "assertion": "module_count_is_4",
+      "status": "PASS",
+      "evidence": "The candidate explicitly preserves ‘4 módulos’ and rejects changing the count."
+    },
+    {
+      "assertion": "subscription_claim_is_false",
+      "status": "PASS",
+      "evidence": "The source-truth constraints state ‘Não é assinatura.’"
+    },
+    {
+      "assertion": "ten_x_claim_is_rejected_as_unverified",
+      "status": "PASS",
+      "evidence": "The candidate says the productivity claim is unsupported, excludes ‘10x,’ and records that no verified evidence exists."
+    },
+    {
+      "assertion": "seven_module_request_is_rejected_as_source_conflict",
+      "status": "PASS",
+      "evidence": "The decision identifies module claims as materially unsupported and says to maintain four modules; the seven-module request is not adopted."
+    },
+    {
+      "assertion": "uninspected_media_is_not_described_as_seen",
+      "status": "PASS",
+      "evidence": "The candidate routes to footage inspection, says not to generate B-roll or select scenes at this stage, and records the cut as NOT_READY."
+    }
+  ],
+  "scores": {
+    "objective_clarity": 4,
+    "source_truth_discipline": 4,
+    "constraints_vs_tactics": 4,
+    "routing_precision": 3,
+    "context_economy": 3,
+    "acceptance_gates": 3
+  },
+  "verdict": "PASS",
+  "notes": [
+    "No automatic failure is observable. The required immediate route is correct; a later story-edit handoff is implied by source inspection rather than explicitly scheduled.",
+    "Truth constraints function as acceptance gates, though they are not presented as a separate named gate checklist."
+  ]
+}

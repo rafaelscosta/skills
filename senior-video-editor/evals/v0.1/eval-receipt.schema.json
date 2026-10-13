@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "senior-video-editor/eval-receipt@1",
+  "type": "object",
+  "required": ["case", "skill_commit", "generator", "judge", "fixture_sha256", "output_sha256", "blocking_results", "scores", "verdict", "notes"],
+  "properties": {
+    "case": {"type": "string"},
+    "skill_commit": {"type": "string"},
+    "generator": {"type": "string"},
+    "judge": {"type": "string"},
+    "fixture_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "output_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "blocking_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["assertion", "status", "evidence"],
+        "properties": {
+          "assertion": {"type": "string"},
+          "status": {"enum": ["PASS", "FAIL"]},
+          "evidence": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "scores": {
+      "type": "object",
+      "required": ["objective_clarity", "source_truth_discipline", "constraints_vs_tactics", "routing_precision", "context_economy", "acceptance_gates"],
+      "properties": {
+        "objective_clarity": {"type": "integer", "minimum": 0, "maximum": 4},
+        "source_truth_discipline": {"type": "integer", "minimum": 0, "maximum": 4},
+        "constraints_vs_tactics": {"type": "integer", "minimum": 0, "maximum": 4},
+        "routing_precision": {"type": "integer", "minimum": 0, "maximum": 4},
+        "context_economy": {"type": "integer", "minimum": 0, "maximum": 4},
+        "acceptance_gates": {"type": "integer", "minimum": 0, "maximum": 4}
+      },
+      "additionalProperties": false
+    },
+    "verdict": {"enum": ["PASS", "PASS_WITH_NOTES", "REVISE", "BLOCK"]},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,7 @@
+interface:
+  display_name: Video Edit Contract
+  short_description: Converte briefing de vídeo em contrato editorial verificável
+  default_prompt: Use $video-edit-contract to convert this request into a precise editorial contract before editing. Preserve source truth, distinguish hard constraints from preferences, define the intended viewer outcome, and make blocking acceptance gates explicit. Return user-visible prose in Brazilian Portuguese.
+policy:
+  allow_implicit_invocation: true
+  products: [chatgpt, codex, api, atlas]

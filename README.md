@@ -13,6 +13,11 @@ Catálogo pessoal de skills de Rafael Costa.
 | [visualize-design-system](./visualize-design-system) | Audita design systems e bibliotecas de componentes e os transforma em guias visuais verificáveis, com proveniência, artefatos editáveis e QA. |
 | [youtube-fetcher](./youtube-fetcher) | Extrai evidência do YouTube com contexto mínimo: metadata, capítulos, transcript, ranges, chunks determinísticos, manifests e Markdown pronto para Obsidian/RAG. |
 | [persuasion-architect](./persuasion-architect) | Estrutura e audita decisões persuasivas com evidência e limites explícitos; candidato de código, certificação comportamental pendente de controle de idioma. |
+| [video-edit-contract](./video-edit-contract) | Converte briefing e objetivo em contrato editorial com invariantes, prioridades e gates de aceite. |
+| [footage-intelligence](./footage-intelligence) | Inspeciona material bruto e produz mapa semântico source-grounded para recuperação editorial. |
+| [story-edit](./story-edit) | Constrói ou repara narrativa, seleção, progressão, setup/payoff e decisões estruturais. |
+| [senior-video-editor](./senior-video-editor) | Orquestra o pipeline editorial, integra especialistas e declara gaps antes de supervisão independente. |
+| [supervising-video-editor](./supervising-video-editor) | Avalia cortes de forma independente, com blockers antes de score e condições objetivas de revisão. |
 
 ## Uso
 
@@ -29,3 +34,7 @@ cp -R skills/youtube-fetcher ~/.claude/skills/youtube-fetcher
 ```
 
 As skills seguem o mesmo molde de catálogo: `SKILL.md`, metadata do agente, contrato em `config.yaml` e, quando necessário, referências, evals, assets e scripts de validação/runtime.
+
+## Senior Video Editor candidate
+
+The five-skill editorial slice provides machine-bound source handoffs and independent supervision contracts. It is CODE_READY; current contract bytes are NOT_CERTIFIED_CURRENT_CONTRACTS. Historical evaluation artifacts remain available, and new independent holdouts are required before behavioral promotion. See senior-video-editor/VALIDATION.md.
