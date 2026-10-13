@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import re
@@ -103,7 +104,7 @@ def check_skill(repo: Path, skill: str) -> list[Finding]:
     return out
 
 
-def cross_checks(repo: Path) -> list[Finding]:
+def cross_checks(repo: Path, include_evidence: bool = True) -> list[Finding]:
     out: list[Finding] = []
     senior = (repo / "senior-video-editor/SKILL.md").read_text(encoding="utf-8")
     expected_route = (
@@ -130,6 +131,8 @@ def cross_checks(repo: Path) -> list[Finding]:
         for token in ("interview-to-story", "conflicting-brief", "coverage-gap", "blind-a-b-story", "hard-blind-story", "require_easy_case_non_regression: true", "require_discriminative_uplift_case: true", "prohibit_quality_average_from_masking_blocker: true"):
             if token not in text:
                 out.append(Finding("error", "V105", str(evals), f"eval contract missing {token}"))
+    if not include_evidence:
+        return out
     evidence_specs = (
         (
             repo / "senior-video-editor/evals/v0.1/results/EV-SVE-002-blind-story-non-regression",
@@ -233,12 +236,16 @@ def cross_checks(repo: Path) -> list[Finding]:
 
 
 def main() -> int:
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--source-only",action="store_true",help="Structure only; never certifies historical or current behavioral performance")
+    args=parser.parse_args()
     script = Path(__file__).resolve()
     repo = script.parents[2]
     findings: list[Finding] = []
     for skill in SKILLS:
         findings.extend(check_skill(repo, skill))
-    findings.extend(cross_checks(repo))
+    findings.extend(cross_checks(repo, include_evidence=not args.source_only))
+    print("scope="+("SOURCE_ONLY_NOT_CERTIFIED" if args.source_only else "SOURCE_AND_HISTORICAL_BINDINGS"))
     errors = [item for item in findings if item.severity == "error"]
     print("SENIOR VIDEO EDITOR V0.1 VALIDATION")
     print(f"repo={repo}")

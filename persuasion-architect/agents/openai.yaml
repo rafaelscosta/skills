@@ -1,0 +1,11 @@
+interface:
+  display_name: Persuasion Architect
+  short_description: Arquitetura persuasão por crenças, evidências, gates e QA adversarial
+  default_prompt: Use $persuasion-architect to model this conversion problem as a belief-transition system before writing copy. Build only the beliefs required for the target action, map objections and proportional evidence, define transition gates, and fail closed on invented proof or scarcity. Return all user-visible analysis and recommendations in Brazilian Portuguese unless another language is requested.
+policy:
+  allow_implicit_invocation: true
+  products:
+    - chatgpt
+    - codex
+    - api
+    - atlas

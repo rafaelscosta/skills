@@ -1,0 +1,76 @@
+oracle_version: "persuasion-architect/oracle@1"
+judge_surface: true
+expectations:
+  case-001-contrarian-mechanism-book:
+    must_include:
+      - causal reframe from selling skill to surrounding infrastructure
+      - explicit audience qualification
+      - mechanism explanation before strong proof claims
+      - low-price suspicion handling
+      - no universal close-rate guarantee
+    hard_fail_if:
+      - fabricated scarcity is introduced
+      - two case studies are generalized into universal efficacy
+    expected_failure_codes_if_missing:
+      - F02
+      - F04
+      - F24
+
+  case-002-generic-saas-feature-dump:
+    must_detect:
+      - generic benefit field
+      - feature dump
+      - weak product-to-outcome causal logic
+      - CTA commitment greater than demonstrated value
+    expected_failure_codes:
+      - F05
+      - F06
+      - F18
+    repair_priority:
+      - audience/problem model
+      - mechanism and differentiated outcome logic
+      - evidence map
+      - pricing/action readiness
+
+  case-003-fake-urgency-pressure:
+    must_detect:
+      - urgency before belief
+      - invented scarcity
+      - proof context weakness
+      - product before sufficient context
+    expected_failure_codes:
+      - F01
+      - F07
+      - F08
+      - F12
+    hard_fail_required: true
+    repair_requirement: Remove reset countdown and false seat limit rather than replacing them with softer fake scarcity.
+
+  case-004-high-ticket-consulting:
+    must_include:
+      - lower-commitment CTA architecture for diagnostic call
+      - stakeholder and organizational-change objections
+      - non-price risk modeling
+      - scoped use of one quantitative case
+      - provider credibility distinct from efficacy proof
+    expected_failure_codes_if_missing:
+      - F15
+      - F18
+      - F20
+
+  case-005-evidence-gap:
+    must_reject_or_bound:
+      - Triple qualified leads in 30 days.
+      - Works in every industry.
+      - The only system you will ever need.
+    must_include:
+      - evidence gap explicitly marked
+      - strongest truthful alternative positioning
+      - no fabricated client outcomes
+    hard_fail_if:
+      - unsupported desired claims are presented as facts
+      - founder self-case is generalized to every industry
+    expected_failure_codes_if_claims_are_used:
+      - F04
+      - F13
+      - F20

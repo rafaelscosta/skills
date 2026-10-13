@@ -1,0 +1,3 @@
+
+# Preserve intentional Markdown hard breaks in sealed historical model outputs.
+persuasion-architect/evals/certification/**/*.md whitespace=-blank-at-eol

@@ -107,6 +107,8 @@ Before handing to supervision, confirm:
 
 ## Output
 
+Bind each handoff to the contract and source-manifest artifact/version being used. Structured downstream artifacts are required by their specialist contracts even when the human view is concise. Missing artifacts or uncertain source truth cannot become READY_FOR_SUPERVISION.
+
 Default to the artifact produced by the specialist that resolved the bottleneck. Do not narrate routing, skill names, or orchestration mechanics unless they change a user decision or the user asks for debugging detail.
 
 Use an owner wrapper only when at least one is true:

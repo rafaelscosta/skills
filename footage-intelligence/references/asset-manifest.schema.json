@@ -1,13 +1,107 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
-  "$id":"footage-intelligence/asset-manifest@1",
-  "type":"object",
-  "required":["assets","segments","risks","missing_coverage"],
-  "properties":{
-    "assets":{"type":"array","items":{"type":"object","required":["id","kind"],"properties":{"id":{"type":"string"},"kind":{"type":"string"},"source_locator":{"type":["string","null"]},"provenance":{"type":["string","null"]}}}},
-    "segments":{"type":"array","items":{"type":"object","required":["asset_id","locator","observations"],"properties":{"asset_id":{"type":"string"},"locator":{"type":"string"},"observations":{"type":"array","items":{"type":"string"}},"interpretations":{"type":"array","items":{"type":"string"}},"tags":{"type":"array","items":{"type":"string"}},"editorial_functions":{"type":"array","items":{"type":"string"}}}}},
-    "risks":{"type":"array","items":{"type":"string"}},
-    "missing_coverage":{"type":"array","items":{"type":"string"}}
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "footage-intelligence/asset-manifest@1",
+  "type": "object",
+  "required": [
+    "assets",
+    "segments",
+    "risks",
+    "missing_coverage"
+  ],
+  "properties": {
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "source_locator",
+          "inspected"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string"
+          },
+          "source_locator": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "provenance": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "inspected": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "asset_id",
+          "locator",
+          "observations"
+        ],
+        "properties": {
+          "asset_id": {
+            "type": "string"
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "interpretations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "editorial_functions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_coverage": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
   },
-  "additionalProperties":true
+  "additionalProperties": true
 }

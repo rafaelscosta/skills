@@ -30,7 +30,7 @@ Capture or derive:
 - `viewer_outcome`
 - `format_profile`
 - `aspect_ratio`
-- `target_duration`
+- `target_duration_seconds` (number or null; preserve null when unknown)
 - `primary_experience`
 - `primary_metric` when applicable
 - `secondary_metrics` when applicable
@@ -106,7 +106,7 @@ Return:
 ## Assumptions and open questions
 ```
 
-When structured output is useful, emit a JSON object conforming to `references/video-edit-contract.schema.json`.
+For any downstream handoff, emit a JSON object conforming to `references/video-edit-contract.schema.json`.
 
 ## Handoff
 

@@ -86,6 +86,8 @@ Record missing coverage, contradictory statements, continuity traps, unusable au
 
 ## Output
 
+Every downstream handoff must include the JSON `AssetManifest` from `references/asset-manifest.schema.json`. A concise Markdown view may accompany it. Record `inspected: false` for assets that were not inspected; never attach observed segments to them. Unsupported or missing sources require a BLOCKED/NOT_READY handoff.
+
 Return:
 
 ```markdown

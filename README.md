@@ -12,6 +12,7 @@ Catálogo pessoal de skills de Rafael Costa.
 | [visual-semantic-compiler](./visual-semantic-compiler) | Compila decisões visuais em IR semântico verificável, preserva regras/recovery, gera layout/HTML determinístico e separa browser evidence de revisão perceptiva hash-bound. |
 | [visualize-design-system](./visualize-design-system) | Audita design systems e bibliotecas de componentes e os transforma em guias visuais verificáveis, com proveniência, artefatos editáveis e QA. |
 | [youtube-fetcher](./youtube-fetcher) | Extrai evidência do YouTube com contexto mínimo: metadata, capítulos, transcript, ranges, chunks determinísticos, manifests e Markdown pronto para Obsidian/RAG. |
+| [persuasion-architect](./persuasion-architect) | Estrutura e audita decisões persuasivas com evidência e limites explícitos; candidato de código, certificação comportamental pendente de controle de idioma. |
 | [video-edit-contract](./video-edit-contract) | Converte briefing e objetivo em contrato editorial com invariantes, prioridades e gates de aceite. |
 | [footage-intelligence](./footage-intelligence) | Inspeciona material bruto e produz mapa semântico source-grounded para recuperação editorial. |
 | [story-edit](./story-edit) | Constrói ou repara narrativa, seleção, progressão, setup/payoff e decisões estruturais. |
@@ -34,16 +35,6 @@ cp -R skills/youtube-fetcher ~/.claude/skills/youtube-fetcher
 
 As skills seguem o mesmo molde de catálogo: `SKILL.md`, metadata do agente, contrato em `config.yaml` e, quando necessário, referências, evals, assets e scripts de validação/runtime.
 
-## Senior Video Editor v0.1
+## Senior Video Editor candidate
 
-O primeiro vertical slice de edição sênior é propositalmente pequeno:
-
-```text
-video-edit-contract
-→ footage-intelligence
-→ story-edit
-→ senior-video-editor
-→ supervising-video-editor
-```
-
-Ele certifica julgamento editorial e separação generator/judge antes de expandir para timing, atenção, continuidade, motion, sound, color, VFX, captions, media engineering, AI-assisted post e delivery QC.
+The five-skill editorial slice provides machine-bound source handoffs and independent supervision contracts. It is CODE_READY; current contract bytes are NOT_CERTIFIED_CURRENT_CONTRACTS. Historical evaluation artifacts remain available, and new independent holdouts are required before behavioral promotion. See senior-video-editor/VALIDATION.md.

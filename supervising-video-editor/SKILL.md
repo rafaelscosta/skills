@@ -94,7 +94,7 @@ For A/B evaluation:
 
 ## Output
 
-Use `references/editorial-qa.schema.json` when structured output is helpful.
+For downstream acceptance, emit JSON conforming to `references/editorial-qa.schema.json`. Markdown may accompany it. Any applicable blocking gate with FAIL or NOT_CERTIFIED requires REVISE or BLOCK, regardless of aggregate score.
 
 ```markdown
 ## Verdict
